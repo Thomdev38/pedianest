@@ -12,14 +12,15 @@ class PosologieCalculatorScreen extends StatefulWidget {
 class _PosologieCalculatorScreenState extends State<PosologieCalculatorScreen> {
   final TextEditingController ageController = TextEditingController();
   final TextEditingController poidsController = TextEditingController();
+  
   Map<String, String>? constantesPhysiologiques;
 
   bool isAgeInMonths = false; // Pour vérifier si l'âge est en mois ou en années
-  double? dosePropofolmini;
-  double? dosePropofolmaxi;
+  int? dosePropofolmini;
+  int? dosePropofolmaxi;
   double? doseEtomidate;
-  double? doseKetaminemini;
-  double? doseKetaminemaxi;
+  int? doseKetaminemini;
+  int? doseKetaminemaxi;
   double? doseSufentamini;
   double? doseSufentamaxi;
   double? doseAlfentanylmini;
@@ -29,22 +30,22 @@ class _PosologieCalculatorScreenState extends State<PosologieCalculatorScreen> {
   double? doseFentanylmini;
   double? doseFentanylmaxi;
   double? doseCisatracrium;
-  double? doseCelocurinemini;
-  double? doseCelocurinemaxi;
+  int? doseCelocurinemini;
+  int? doseCelocurinemaxi;
   double? doseAtracrium;
   double? doseRocuroniummini;
   double? doseRocuroniummaxi;
   double? tailleSonde;
-  double? apportLiquidien;
-  double? vtmin;
-  double? vtmax;
+  int? apportLiquidien;
+  int? vtmin;
+  int? vtmax;
 
   double roundToHalf(double value) {
     return (value * 2).floor() / 2.0;
   }
 
-  double calculerApportLiquidien(double poids) {
-    double apport = 0;
+  int calculerApportLiquidien(int poids) {
+    int apport = 0;
 
     if (poids <= 10) {
       apport = poids * 4;
@@ -106,14 +107,14 @@ class _PosologieCalculatorScreenState extends State<PosologieCalculatorScreen> {
   void calculerDosesEtSonde() {
     final int age = int.tryParse(ageController.text) ?? 0;
     final int ageEnMois = isAgeInMonths ? age : age * 12;
-    final double poids = double.tryParse(poidsController.text) ?? 0.0;
+    final int poids = int.tryParse(poidsController.text) ?? 0;
 
     setState(() {
-      dosePropofolmini = poids * 3.0; // Dose de propofol à 3 mg/kg
-      dosePropofolmaxi = poids * 5.0; // Dose de propofol à 5 mg/kg
+      dosePropofolmini = poids * 3; // Dose de propofol à 3 mg/kg
+      dosePropofolmaxi = poids * 5; // Dose de propofol à 5 mg/kg
       doseEtomidate = poids * 0.2; // Dose de etomidate à 0.2 mg/kg
-      doseKetaminemini = poids * 2.0;
-      doseKetaminemaxi = poids * 4.0;
+      doseKetaminemini = poids * 2;
+      doseKetaminemaxi = poids * 4;
       doseSufentamini = poids * 0.2;
       doseSufentamaxi = poids * 0.4;
       doseAlfentanylmini = poids * 20.0;
@@ -124,14 +125,14 @@ class _PosologieCalculatorScreenState extends State<PosologieCalculatorScreen> {
       doseFentanylmaxi = poids * 50.0;
       doseCisatracrium = poids * 0.2;
       doseCelocurinemini = poids;
-      doseCelocurinemaxi = poids * 2.0;
+      doseCelocurinemaxi = poids * 2;
       doseAtracrium = poids * 0.5;
       doseRocuroniummini = poids * 0.6;
       doseRocuroniummaxi = poids * 1.2;
       apportLiquidien = calculerApportLiquidien(poids);
       constantesPhysiologiques = obtenirConstantesPhysiologiques(ageEnMois);
-      vtmin = poids * 6.0;
-      vtmax = poids * 8.0;
+      vtmin = poids * 6;
+      vtmax = poids * 8;
 
       if (ageEnMois < 12) {
         tailleSonde = roundToHalf(ageEnMois / 10.0 + 3.0);
@@ -143,6 +144,10 @@ class _PosologieCalculatorScreenState extends State<PosologieCalculatorScreen> {
 
   @override
   Widget build(BuildContext context) {
+    double width = MediaQuery.of(context).size.width;
+    String etoformat = doseEtomidate?.toStringAsFixed(1) ?? '0.0';
+    String sufformatm = doseSufentamaxi?.toStringAsFixed(1) ?? '0.0';
+    String sufformatM = doseSufentamini?.toStringAsFixed(1) ?? '0.0';
     return Scaffold(
       appBar: AppBar(
         title: const Text('Calculette de Posologie'),
@@ -154,6 +159,7 @@ class _PosologieCalculatorScreenState extends State<PosologieCalculatorScreen> {
           children: [
             // ignore: avoid_unnecessary_containers
             Card(
+              
               color: const Color.fromARGB(232, 149, 228, 179),
               elevation: 10,
               child: Column(
@@ -174,7 +180,7 @@ class _PosologieCalculatorScreenState extends State<PosologieCalculatorScreen> {
                   ),
                   TextField(
                     controller: ageController,
-                    keyboardType: TextInputType.number,
+                    keyboardType: TextInputType.text,
                     decoration: InputDecoration(
                       labelText: isAgeInMonths ? 'Âge (mois)' : 'Âge (années)',
                       border: const OutlineInputBorder(),
@@ -183,7 +189,7 @@ class _PosologieCalculatorScreenState extends State<PosologieCalculatorScreen> {
                   const SizedBox(height: 16.0),
                   TextField(
                     controller: poidsController,
-                    keyboardType: TextInputType.number,
+                    keyboardType: TextInputType.text,
                     decoration: const InputDecoration(
                       labelText: 'Poids (kg)',
                       border: OutlineInputBorder(),
@@ -204,7 +210,7 @@ class _PosologieCalculatorScreenState extends State<PosologieCalculatorScreen> {
               Container(
                 padding: const EdgeInsets.all(20),
                 height: 250,
-                width: 325,
+                width: width - 30,
                 color: const Color.fromARGB(255, 0, 0, 0),
                 child: const Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -243,7 +249,7 @@ class _PosologieCalculatorScreenState extends State<PosologieCalculatorScreen> {
               Container(
                 padding: const EdgeInsets.all(20),
                 height: 250,
-                width: 325,
+                width: width- 30,
                 color: const Color.fromARGB(255, 0, 0, 0),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -282,19 +288,31 @@ class _PosologieCalculatorScreenState extends State<PosologieCalculatorScreen> {
             const SizedBox(height: 16.0),
 
             //ventilation card
+            SizedBox(
+              width: width-30,
+              child: 
             Card(
-              color: const Color.fromARGB(232, 165, 174, 184),
+              color: const Color.fromARGB(232, 54, 136, 230),
               elevation: 10,
+              
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
+                
                 children: [
-                  iot("ML", "1", "divers"),
-                  iot("IOT", "$tailleSonde", "divers"),
-                  iot("Canule Guedel", "taille", "Couleur"),
+                  Column(
+                    children: [iot("Lame", "1", ""),
+                  iot("IOT", "$tailleSonde", "comissure"),],
+                  ),
+                  
+                  Column(
+                    children: [
+                      iot("Canule Guedel", "taille", "Couleur"),
                   iot("Hydratation", "$apportLiquidien", "ml/h")
+                    ],
+                  )
                 ],
               ),
-            ),
+            ),),
 
             //medicaments card
             Card(
@@ -316,21 +334,23 @@ class _PosologieCalculatorScreenState extends State<PosologieCalculatorScreen> {
                   ],
                   if (constantesPhysiologiques != null) ...[
                     hypnotiques(
-                        "Propofol", "$dosePropofolmini", "$dosePropofolmaxi"),
+                        "Propofol", "$dosePropofolmini ", "- $dosePropofolmaxi"),
                     const SizedBox(
                       height: 5,
                     ),
-                    hypnotiques("Etomidate", "$doseEtomidate", " "),
+                    if (doseEtomidate != null)
+                    hypnotiques("Etomidate", etoformat, ''),
                     const SizedBox(
                       height: 5,
                     ),
+                    
                     hypnotiques(
-                        "Ketamine", "$doseKetaminemini", "$doseKetaminemaxi"),
+                        "Ketamine", "$doseKetaminemini ", "- $doseKetaminemaxi"),
                     const SizedBox(
                       height: 5,
                     ),
-                    morphiniques("Sufenta", "$doseSufentamini",
-                        "$doseSufentamaxi", "mcg"),
+                    if (doseSufentamaxi != null)
+                    morphiniques("Sufentanyl", sufformatM, sufformatm, " mcg"),
                     const SizedBox(
                       height: 5,
                     ),
@@ -434,7 +454,6 @@ Row hypnotiques(
       ),
       const Spacer(),
       Text(dosemini),
-      const Text("  - "),
       Text(dosemaxi),
       const SizedBox(
         width: 5,

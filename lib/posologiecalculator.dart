@@ -9,6 +9,8 @@ class PosologieCalculatorScreen extends StatefulWidget {
       _PosologieCalculatorScreenState();
 }
 
+
+
 class _PosologieCalculatorScreenState extends State<PosologieCalculatorScreen> {
   final TextEditingController ageController = TextEditingController();
   final TextEditingController poidsController = TextEditingController();
@@ -39,6 +41,7 @@ class _PosologieCalculatorScreenState extends State<PosologieCalculatorScreen> {
   int? apportLiquidien;
   int? vtmin;
   int? vtmax;
+  double? repereiot;
 
   double roundToHalf(double value) {
     return (value * 2).floor() / 2.0;
@@ -57,6 +60,10 @@ class _PosologieCalculatorScreenState extends State<PosologieCalculatorScreen> {
 
     return apport;
   }
+
+  
+
+  
 
   Map<String, String> obtenirConstantesPhysiologiques(int ageEnMois) {
     if (ageEnMois <= 5) {
@@ -133,6 +140,8 @@ class _PosologieCalculatorScreenState extends State<PosologieCalculatorScreen> {
       constantesPhysiologiques = obtenirConstantesPhysiologiques(ageEnMois);
       vtmin = poids * 6;
       vtmax = poids * 8;
+      repereiot = ageEnMois/12/2 +12;
+      
 
       if (ageEnMois < 12) {
         tailleSonde = roundToHalf(ageEnMois / 10.0 + 3.0);
@@ -290,21 +299,21 @@ class _PosologieCalculatorScreenState extends State<PosologieCalculatorScreen> {
 
             const SizedBox(height: 16.0),
 
-            //ventilation card
+            //ventilation card si non vide
+            if (constantesPhysiologiques != null) ...[
             SizedBox(
               width: width-30,
               child: 
             Card(
-              color: const Color.fromARGB(232, 54, 136, 230),
+              color: const Color.fromARGB(232, 162, 163, 165),
               elevation: 10,
-              
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 
                 children: [
                   Column(
-                    children: [iot("Lame", "1", ""),
-                  iot("IOT", "$tailleSonde", "comissure"),],
+                    children: [iot("Lame", "", ""),
+                  iot("IOT", "Taille $tailleSonde", "Repère $repereiot cm"),],
                   ),
                   
                   Column(
@@ -315,7 +324,32 @@ class _PosologieCalculatorScreenState extends State<PosologieCalculatorScreen> {
                   )
                 ],
               ),
-            ),),
+            ),),],
+
+                 if (constantesPhysiologiques == null) ...[
+            SizedBox(
+              width: width-30,
+              child: 
+            Card(
+              color: const Color.fromARGB(232, 162, 163, 165),
+              elevation: 10,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                
+                children: [
+                  Column(
+                    children: [iot("Lame", "", ""),
+                  iot("Sonde IOT", "Repere", ""),],
+                  ),
+                  Column(
+                    children: [
+                      iot("Canule Guedel", "", ""),
+                  iot("Hydratation", "", "")
+                    ],
+                  )
+                ],
+              ),
+            ),),],
 
             //medicaments card
             Card(
@@ -422,7 +456,7 @@ Column iot(String ml, String taille, String divers) {
             Text(
               ml,
               style: const TextStyle(
-                  backgroundColor: Colors.blueGrey, color: Colors.red),
+                  color: Colors.red, fontSize: 15, fontWeight: FontWeight.bold),
             ),
             const SizedBox(
               height: 5,

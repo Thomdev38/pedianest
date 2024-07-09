@@ -16,6 +16,8 @@ class _PosologieCalculatorScreenState extends State<PosologieCalculatorScreen> {
   final TextEditingController poidsController = TextEditingController();
   
   Map<String, String>? constantesPhysiologiques;
+  Map<String, String>? taillelame;
+
 
   bool isAgeInMonths = false; // Pour vérifier si l'âge est en mois ou en années
   int? dosePropofolmini;
@@ -61,12 +63,8 @@ class _PosologieCalculatorScreenState extends State<PosologieCalculatorScreen> {
     return apport;
   }
 
-  
-
-  
-
   Map<String, String> obtenirConstantesPhysiologiques(int ageEnMois) {
-    if (ageEnMois <= 5) {
+    if (ageEnMois <= 6) {
       return {
         'FC': '140 (+/-50)',
         'PA': '60-35',
@@ -96,17 +94,33 @@ class _PosologieCalculatorScreenState extends State<PosologieCalculatorScreen> {
         'PA': '100-60',
         'FR': '18-22',
       };
-    } else if (ageEnMois <= 143) {
-      return {
-        'FC': '95 (+/-30)',
-        'PA': '110-60',
-        'FR': '16-20',
-      };
     } else {
       return {
         'FC': '95 (+/-30)',
         'PA': '118-60',
         'FR': '14-18',
+      };
+    }
+  }
+
+  
+
+  Map<String, String> obtenirTailleLame(int poids) {
+    if (poids <= 5) {
+      return {
+        'taillelame': '0 - 1',
+      };
+    } else if (poids <= 11) {
+      return {
+        'taillelame': '1',
+      };
+    } else if (poids <= 35) {
+      return {
+        'taillelame': '2',
+      };
+    } else {
+      return {
+       'taillelame': '3',
       };
     }
   }
@@ -141,6 +155,7 @@ class _PosologieCalculatorScreenState extends State<PosologieCalculatorScreen> {
       vtmin = poids * 6;
       vtmax = poids * 8;
       repereiot = ageEnMois/12/2 +12;
+      taillelame = obtenirTailleLame(poids);
       
 
       if (ageEnMois < 12) {
@@ -218,45 +233,8 @@ class _PosologieCalculatorScreenState extends State<PosologieCalculatorScreen> {
             const SizedBox(height: 16.0),
 
             //parametre vitaux
-            if (constantesPhysiologiques == null) ...[
-              Container(
-                padding: const EdgeInsets.all(20),
-                height: 250,
-                width: width - 30,
-                color: const Color.fromARGB(255, 0, 0, 0),
-                child: const Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      'Fréquence Cardiaque: ',
-                      style: TextStyle(
-                          color: Colors.green, fontWeight: FontWeight.w500),
-                    ),
-                    Spacer(),
-                    Text(
-                      'Pression Artérielle: ',
-                      style: TextStyle(
-                          color: Color.fromARGB(255, 248, 42, 42),
-                          fontWeight: FontWeight.w500),
-                    ),
-                    Spacer(),
-                    Text(
-                      'Fréquence Respiratoire: ',
-                      style: TextStyle(
-                          color: Color.fromARGB(255, 255, 255, 255),
-                          fontWeight: FontWeight.w500),
-                    ),
-                    Spacer(),
-                    Text("Volume courant en ml",
-                        style: TextStyle(
-                          color: Color.fromARGB(255, 209, 219, 62),
-                        ))
-
-                    // calcul vt
-                  ],
-                ),
-              )
-            ],
+            if (constantesPhysiologiques == null)
+                        const Text('Aucune constante physiologique calculée.'),
             if (constantesPhysiologiques != null) ...[
               Container(
                 padding: const EdgeInsets.all(20),
@@ -312,14 +290,15 @@ class _PosologieCalculatorScreenState extends State<PosologieCalculatorScreen> {
                 
                 children: [
                   Column(
-                    children: [iot("Lame", "", ""),
-                  iot("IOT", "Taille $tailleSonde", "Repère $repereiot cm"),],
+                    children: [iot("Lame",),
+                    if (taillelame != null) Text('Taille de lame: ${taillelame!['taillelame']}'),
+                  iot("IOT",), Text("Taille $tailleSonde") , Text("Repère $repereiot cm") ,],
                   ),
                   
                   Column(
                     children: [
-                      iot("Canule Guedel", "taille", "Couleur"),
-                  iot("Hydratation", "$apportLiquidien", "ml/h")
+                      iot("Canule Guedel",),
+                  iot("Hydratation",), Text("$apportLiquidien ml/h"),
                     ],
                   )
                 ],
@@ -338,13 +317,13 @@ class _PosologieCalculatorScreenState extends State<PosologieCalculatorScreen> {
                 
                 children: [
                   Column(
-                    children: [iot("Lame", "", ""),
-                  iot("Sonde IOT", "Repere", ""),],
+                    children: [iot("Lame",),
+                  iot("Sonde IOT", ),],
                   ),
                   Column(
                     children: [
-                      iot("Canule Guedel", "", ""),
-                  iot("Hydratation", "", "")
+                      iot("Canule Guedel",),
+                  iot("Hydratation", )
                     ],
                   )
                 ],
@@ -443,12 +422,12 @@ class _PosologieCalculatorScreenState extends State<PosologieCalculatorScreen> {
 }
 
 // iot/ ml / remplissage
-Column iot(String ml, String taille, String divers) {
+Column iot(String ml,) {
   return Column(
     mainAxisSize: MainAxisSize.max,
     children: [
       Container(
-        padding: const EdgeInsets.all(8),
+        padding: const EdgeInsets.all(2),
         decoration: const BoxDecoration(shape: BoxShape.rectangle),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -459,10 +438,9 @@ Column iot(String ml, String taille, String divers) {
                   color: Colors.red, fontSize: 15, fontWeight: FontWeight.bold),
             ),
             const SizedBox(
-              height: 5,
+              height: 1,
             ),
-            Text(taille),
-            Text(divers),
+            
           ],
         ),
       ),

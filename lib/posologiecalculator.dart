@@ -23,12 +23,12 @@ class _PosologieCalculatorScreenState extends State<PosologieCalculatorScreen> {
   int? doseKetaminemaxi;
   double? doseSufentamini;
   double? doseSufentamaxi;
-  double? doseAlfentanylmini;
-  double? doseAlfentanylmaxi;
+  int? doseAlfentanylmini;
+  int? doseAlfentanylmaxi;
   double? doseRemifentanylmini;
   double? doseRemifentanylmaxi;
-  double? doseFentanylmini;
-  double? doseFentanylmaxi;
+  int? doseFentanylmini;
+  int? doseFentanylmaxi;
   double? doseCisatracrium;
   int? doseCelocurinemini;
   int? doseCelocurinemaxi;
@@ -117,12 +117,12 @@ class _PosologieCalculatorScreenState extends State<PosologieCalculatorScreen> {
       doseKetaminemaxi = poids * 4;
       doseSufentamini = poids * 0.2;
       doseSufentamaxi = poids * 0.4;
-      doseAlfentanylmini = poids * 20.0;
-      doseAlfentanylmaxi = poids * 40.0;
+      doseAlfentanylmini = poids * 20;
+      doseAlfentanylmaxi = poids * 40;
       doseRemifentanylmini = poids * 0.2;
       doseRemifentanylmaxi = poids * 0.5;
-      doseFentanylmini = poids * 20.0;
-      doseFentanylmaxi = poids * 50.0;
+      doseFentanylmini = poids * 20;
+      doseFentanylmaxi = poids * 50;
       doseCisatracrium = poids * 0.2;
       doseCelocurinemini = poids;
       doseCelocurinemaxi = poids * 2;
@@ -148,6 +148,9 @@ class _PosologieCalculatorScreenState extends State<PosologieCalculatorScreen> {
     String etoformat = doseEtomidate?.toStringAsFixed(1) ?? '0.0';
     String sufformatm = doseSufentamaxi?.toStringAsFixed(1) ?? '0.0';
     String sufformatM = doseSufentamini?.toStringAsFixed(1) ?? '0.0';
+    String remiformatM = doseRemifentanylmini?.toStringAsFixed(1) ?? '0.0';
+    String remiformatm = doseRemifentanylmaxi?.toStringAsFixed(1) ?? '0.0';
+    String cisatformatM = doseCisatracrium?.toStringAsFixed(1) ?? '0.0';
     return Scaffold(
       appBar: AppBar(
         title: const Text('Calculette de Posologie'),
@@ -359,8 +362,8 @@ class _PosologieCalculatorScreenState extends State<PosologieCalculatorScreen> {
                     const SizedBox(
                       height: 5,
                     ),
-                    morphiniques("Remifentanil", "$doseRemifentanylmini",
-                        "$doseRemifentanylmaxi", "mcg"),
+                    morphiniques("Remifentanil", remiformatM,
+                        remiformatm, "mcg"),
                     const SizedBox(
                       height: 5,
                     ),
@@ -369,7 +372,7 @@ class _PosologieCalculatorScreenState extends State<PosologieCalculatorScreen> {
                     const SizedBox(
                       height: 5,
                     ),
-                    curares("Cisatracrium", "$doseCisatracrium", " "),
+                    curares("Cisatracrium", cisatformatM, " "),
                     const SizedBox(
                       height: 5,
                     ),

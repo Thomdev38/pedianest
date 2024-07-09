@@ -1,4 +1,8 @@
+// ignore_for_file: must_be_immutable
+
 import 'package:flutter/material.dart';
+
+
 
 class PosologieCalculatorScreen extends StatefulWidget {
   const PosologieCalculatorScreen({super.key});
@@ -9,15 +13,12 @@ class PosologieCalculatorScreen extends StatefulWidget {
       _PosologieCalculatorScreenState();
 }
 
-
-
 class _PosologieCalculatorScreenState extends State<PosologieCalculatorScreen> {
   final TextEditingController ageController = TextEditingController();
   final TextEditingController poidsController = TextEditingController();
-  
+
   Map<String, String>? constantesPhysiologiques;
   Map<String, String>? taillelame;
-
 
   bool isAgeInMonths = false; // Pour vérifier si l'âge est en mois ou en années
   int? dosePropofolmini;
@@ -45,6 +46,11 @@ class _PosologieCalculatorScreenState extends State<PosologieCalculatorScreen> {
   int? vtmax;
   double? repereiot;
   int? celo;
+  int? doseParacetamol;
+  int? doseProfenid;
+  double? doseNalbuphine;
+  double? doseMorphine;
+  double? dosePropofolEntretien;
 
   double roundToHalf(double value) {
     return (value * 2).floor() / 2.0;
@@ -64,7 +70,6 @@ class _PosologieCalculatorScreenState extends State<PosologieCalculatorScreen> {
     return apport;
   }
 
- 
   Map<String, String> obtenirConstantesPhysiologiques(int ageEnMois) {
     if (ageEnMois <= 6) {
       return {
@@ -105,8 +110,6 @@ class _PosologieCalculatorScreenState extends State<PosologieCalculatorScreen> {
     }
   }
 
-
-
   Map<String, String> obtenirTailleLame(int poids) {
     if (poids <= 5) {
       return {
@@ -122,7 +125,7 @@ class _PosologieCalculatorScreenState extends State<PosologieCalculatorScreen> {
       };
     } else {
       return {
-       'taillelame': '3',
+        'taillelame': '3',
       };
     }
   }
@@ -147,8 +150,19 @@ class _PosologieCalculatorScreenState extends State<PosologieCalculatorScreen> {
       doseFentanylmini = poids * 20;
       doseFentanylmaxi = poids * 50;
       doseCisatracrium = poids * 0.2;
-      doseCelocurinemini = poids;
-      doseCelocurinemaxi = poids * 2;
+      doseParacetamol = poids * 15;
+      doseProfenid = poids ;
+      doseMorphine = poids * 0.1;
+      doseNalbuphine = poids * 0.2;
+      dosePropofolEntretien = poids * 10.0; // 10 mg/kg/h
+
+      // Condition spécifique pour la dose de célocurine
+      if (ageEnMois < 24) {
+        doseCelocurinemini = poids * 2;
+      } else {
+        doseCelocurinemini = poids;
+      }
+
       doseAtracrium = poids * 0.5;
       doseRocuroniummini = poids * 0.6;
       doseRocuroniummaxi = poids * 1.2;
@@ -156,18 +170,8 @@ class _PosologieCalculatorScreenState extends State<PosologieCalculatorScreen> {
       constantesPhysiologiques = obtenirConstantesPhysiologiques(ageEnMois);
       vtmin = poids * 6;
       vtmax = poids * 8;
-      repereiot = ageEnMois/12/2 +12;
+      repereiot = ageEnMois / 12 / 2 + 12;
       taillelame = obtenirTailleLame(poids);
-      // Condition spécifique pour la dose de célocurine
-    if (ageEnMois < 24) {
-      doseCelocurinemini = poids * 2;
-     
-    } else {
-      doseCelocurinemini = poids;
-      
-    }
-      
-      
 
       if (ageEnMois < 12) {
         tailleSonde = roundToHalf(ageEnMois / 10.0 + 3.0);
@@ -179,370 +183,336 @@ class _PosologieCalculatorScreenState extends State<PosologieCalculatorScreen> {
 
   @override
   Widget build(BuildContext context) {
-    double width = MediaQuery.of(context).size.width;
-    String etoformat = doseEtomidate?.toStringAsFixed(1) ?? '0.0';
-    String sufformatm = doseSufentamaxi?.toStringAsFixed(1) ?? '0.0';
-    String sufformatM = doseSufentamini?.toStringAsFixed(1) ?? '0.0';
-    String remiformatM = doseRemifentanylmini?.toStringAsFixed(1) ?? '0.0';
-    String remiformatm = doseRemifentanylmaxi?.toStringAsFixed(1) ?? '0.0';
-    String cisatformatM = doseCisatracrium?.toStringAsFixed(1) ?? '0.0';
-    String repereiotformat = repereiot?.toStringAsFixed(0) ?? '0,0';
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Calculette de Posologie'),
-      ),
-      body: SingleChildScrollView(
-          child: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          children: [
-            // ignore: avoid_unnecessary_containers
-            Card(
+    return DefaultTabController(
+      length: 2,
+      child: Scaffold(
+        appBar: AppBar(
+          title: const Text('Calculette de Posologie'),
+          bottom: const TabBar(
+            tabs: [
+              Tab(text: 'Induction'),
+              Tab(text: 'Entretien'),
               
-              color: const Color.fromARGB(232, 149, 228, 179),
-              elevation: 10,
-              child: Column(
-                children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      const Text('Changez entre année et mois'),
-                      Switch(
-                        value: isAgeInMonths,
-                        onChanged: (value) {
-                          setState(() {
-                            isAgeInMonths = value;
-                          });
-                        },
-                      ),
-                    ],
-                  ),
-                  TextField(
-                    controller: ageController,
-                    keyboardType: TextInputType.text,
-                    decoration: InputDecoration(
-                      labelText: isAgeInMonths ? 'Âge (mois)' : 'Âge (années)',
-                      border: const OutlineInputBorder(),
-                    ),
-                  ),
-                  const SizedBox(height: 16.0),
-                  TextField(
-                    controller: poidsController,
-                    keyboardType: TextInputType.text,
-                    decoration: const InputDecoration(
-                      labelText: 'Poids (kg)',
-                      border: OutlineInputBorder(),
-                    ),
-                  ),
-                  const SizedBox(height: 16.0),
-                  ElevatedButton(
-                    onPressed: calculerDosesEtSonde,
-                    child: const Text('Calcul'),
-                  ),
-                ],
-              ),
-            ),
-            const SizedBox(height: 16.0),
-
-            //parametre vitaux
-            if (constantesPhysiologiques == null)
-                        const Text('Aucune constante physiologique calculée.'),
-            if (constantesPhysiologiques != null) ...[
-              Container(
-                padding: const EdgeInsets.all(20),
-                height: 250,
-                width: width- 30,
-                color: const Color.fromARGB(255, 0, 0, 0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      'Fréquence Cardiaque: ${constantesPhysiologiques!['FC']}',
-                      style: const TextStyle(
-                          color: Colors.green, fontWeight: FontWeight.w500),
-                    ),
-                    const Spacer(),
-                    Text(
-                      'Pression Artérielle: ${constantesPhysiologiques!['PA']}',
-                      style: const TextStyle(
-                          color: Color.fromARGB(255, 248, 42, 42),
-                          fontWeight: FontWeight.w500),
-                    ),
-                    const Spacer(),
-                    Text(
-                      'Fréquence Respiratoire: ${constantesPhysiologiques!['FR']}',
-                      style: const TextStyle(
-                          color: Color.fromARGB(255, 255, 255, 255),
-                          fontWeight: FontWeight.w500),
-                    ),
-                    const Spacer(),
-                    Text("Volume courant $vtmin a $vtmax ml",
-                        style: const TextStyle(
-                          color: Color.fromARGB(255, 209, 219, 62),
-                        ))
-
-                    // calcul vt
-                  ],
-                ),
-              ),
             ],
-
-            const SizedBox(height: 16.0),
-
-            //ventilation card si non vide
-            if (constantesPhysiologiques != null) ...[
-            SizedBox(
-              width: width-30,
-              child: 
-            Card(
-              color: const Color.fromARGB(232, 162, 163, 165),
-              elevation: 10,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                
-                children: [
-                  Column(
-                    children: [iot("Lame",),
-                    if (taillelame != null) Text('Taille de lame: ${taillelame!['taillelame']}'),
-                  iot("IOT",), Text("Taille $tailleSonde") , Text("Repère $repereiotformat cm") ,],
-                  ),
-                  
-                  Column(
-                    children: [
-                  iot("Hydratation",), Text("$apportLiquidien ml/h"),
-                    ],
-                  )
-                ],
-              ),
-            ),),],
-
-                 if (constantesPhysiologiques == null) ...[
-            SizedBox(
-              width: width-30,
-              child: 
-            Card(
-              color: const Color.fromARGB(232, 162, 163, 165),
-              elevation: 10,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                
-                children: [
-                  Column(
-                    children: [iot("Lame",),
-                  iot("Sonde IOT", ),],
-                  ),
-                  Column(
-                    children: [
-                      iot("Canule Guedel",),
-                  iot("Hydratation", )
-                    ],
-                  )
-                ],
-              ),
-            ),),],
-            const SizedBox(height: 6,),
-            const Text("Voici les doses recommandées pour une induction"),
-
-            //medicaments card
-            Card(
-              color: const Color.fromARGB(193, 254, 255, 250),
-              elevation: 10,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: [
-                  if (constantesPhysiologiques == null) ...[
-                    const Text(
-                      "Entrez les parametres de l'enfant pour calculer les doses",
-                      textAlign: TextAlign.center,
-                      style:
-                          TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-                    ),
-                    const SizedBox(
-                      height: 15,
-                    ),
-                  ],
-                  if (constantesPhysiologiques != null) ...[
-                    hypnotiques(
-                        "Propofol", "$dosePropofolmini ", "- $dosePropofolmaxi"),
-                    const SizedBox(
-                      height: 5,
-                    ),
-                    if (doseEtomidate != null)
-                    hypnotiques("Etomidate", etoformat, ''),
-                    const SizedBox(
-                      height: 5,
-                    ),
-                    
-                    hypnotiques(
-                        "Ketamine", "$doseKetaminemini ", "- $doseKetaminemaxi"),
-                    const SizedBox(
-                      height: 5,
-                    ),
-                    if (doseSufentamaxi != null)
-                    morphiniques("Sufentanyl", sufformatM, sufformatm, " mcg"),
-                    const SizedBox(
-                      height: 5,
-                    ),
-                    morphiniques("Alfentanyl", "$doseAlfentanylmini",
-                        "$doseAlfentanylmaxi", "mcg"),
-                    const SizedBox(
-                      height: 5,
-                    ),
-                    morphiniques("Remifentanil", remiformatM,
-                        remiformatm, "mcg"),
-                    const SizedBox(
-                      height: 5,
-                    ),
-                    morphiniques("Fentanyl", "$doseFentanylmini",
-                        "$doseFentanylmaxi", "mcg"),
-                    const SizedBox(
-                      height: 5,
-                    ),
-                    curares("Cisatracrium", cisatformatM, " "),
-                    const SizedBox(
-                      height: 5,
-                    ),
-                    curares("Célocurine", "${doseCelocurinemini ?? 0}", ""),
-                    const SizedBox(
-                      height: 5,
-                    ),
-                    
-                    curares("Atracrium", "$doseAtracrium", " "),
-                    const SizedBox(
-                      height: 5,
-                    ),
-                    curares("Rocuronium", "$doseRocuroniummini ",
-                        "- $doseRocuroniummaxi"),
-                    const SizedBox(
-                      height: 5,
-                    ),
-                  ]
-                ],
-              ),
-            ),
-          ],
+          ),
         ),
-      )),
-    );
-  }
-
-  @override
-  void dispose() {
-    ageController.dispose();
-    poidsController.dispose();
-    super.dispose();
-  }
-}
-
-// iot/ ml / remplissage
-Column iot(String ml,) {
-  return Column(
-    mainAxisSize: MainAxisSize.max,
-    children: [
-      Container(
-        padding: const EdgeInsets.all(2),
-        decoration: const BoxDecoration(shape: BoxShape.rectangle),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        body: TabBarView(
           children: [
-            Text(
-              ml,
-              style: const TextStyle(
-                  color: Colors.red, fontSize: 15, fontWeight: FontWeight.bold),
+            InductionPage(
+              ageController: ageController,
+              poidsController: poidsController,
+              isAgeInMonths: isAgeInMonths,
+              onSwitchChanged: (value) {
+                setState(() {
+                  isAgeInMonths = value;
+                });
+              },
+              onCalculate: calculerDosesEtSonde,
+              constantesPhysiologiques: constantesPhysiologiques,
+              dosePropofolmini: dosePropofolmini,
+              dosePropofolmaxi: dosePropofolmaxi,
+              doseEtomidate: doseEtomidate,
+              doseKetaminemini: doseKetaminemini,
+              doseKetaminemaxi: doseKetaminemaxi,
+              doseSufentamini: doseSufentamini,
+              doseSufentamaxi: doseSufentamaxi,
+              doseAlfentanylmini: doseAlfentanylmini,
+              doseAlfentanylmaxi: doseAlfentanylmaxi,
+              doseRemifentanylmini: doseRemifentanylmini,
+              doseRemifentanylmaxi: doseRemifentanylmaxi,
+              doseFentanylmini: doseFentanylmini,
+              doseFentanylmaxi: doseFentanylmaxi,
+              doseCisatracrium: doseCisatracrium,
+              doseCelocurinemini: doseCelocurinemini,
+              doseCelocurinemaxi: doseCelocurinemaxi,
+              doseAtracrium: doseAtracrium,
+              doseRocuroniummini: doseRocuroniummini,
+              doseRocuroniummaxi: doseRocuroniummaxi,
+              tailleSonde: tailleSonde,
+              doseParacetamol: doseParacetamol,
+              doseNalbuphine: doseNalbuphine,
+              doseMorphine: doseMorphine,
+              doseProfenid: doseProfenid,
+              apportLiquidien: apportLiquidien,
+              vtmin: vtmin,
+              vtmax: vtmax,
+              repereiot: repereiot,
+              taillelame: taillelame,
             ),
-            const SizedBox(
-              height: 1,
+            EntretienPage(
+              dosePropofolEntretien: dosePropofolEntretien, // Passer la nouvelle variable
             ),
             
           ],
         ),
       ),
-      const SizedBox()
-    ],
-  );
+    );
+  }
 }
 
-Row hypnotiques(
-  String medicament,
-  String dosemini,
-  String dosemaxi,
-) {
-  return Row(
-    mainAxisSize: MainAxisSize.max,
-    //mainAxisAlignment: MainAxisAlignment.spaceAround,
-    children: [
-      Container(
-        padding: const EdgeInsets.all(5),
-        height: 30,
-        color: Colors.yellow,
-        width: 150,
-        child: Text(medicament,
-            style: const TextStyle(
-                color: Colors.black, fontWeight: FontWeight.w500)),
+class InductionPage extends StatelessWidget {
+  final TextEditingController ageController;
+  final TextEditingController poidsController;
+  final bool isAgeInMonths;
+  final Function(bool) onSwitchChanged;
+  final VoidCallback onCalculate;
+  final Map<String, String>? constantesPhysiologiques;
+  final int? dosePropofolmini;
+  final int? dosePropofolmaxi;
+  final double? doseEtomidate;
+  final int? doseKetaminemini;
+  final int? doseKetaminemaxi;
+  final double? doseSufentamini;
+  final double? doseSufentamaxi;
+  final int? doseAlfentanylmini;
+  final int? doseAlfentanylmaxi;
+  final double? doseRemifentanylmini;
+  final double? doseRemifentanylmaxi;
+  final int? doseFentanylmini;
+  final int? doseFentanylmaxi;
+  final double? doseCisatracrium;
+  final int? doseCelocurinemini;
+  final int? doseCelocurinemaxi;
+  final double? doseAtracrium;
+  final double? doseRocuroniummini;
+  final double? doseRocuroniummaxi;
+  final double? tailleSonde;
+  final int? apportLiquidien;
+  final int? vtmin;
+  final int? doseParacetamol;
+  final double? doseMorphine;
+  final int? doseProfenid;
+  final double? doseNalbuphine;
+
+  final int? vtmax;
+  final double? repereiot;
+  final Map<String, String>? taillelame;
+  int? dosePropofolEntretien;
+
+ 
+
+  InductionPage({
+    super.key,
+    required this.ageController,
+    required this.poidsController,
+    required this.isAgeInMonths,
+    required this.onSwitchChanged,
+    required this.onCalculate,
+    required this.constantesPhysiologiques,
+    required this.dosePropofolmini,
+    required this.dosePropofolmaxi,
+    required this.doseEtomidate,
+    required this.doseKetaminemini,
+    required this.doseKetaminemaxi,
+    required this.doseSufentamini,
+    required this.doseSufentamaxi,
+    required this.doseAlfentanylmini,
+    required this.doseAlfentanylmaxi,
+    required this.doseRemifentanylmini,
+    required this.doseRemifentanylmaxi,
+    required this.doseFentanylmini,
+    required this.doseFentanylmaxi,
+    required this.doseCisatracrium,
+    required this.doseCelocurinemini,
+    required this.doseCelocurinemaxi,
+    required this.doseAtracrium,
+    required this.doseRocuroniummini,
+    required this.doseRocuroniummaxi,
+    required this.tailleSonde,
+    required this.apportLiquidien,
+    required this.vtmin,
+    required this.vtmax,
+    required this.repereiot,
+    required this.taillelame,
+    required this.doseParacetamol,
+    required this.doseProfenid,
+    required this.doseMorphine,
+    required this.doseNalbuphine,
+
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return SingleChildScrollView(
+      padding: const EdgeInsets.all(16.0),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          const Text(
+            'Induction',
+            style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+          ),
+          const SizedBox(height: 16),
+          TextField(
+            controller: ageController,
+            keyboardType: TextInputType.number,
+            decoration: const InputDecoration(
+              labelText: 'Âge',
+              border: OutlineInputBorder(),
+            ),
+          ),
+          const SizedBox(height: 16),
+          SwitchListTile(
+            title: const Text('Âge en mois'),
+            value: isAgeInMonths,
+            onChanged: onSwitchChanged,
+          ),
+          const SizedBox(height: 16),
+          TextField(
+            controller: poidsController,
+            keyboardType: TextInputType.number,
+            decoration: const InputDecoration(
+              labelText: 'Poids (kg)',
+              border: OutlineInputBorder(),
+            ),
+          ),
+          const SizedBox(height: 16),
+          ElevatedButton(
+            onPressed: onCalculate,
+            child: const Text('Calculer'),
+          ),
+          const SizedBox(height: 16),
+          if (constantesPhysiologiques != null) ...[
+            const Text(
+              'Constantes Physiologiques',
+              style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+            ),
+            const SizedBox(height: 8),
+            Text('FC: ${constantesPhysiologiques!['FC']}'),
+            Text('PA: ${constantesPhysiologiques!['PA']}'),
+            Text('FR: ${constantesPhysiologiques!['FR']}'),
+            const SizedBox(height: 16),
+          ],
+
+          const Text("Matériel de ventilation", style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),),
+
+          if (tailleSonde != null) ...[
+            const Text(
+              'Taille de la Sonde',
+              style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+            ),
+            const SizedBox(height: 4),
+            Text('Taille de la sonde: $tailleSonde'),
+            const SizedBox(height: 16),
+          ],
+           if (taillelame != null) ...[
+            const Text(
+              'Taille Lame',
+              style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+            ),
+            const SizedBox(height: 4),
+            Text('Taille Lame: ${taillelame!['taillelame']}'),
+            const SizedBox(height: 16),
+          ],
+          if (repereiot != null) ...[
+            const Text(
+              'Repère IOT',
+              style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+            ),
+            const SizedBox(height: 4),
+            Text('Repère IOT: ${repereiot!.toStringAsFixed(0)} cm'),
+            const SizedBox(height: 16),
+          ],
+          if (apportLiquidien != null) ...[
+            const Text(
+              'Apport Liquidien',
+              style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+            ),
+            const SizedBox(height: 4),
+            Text('Apport Liquidien: $apportLiquidien ml/h'),
+            const SizedBox(height: 16),
+          ],
+          if (vtmin != null && vtmax != null) ...[
+            const Text(
+              'Volume Courant',
+              style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+            ),
+            const SizedBox(height: 4),
+            Text('Volume courant: $vtmin - $vtmax ml'),
+            const SizedBox(height: 16),
+          ],
+          
+         
+
+
+          if (dosePropofolmini != null && dosePropofolmaxi != null) ...[
+            const Text(
+              'Doses Induction',
+              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+            ),
+            const SizedBox(height: 8),
+            const Text("Hypnotiques:",style: TextStyle( fontSize: 16, fontWeight: FontWeight.bold,),),
+            Text('Propofol: $dosePropofolmini - $dosePropofolmaxi mg', style: const TextStyle(backgroundColor: Colors.yellow,fontSize: 16),),
+            const SizedBox(height: 2),
+            Text('Etomidate: ${doseEtomidate!.toStringAsFixed(1)} mg', style: const TextStyle(backgroundColor: Colors.yellow,fontSize: 16),),
+            const SizedBox(height: 2),
+            Text('Ketamine: $doseKetaminemini - $doseKetaminemaxi mg', style: const TextStyle(backgroundColor: Colors.yellow, fontSize: 16),),
+            
+            const SizedBox(height: 8),
+            const Text("Morphiniques:",style: TextStyle( fontSize: 16, fontWeight: FontWeight.bold,),),
+            Text('Sufentanyl: ${doseSufentamini!.toStringAsFixed(1)} - ${doseSufentamaxi!.toStringAsFixed(1)} µg', style: const TextStyle(backgroundColor: Colors.blue, fontSize: 16),),
+            const SizedBox(height: 2),
+            Text('Alfentanyl: $doseAlfentanylmini - $doseAlfentanylmaxi µg', style: const TextStyle(backgroundColor: Colors.blue, fontSize: 16),),
+            const SizedBox(height: 2),
+            Text('Remifentanyl: ${doseRemifentanylmini!.toStringAsFixed(1)} - ${doseRemifentanylmaxi!.toStringAsFixed(1)} µg', style: const TextStyle(backgroundColor: Colors.blue, fontSize: 16),),
+            const SizedBox(height: 2),
+            Text('Fentanyl: $doseFentanylmini - $doseFentanylmaxi µg', style: const TextStyle(backgroundColor: Colors.blue, fontSize: 16),),
+            const SizedBox(height: 8),
+            const Text("Curares:",style: TextStyle( fontSize: 16, fontWeight: FontWeight.bold,),),
+            Text('Cisatracrium: ${doseCisatracrium!.toStringAsFixed(1)} mg', style: const TextStyle(backgroundColor: Colors.red, fontSize: 16),),
+            const SizedBox(height: 2),
+            Text('Celocurine: $doseCelocurinemini mg', style: const TextStyle(backgroundColor: Colors.red, fontSize: 16),),
+            const SizedBox(height: 2),
+            Text('Atracrium: ${doseAtracrium!.toStringAsFixed(1)} mg', style: const TextStyle(backgroundColor: Colors.red, fontSize: 16),),
+            const SizedBox(height: 2),
+            Text('Rocuronium: ${doseRocuroniummini!.toStringAsFixed(0)} - ${doseRocuroniummaxi!.toStringAsFixed(0)} mg', style: const TextStyle(backgroundColor: Colors.red, fontSize: 16),),
+            const SizedBox(height: 16),
+            const SizedBox(height: 8),
+            const Text("Antalgiques:",style: TextStyle( fontSize: 16, fontWeight: FontWeight.bold,),),
+            Text('Paracétamol: ${doseParacetamol!.toStringAsFixed(0)} mg', style: const TextStyle( fontSize: 16),),
+            const SizedBox(height: 2),
+            Text('Profénid: $doseProfenid mg', style: const TextStyle( fontSize: 16),),
+            const SizedBox(height: 2),
+            Text('Nalbuphine: ${doseNalbuphine!.toStringAsFixed(1)} mg', style: const TextStyle( fontSize: 16),),
+            const SizedBox(height: 2),
+            Text('Morphine: ${doseMorphine!.toStringAsFixed(1)}  mg', style: const TextStyle( fontSize: 16),),
+            const SizedBox(height: 16),
+          ],
+          
+        ],
       ),
-      const Spacer(),
-      Text(dosemini),
-      Text(dosemaxi),
-      const SizedBox(
-        width: 5,
-      ),
-      const Text("mg"),
-      const Spacer(),
-    ],
-  );
+    );
+  }
 }
 
-Row morphiniques(
-    String medicament, String dosemini, String dosemaxi, String unite) {
-  return Row(
-    mainAxisSize: MainAxisSize.max,
-    //mainAxisAlignment: MainAxisAlignment.spaceAround,
-    children: [
-      Container(
-        padding: const EdgeInsets.all(5),
-        height: 30,
-        color: const Color.fromARGB(193, 92, 142, 233),
-        width: 150,
-        child: Text(medicament,
-            style: const TextStyle(
-                color: Colors.black, fontWeight: FontWeight.w500)),
+
+
+class EntretienPage extends StatelessWidget {
+  final double? dosePropofolEntretien; // Recevoir la variable du parent
+
+  const EntretienPage({super.key, this.dosePropofolEntretien});
+
+  @override
+  Widget build(BuildContext context) {
+    return SingleChildScrollView(
+      padding: const EdgeInsets.all(16.0),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          const Text(
+            'Entretien Page',
+            style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+          ),
+          const SizedBox(height: 16),
+          if (dosePropofolEntretien != null)
+            Text(
+              'Dose d\'entretien de Propofol: ${dosePropofolEntretien!.toStringAsFixed(1)} mg/kg/h',
+              style: const TextStyle(fontSize: 16),
+            ),
+          // Autres éléments à afficher...
+        ],
       ),
-      const Spacer(),
-      Text(dosemini),
-      const Text("  - "),
-      Text(dosemaxi),
-      const SizedBox(
-        width: 5,
-      ),
-      Text(unite),
-      const Spacer(),
-    ],
-  );
+    );
+  }
 }
 
-Row curares(String medicament, String dosemini, String dosemaxi) {
-  return Row(
-    mainAxisSize: MainAxisSize.max,
-    //mainAxisAlignment: MainAxisAlignment.spaceAround,
-    children: [
-      Container(
-        padding: const EdgeInsets.all(5),
-        height: 30,
-        color: const Color.fromARGB(193, 233, 100, 91),
-        width: 150,
-        child: Text(medicament,
-            style: const TextStyle(
-                color: Colors.black, fontWeight: FontWeight.w500)),
-      ),
-      const Spacer(),
-      Text(dosemini),
-      
-      Text(dosemaxi),
-      const SizedBox(
-        width: 5,
-      ),
-      const Text("mg"),
-      const Spacer(),
-    ],
-  );
-}

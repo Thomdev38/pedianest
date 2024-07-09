@@ -44,6 +44,7 @@ class _PosologieCalculatorScreenState extends State<PosologieCalculatorScreen> {
   int? vtmin;
   int? vtmax;
   double? repereiot;
+  int? celo;
 
   double roundToHalf(double value) {
     return (value * 2).floor() / 2.0;
@@ -63,6 +64,7 @@ class _PosologieCalculatorScreenState extends State<PosologieCalculatorScreen> {
     return apport;
   }
 
+ 
   Map<String, String> obtenirConstantesPhysiologiques(int ageEnMois) {
     if (ageEnMois <= 6) {
       return {
@@ -103,7 +105,7 @@ class _PosologieCalculatorScreenState extends State<PosologieCalculatorScreen> {
     }
   }
 
-  
+
 
   Map<String, String> obtenirTailleLame(int poids) {
     if (poids <= 5) {
@@ -156,6 +158,15 @@ class _PosologieCalculatorScreenState extends State<PosologieCalculatorScreen> {
       vtmax = poids * 8;
       repereiot = ageEnMois/12/2 +12;
       taillelame = obtenirTailleLame(poids);
+      // Condition spécifique pour la dose de célocurine
+    if (ageEnMois < 24) {
+      doseCelocurinemini = poids * 2;
+     
+    } else {
+      doseCelocurinemini = poids;
+      
+    }
+      
       
 
       if (ageEnMois < 12) {
@@ -175,6 +186,7 @@ class _PosologieCalculatorScreenState extends State<PosologieCalculatorScreen> {
     String remiformatM = doseRemifentanylmini?.toStringAsFixed(1) ?? '0.0';
     String remiformatm = doseRemifentanylmaxi?.toStringAsFixed(1) ?? '0.0';
     String cisatformatM = doseCisatracrium?.toStringAsFixed(1) ?? '0.0';
+    String repereiotformat = repereiot?.toStringAsFixed(0) ?? '0,0';
     return Scaffold(
       appBar: AppBar(
         title: const Text('Calculette de Posologie'),
@@ -292,12 +304,11 @@ class _PosologieCalculatorScreenState extends State<PosologieCalculatorScreen> {
                   Column(
                     children: [iot("Lame",),
                     if (taillelame != null) Text('Taille de lame: ${taillelame!['taillelame']}'),
-                  iot("IOT",), Text("Taille $tailleSonde") , Text("Repère $repereiot cm") ,],
+                  iot("IOT",), Text("Taille $tailleSonde") , Text("Repère $repereiotformat cm") ,],
                   ),
                   
                   Column(
                     children: [
-                      iot("Canule Guedel",),
                   iot("Hydratation",), Text("$apportLiquidien ml/h"),
                     ],
                   )
@@ -329,6 +340,8 @@ class _PosologieCalculatorScreenState extends State<PosologieCalculatorScreen> {
                 ],
               ),
             ),),],
+            const SizedBox(height: 6,),
+            const Text("Voici les doses recommandées pour une induction"),
 
             //medicaments card
             Card(
@@ -389,17 +402,17 @@ class _PosologieCalculatorScreenState extends State<PosologieCalculatorScreen> {
                     const SizedBox(
                       height: 5,
                     ),
-                    curares("Célocurine", "$doseCelocurinemini",
-                        "$doseCelocurinemaxi"),
+                    curares("Célocurine", "${doseCelocurinemini ?? 0}", ""),
                     const SizedBox(
                       height: 5,
                     ),
+                    
                     curares("Atracrium", "$doseAtracrium", " "),
                     const SizedBox(
                       height: 5,
                     ),
-                    curares("Rocuronium", "$doseRocuroniummini",
-                        "$doseRocuroniummaxi"),
+                    curares("Rocuronium", "$doseRocuroniummini ",
+                        "- $doseRocuroniummaxi"),
                     const SizedBox(
                       height: 5,
                     ),
@@ -523,7 +536,7 @@ Row curares(String medicament, String dosemini, String dosemaxi) {
       ),
       const Spacer(),
       Text(dosemini),
-      const Text("  - "),
+      
       Text(dosemaxi),
       const SizedBox(
         width: 5,

@@ -1,5 +1,4 @@
 // ignore_for_file: must_be_immutable
-
 import 'package:flutter/material.dart';
 import 'entretien.dart';
 
@@ -73,41 +72,47 @@ class _PosologieCalculatorScreenState extends State<PosologieCalculatorScreen> {
   }
 
   Map<String, String> obtenirConstantesPhysiologiques(int ageEnMois) {
-    if (ageEnMois <= 6) {
+    if (ageEnMois <= 1) {
       return {
-        'FC': '140 (+/-50)',
-        'PA': '60-35',
-        'FR': '30-50',
+        'FC': '90 - 190',
+        'PAS': '60-80',
+        'PAM': '> 40',
+        'FR': '40 - 60',
       };
-    } else if (ageEnMois <= 11) {
+    } else if (ageEnMois <= 6) {
       return {
-        'FC': '120 (+/-40)',
-        'PA': '80-46',
-        'FR': '26-30',
+        'FC': '80 - 180',
+        'PAS': '65 - 90',
+        'PAM': '> 45',
+        'FR': '30 - 40',
       };
-    } else if (ageEnMois <= 35) {
+    } else if (ageEnMois <= 24) {
       return {
-        'FC': '110 (+/-40)',
-        'PA': '96-65',
-        'FR': '22-26',
+        'FC': '60 - 160',
+        'PAS': '70 - 94',
+        'PAM': '> 50',
+        'FR': '25 - 35',
       };
-    } else if (ageEnMois <= 59) {
+    } else if (ageEnMois <= 60) {
       return {
-        'FC': '105 (+/-35)',
-        'PA': '100-60',
-        'FR': '20-24',
+        'FC': '60 - 140',
+        'PAS': '72 - 100',
+        'PAM': '> 60',
+        'FR': '25 - 30',
       };
-    } else if (ageEnMois <= 95) {
+    } else if (ageEnMois <= 120) {
       return {
-        'FC': '105 (+/-35)',
-        'PA': '100-60',
-        'FR': '18-22',
+        'FC': '60 - 130',
+        'PAS': '80 - 110',
+        'PAM': '> 60',
+        'FR': '20 - 25',
       };
     } else {
       return {
-        'FC': '95 (+/-30)',
-        'PA': '118-60',
-        'FR': '14-18',
+        'FC': '60 - 130',
+        'PAS': '90 - 120',
+        'PAM': '> 65',
+        'FR': '12 - 20',
       };
     }
   }
@@ -117,11 +122,15 @@ class _PosologieCalculatorScreenState extends State<PosologieCalculatorScreen> {
       return {
         'taillelame': '0 - 1',
       };
-    } else if (poids <= 11) {
+    } else if (poids <= 10) {
       return {
         'taillelame': '1',
       };
-    } else if (poids <= 35) {
+    } else if (poids <= 12) {
+      return {
+        'taillelame': '1 - 2',
+      };
+    } else if (poids <= 34) {
       return {
         'taillelame': '2',
       };
@@ -482,7 +491,7 @@ class InductionPage extends StatelessWidget {
                   ),
                 ),
                 TextSpan(
-                  text: 'Noradre 3mg + Séreum phy 48,5ml soit 0,06mg/ml',
+                  text: 'Noradre 3mg + Séreum phy 48,5ml soit 0,06mg/ml => 0.1-0.3g/kg/min = O.1-0.3ml/kg/h',
                   style: TextStyle(
                     fontSize: 12.0, color: Colors.black,
                   ),
@@ -490,6 +499,10 @@ class InductionPage extends StatelessWidget {
               ],
             ),
           ),
+          const SizedBox(height: 8),
+            const Text("Autres:",style: TextStyle( fontSize: 16, fontWeight: FontWeight.bold,),),
+            
+
 
           ],
           

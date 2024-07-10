@@ -398,7 +398,8 @@ class InductionPage extends StatelessWidget {
             ),
             const SizedBox(height: 8),
             Text('FC: ${constantesPhysiologiques!['FC']}'),
-            Text('PA: ${constantesPhysiologiques!['PA']}'),
+            Text('PAS: ${constantesPhysiologiques!['PAS']}'),
+            Text('PAM: ${constantesPhysiologiques!['PAM']}'),
             Text('FR: ${constantesPhysiologiques!['FR']}'),
             const SizedBox(height: 16),
           ],
@@ -412,11 +413,11 @@ class InductionPage extends StatelessWidget {
           ],
            if (taillelame != null) ...[
             const SizedBox(height: 4),
-            Text('Taille Lame: ${taillelame!['taillelame']},style: TextStyle(fontSize: 16),'),
+            Text('Taille Lame: ${taillelame!['taillelame']}',style: const TextStyle(fontSize: 16),),
           ],
           if (repereiot != null) ...[
             const SizedBox(height: 4),
-            Text('Repère IOT: ${repereiot!.toStringAsFixed(0)} cm'),
+            Text('Repère IOT: ${repereiot!.toStringAsFixed(0)} cm',style: const TextStyle(fontSize: 16)),
           ],
           if (vtmin != null && vtmax != null) ...[
             const SizedBox(height: 4),

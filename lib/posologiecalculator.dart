@@ -1,7 +1,7 @@
 // ignore_for_file: must_be_immutable
 
 import 'package:flutter/material.dart';
-
+import 'entretien.dart';
 
 
 class PosologieCalculatorScreen extends StatefulWidget {
@@ -351,13 +351,13 @@ class InductionPage extends StatelessWidget {
               border: OutlineInputBorder(),
             ),
           ),
-          const SizedBox(height: 16),
+          const SizedBox(height: 8),
           SwitchListTile(
             title: const Text('Âge en mois'),
             value: isAgeInMonths,
             onChanged: onSwitchChanged,
           ),
-          const SizedBox(height: 16),
+          const SizedBox(height: 8),
           TextField(
             controller: poidsController,
             keyboardType: TextInputType.number,
@@ -366,7 +366,7 @@ class InductionPage extends StatelessWidget {
               border: OutlineInputBorder(),
             ),
           ),
-          const SizedBox(height: 16),
+          const SizedBox(height: 1),
           ElevatedButton(
             onPressed: onCalculate,
             child: const Text('Calculer'),
@@ -384,54 +384,34 @@ class InductionPage extends StatelessWidget {
             const SizedBox(height: 16),
           ],
 
-          const Text("Matériel de ventilation", style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),),
-
+          
           if (tailleSonde != null) ...[
-            const Text(
-              'Taille de la Sonde',
-              style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-            ),
-            const SizedBox(height: 4),
-            Text('Taille de la sonde: $tailleSonde'),
-            const SizedBox(height: 16),
+            const Text("Ventilation", style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),),
+
+            Text('Taille de la sonde IOT: $tailleSonde', style: TextStyle(fontSize: 16),),
+            
           ],
            if (taillelame != null) ...[
-            const Text(
-              'Taille Lame',
-              style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-            ),
             const SizedBox(height: 4),
-            Text('Taille Lame: ${taillelame!['taillelame']}'),
-            const SizedBox(height: 16),
+            Text('Taille Lame: ${taillelame!['taillelame']},style: TextStyle(fontSize: 16),'),
           ],
           if (repereiot != null) ...[
-            const Text(
-              'Repère IOT',
-              style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-            ),
             const SizedBox(height: 4),
             Text('Repère IOT: ${repereiot!.toStringAsFixed(0)} cm'),
-            const SizedBox(height: 16),
-          ],
-          if (apportLiquidien != null) ...[
-            const Text(
-              'Apport Liquidien',
-              style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-            ),
-            const SizedBox(height: 4),
-            Text('Apport Liquidien: $apportLiquidien ml/h'),
-            const SizedBox(height: 16),
           ],
           if (vtmin != null && vtmax != null) ...[
-            const Text(
-              'Volume Courant',
-              style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-            ),
             const SizedBox(height: 4),
-            Text('Volume courant: $vtmin - $vtmax ml'),
+            Text('Volume courant: $vtmin - $vtmax ml', style: TextStyle(fontSize: 16),),
             const SizedBox(height: 16),
           ],
           
+           if (apportLiquidien != null) ...[
+            const Text("Divers", style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),),
+            const SizedBox(height: 4), 
+            Text('Apport Liquidien: $apportLiquidien ml/h',style: TextStyle(fontSize: 16),),
+            
+          ],
+          const SizedBox(height: 16),
          
 
 
@@ -487,32 +467,5 @@ class InductionPage extends StatelessWidget {
 
 
 
-class EntretienPage extends StatelessWidget {
-  final double? dosePropofolEntretien; // Recevoir la variable du parent
 
-  const EntretienPage({super.key, this.dosePropofolEntretien});
-
-  @override
-  Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      padding: const EdgeInsets.all(16.0),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          const Text(
-            'Entretien Page',
-            style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-          ),
-          const SizedBox(height: 16),
-          if (dosePropofolEntretien != null)
-            Text(
-              'Dose d\'entretien de Propofol: ${dosePropofolEntretien!.toStringAsFixed(1)} mg/kg/h',
-              style: const TextStyle(fontSize: 16),
-            ),
-          // Autres éléments à afficher...
-        ],
-      ),
-    );
-  }
-}
 

@@ -51,7 +51,9 @@ class _PosologieCalculatorScreenState extends State<PosologieCalculatorScreen> {
   double? doseNalbuphine;
   double? doseMorphine;
   double? dosePropofolEntretien;
-
+  double? doseAdrenaline;
+  double? doseAtropine;
+  
   double roundToHalf(double value) {
     return (value * 2).floor() / 2.0;
   }
@@ -136,7 +138,7 @@ class _PosologieCalculatorScreenState extends State<PosologieCalculatorScreen> {
     final int poids = int.tryParse(poidsController.text) ?? 0;
 
     setState(() {
-      dosePropofolmini = poids * 3; // Dose de propofol à 3 mg/kg
+      dosePropofolmini = poids * 2; // Dose de propofol à 3 mg/kg
       dosePropofolmaxi = poids * 5; // Dose de propofol à 5 mg/kg
       doseEtomidate = poids * 0.2; // Dose de etomidate à 0.2 mg/kg
       doseKetaminemini = poids * 2;
@@ -154,8 +156,10 @@ class _PosologieCalculatorScreenState extends State<PosologieCalculatorScreen> {
       doseProfenid = poids ;
       doseMorphine = poids * 0.1;
       doseNalbuphine = poids * 0.2;
-      dosePropofolEntretien = poids * 10.0; // 10 mg/kg/h
-
+      dosePropofolEntretien = poids * 10.0; // 10 mg/kg/h;
+      doseAdrenaline = poids * 0.01;
+      doseAtropine = poids * 0.02;
+      
       // Condition spécifique pour la dose de célocurine
       if (ageEnMois < 24) {
         doseCelocurinemini = poids * 2;
@@ -238,6 +242,8 @@ class _PosologieCalculatorScreenState extends State<PosologieCalculatorScreen> {
               vtmax: vtmax,
               repereiot: repereiot,
               taillelame: taillelame,
+              doseAdrenaline: doseAdrenaline,
+              doseAtropine: doseAtropine,
             ),
             EntretienPage(
               dosePropofolEntretien: dosePropofolEntretien, // Passer la nouvelle variable
@@ -283,6 +289,8 @@ class InductionPage extends StatelessWidget {
   final double? doseMorphine;
   final int? doseProfenid;
   final double? doseNalbuphine;
+  final double? doseAdrenaline;
+  final double? doseAtropine;
 
   final int? vtmax;
   final double? repereiot;
@@ -328,6 +336,8 @@ class InductionPage extends StatelessWidget {
     required this.doseProfenid,
     required this.doseMorphine,
     required this.doseNalbuphine,
+    required this.doseAdrenaline,
+    required this.doseAtropine,
 
   });
 
@@ -388,7 +398,7 @@ class InductionPage extends StatelessWidget {
           if (tailleSonde != null) ...[
             const Text("Ventilation", style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),),
 
-            Text('Taille de la sonde IOT: $tailleSonde', style: TextStyle(fontSize: 16),),
+            Text('Taille de la sonde IOT: $tailleSonde', style: const TextStyle(fontSize: 16),),
             
           ],
            if (taillelame != null) ...[
@@ -401,14 +411,14 @@ class InductionPage extends StatelessWidget {
           ],
           if (vtmin != null && vtmax != null) ...[
             const SizedBox(height: 4),
-            Text('Volume courant: $vtmin - $vtmax ml', style: TextStyle(fontSize: 16),),
+            Text('Volume courant: $vtmin - $vtmax ml', style: const TextStyle(fontSize: 16),),
             const SizedBox(height: 16),
           ],
           
            if (apportLiquidien != null) ...[
             const Text("Divers", style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),),
             const SizedBox(height: 4), 
-            Text('Apport Liquidien: $apportLiquidien ml/h',style: TextStyle(fontSize: 16),),
+            Text('Apport Liquidien: $apportLiquidien ml/h',style: const TextStyle(fontSize: 16),),
             
           ],
           const SizedBox(height: 16),
@@ -446,7 +456,7 @@ class InductionPage extends StatelessWidget {
             Text('Atracrium: ${doseAtracrium!.toStringAsFixed(1)} mg', style: const TextStyle(backgroundColor: Colors.red, fontSize: 16),),
             const SizedBox(height: 2),
             Text('Rocuronium: ${doseRocuroniummini!.toStringAsFixed(0)} - ${doseRocuroniummaxi!.toStringAsFixed(0)} mg', style: const TextStyle(backgroundColor: Colors.red, fontSize: 16),),
-            const SizedBox(height: 16),
+            
             const SizedBox(height: 8),
             const Text("Antalgiques:",style: TextStyle( fontSize: 16, fontWeight: FontWeight.bold,),),
             Text('Paracétamol: ${doseParacetamol!.toStringAsFixed(0)} mg', style: const TextStyle( fontSize: 16),),
@@ -457,6 +467,30 @@ class InductionPage extends StatelessWidget {
             const SizedBox(height: 2),
             Text('Morphine: ${doseMorphine!.toStringAsFixed(1)}  mg', style: const TextStyle( fontSize: 16),),
             const SizedBox(height: 16),
+
+            const SizedBox(height: 8),
+            const Text("Amines:",style: TextStyle( fontSize: 16, fontWeight: FontWeight.bold,),),
+            Text('Adrénaline: ${doseAdrenaline!.toStringAsFixed(2)}  mg', style: const TextStyle( fontSize: 16),),
+            Text('Atropine: ${doseMorphine!.toStringAsFixed(2)}  mg', style: const TextStyle( fontSize: 16),),
+            RichText(
+            text: const TextSpan(
+              children: <TextSpan>[
+                TextSpan(
+                  text: 'Noradrénaline: ',
+                  style: TextStyle(
+                    fontSize: 16.0,color: Colors.black,
+                  ),
+                ),
+                TextSpan(
+                  text: 'Noradre 3mg + Séreum phy 48,5ml soit 0,06mg/ml',
+                  style: TextStyle(
+                    fontSize: 12.0, color: Colors.black,
+                  ),
+                ),
+              ],
+            ),
+          ),
+
           ],
           
         ],

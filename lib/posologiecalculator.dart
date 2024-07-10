@@ -255,6 +255,8 @@ class _PosologieCalculatorScreenState extends State<PosologieCalculatorScreen> {
               doseAtropine: doseAtropine,
             ),
             EntretienPage(
+              age: ageController,
+              poids: poidsController,
               dosePropofolEntretien: dosePropofolEntretien, // Passer la nouvelle variable
             ),
             

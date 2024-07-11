@@ -2,7 +2,6 @@
 import 'package:flutter/material.dart';
 import 'entretien.dart';
 
-
 class PosologieCalculatorScreen extends StatefulWidget {
   const PosologieCalculatorScreen({super.key});
 
@@ -52,7 +51,7 @@ class _PosologieCalculatorScreenState extends State<PosologieCalculatorScreen> {
   double? dosePropofolEntretien;
   double? doseAdrenaline;
   double? doseAtropine;
-  
+
   double roundToHalf(double value) {
     return (value * 2).floor() / 2.0;
   }
@@ -162,13 +161,13 @@ class _PosologieCalculatorScreenState extends State<PosologieCalculatorScreen> {
       doseFentanylmaxi = poids * 50;
       doseCisatracrium = poids * 0.2;
       doseParacetamol = poids * 15;
-      doseProfenid = poids ;
+      doseProfenid = poids;
       doseMorphine = poids * 0.1;
       doseNalbuphine = poids * 0.2;
       dosePropofolEntretien = poids * 10.0; // 10 mg/kg/h;
       doseAdrenaline = poids * 0.01;
       doseAtropine = poids * 0.02;
-      
+
       // Condition spécifique pour la dose de célocurine
       if (ageEnMois < 24) {
         doseCelocurinemini = poids * 2;
@@ -205,7 +204,6 @@ class _PosologieCalculatorScreenState extends State<PosologieCalculatorScreen> {
             tabs: [
               Tab(text: 'Induction'),
               Tab(text: 'Entretien'),
-              
             ],
           ),
         ),
@@ -255,11 +253,9 @@ class _PosologieCalculatorScreenState extends State<PosologieCalculatorScreen> {
               doseAtropine: doseAtropine,
             ),
             EntretienPage(
-              age: ageController,
-              poids: poidsController,
-              dosePropofolEntretien: dosePropofolEntretien, // Passer la nouvelle variable
+              dosePropofolEntretien:
+                  dosePropofolEntretien, // Passer la nouvelle variable
             ),
-            
           ],
         ),
       ),
@@ -308,8 +304,6 @@ class InductionPage extends StatelessWidget {
   final Map<String, String>? taillelame;
   int? dosePropofolEntretien;
 
- 
-
   InductionPage({
     super.key,
     required this.ageController,
@@ -349,7 +343,6 @@ class InductionPage extends StatelessWidget {
     required this.doseNalbuphine,
     required this.doseAdrenaline,
     required this.doseAtropine,
-
   });
 
   @override
@@ -405,117 +398,297 @@ class InductionPage extends StatelessWidget {
             Text('FR: ${constantesPhysiologiques!['FR']}'),
             const SizedBox(height: 16),
           ],
-
-          
           if (tailleSonde != null) ...[
-            const Text("Ventilation", style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),),
-
-            Text('Taille de la sonde IOT: $tailleSonde', style: const TextStyle(fontSize: 16),),
-            
+            const Text(
+              "Ventilation",
+              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+            ),
+            Text(
+              'Taille de la sonde IOT: $tailleSonde',
+              style: const TextStyle(fontSize: 16),
+            ),
           ],
-           if (taillelame != null) ...[
+          if (taillelame != null) ...[
             const SizedBox(height: 4),
-            Text('Taille Lame: ${taillelame!['taillelame']}',style: const TextStyle(fontSize: 16),),
+            Text(
+              'Taille Lame: ${taillelame!['taillelame']}',
+              style: const TextStyle(fontSize: 16),
+            ),
           ],
           if (repereiot != null) ...[
             const SizedBox(height: 4),
-            Text('Repère IOT: ${repereiot!.toStringAsFixed(0)} cm',style: const TextStyle(fontSize: 16)),
+            Text('Repère IOT: ${repereiot!.toStringAsFixed(0)} cm',
+                style: const TextStyle(fontSize: 16)),
           ],
           if (vtmin != null && vtmax != null) ...[
             const SizedBox(height: 4),
-            Text('Volume courant: $vtmin - $vtmax ml', style: const TextStyle(fontSize: 16),),
+            Text(
+              'Volume courant: $vtmin - $vtmax ml',
+              style: const TextStyle(fontSize: 16),
+            ),
             const SizedBox(height: 16),
           ],
-          
-           if (apportLiquidien != null) ...[
-            const Text("Divers", style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),),
-            const SizedBox(height: 4), 
-            Text('Apport Liquidien: $apportLiquidien ml/h',style: const TextStyle(fontSize: 16),),
-            
-          ],
-          const SizedBox(height: 16),
-         
-
-
-          if (dosePropofolmini != null && dosePropofolmaxi != null) ...[
+          if (apportLiquidien != null) ...[
             const Text(
-              'Doses Induction',
+              "Divers",
               style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
             ),
-            const SizedBox(height: 8),
-            const Text("Hypnotiques:",style: TextStyle( fontSize: 16, fontWeight: FontWeight.bold,),),
-            Text('Propofol: $dosePropofolmini - $dosePropofolmaxi mg', style: const TextStyle(backgroundColor: Colors.yellow,fontSize: 16),),
-            const SizedBox(height: 2),
-            Text('Etomidate: ${doseEtomidate!.toStringAsFixed(1)} mg', style: const TextStyle(backgroundColor: Colors.yellow,fontSize: 16),),
-            const SizedBox(height: 2),
-            Text('Ketamine: $doseKetaminemini - $doseKetaminemaxi mg', style: const TextStyle(backgroundColor: Colors.yellow, fontSize: 16),),
-            
-            const SizedBox(height: 8),
-            const Text("Morphiniques:",style: TextStyle( fontSize: 16, fontWeight: FontWeight.bold,),),
-            Text('Sufentanyl: ${doseSufentamini!.toStringAsFixed(1)} - ${doseSufentamaxi!.toStringAsFixed(1)} µg', style: const TextStyle(backgroundColor: Colors.blue, fontSize: 16),),
-            const SizedBox(height: 2),
-            Text('Alfentanyl: $doseAlfentanylmini - $doseAlfentanylmaxi µg', style: const TextStyle(backgroundColor: Colors.blue, fontSize: 16),),
-            const SizedBox(height: 2),
-            Text('Remifentanyl: ${doseRemifentanylmini!.toStringAsFixed(1)} - ${doseRemifentanylmaxi!.toStringAsFixed(1)} µg', style: const TextStyle(backgroundColor: Colors.blue, fontSize: 16),),
-            const SizedBox(height: 2),
-            Text('Fentanyl: $doseFentanylmini - $doseFentanylmaxi µg', style: const TextStyle(backgroundColor: Colors.blue, fontSize: 16),),
-            const SizedBox(height: 8),
-            const Text("Curares:",style: TextStyle( fontSize: 16, fontWeight: FontWeight.bold,),),
-            Text('Cisatracrium: ${doseCisatracrium!.toStringAsFixed(1)} mg', style: const TextStyle(backgroundColor: Colors.red, fontSize: 16),),
-            const SizedBox(height: 2),
-            Text('Celocurine: $doseCelocurinemini mg', style: const TextStyle(backgroundColor: Colors.red, fontSize: 16),),
-            const SizedBox(height: 2),
-            Text('Atracrium: ${doseAtracrium!.toStringAsFixed(1)} mg', style: const TextStyle(backgroundColor: Colors.red, fontSize: 16),),
-            const SizedBox(height: 2),
-            Text('Rocuronium: ${doseRocuroniummini!.toStringAsFixed(0)} - ${doseRocuroniummaxi!.toStringAsFixed(0)} mg', style: const TextStyle(backgroundColor: Colors.red, fontSize: 16),),
-            
-            const SizedBox(height: 8),
-            const Text("Antalgiques:",style: TextStyle( fontSize: 16, fontWeight: FontWeight.bold,),),
-            Text('Paracétamol: ${doseParacetamol!.toStringAsFixed(0)} mg', style: const TextStyle( fontSize: 16),),
-            const SizedBox(height: 2),
-            Text('Profénid: $doseProfenid mg', style: const TextStyle( fontSize: 16),),
-            const SizedBox(height: 2),
-            Text('Nalbuphine: ${doseNalbuphine!.toStringAsFixed(1)} mg', style: const TextStyle( fontSize: 16),),
-            const SizedBox(height: 2),
-            Text('Morphine: ${doseMorphine!.toStringAsFixed(1)}  mg', style: const TextStyle( fontSize: 16),),
-            const SizedBox(height: 16),
-
-            const SizedBox(height: 8),
-            const Text("Amines:",style: TextStyle( fontSize: 16, fontWeight: FontWeight.bold,),),
-            Text('Adrénaline: ${doseAdrenaline!.toStringAsFixed(2)}  mg', style: const TextStyle( fontSize: 16),),
-            Text('Atropine: ${doseMorphine!.toStringAsFixed(2)}  mg', style: const TextStyle( fontSize: 16),),
-            RichText(
-            text: const TextSpan(
-              children: <TextSpan>[
-                TextSpan(
-                  text: 'Noradrénaline: ',
-                  style: TextStyle(
-                    fontSize: 16.0,color: Colors.black,
-                  ),
-                ),
-                TextSpan(
-                  text: 'Noradre 3mg + Séreum phy 48,5ml soit 0,06mg/ml => 0.1-0.3g/kg/min = O.1-0.3ml/kg/h',
-                  style: TextStyle(
-                    fontSize: 12.0, color: Colors.black,
-                  ),
-                ),
-              ],
+            const SizedBox(height: 4),
+            Text(
+              'Apport Liquidien: $apportLiquidien ml/h',
+              style: const TextStyle(fontSize: 16),
             ),
-          ),
-          const SizedBox(height: 8),
-            const Text("Autres:",style: TextStyle( fontSize: 16, fontWeight: FontWeight.bold,),),
-            
-
-
           ],
-          
+          const SizedBox(height: 16),
+          if (dosePropofolmini != null && dosePropofolmaxi != null) ...[
+            //container des médicaments (en noir)
+            Container(
+              padding: const EdgeInsets.all(2),
+              decoration:
+                  BoxDecoration(border: Border.all(color: Colors.black54)),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const Text(
+                    'Doses Induction',
+                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                  ),
+                  const SizedBox(height: 4),
+                  //container des hypnotiques
+                  Container(
+                    decoration: BoxDecoration(
+                      border: Border.all(
+                        color: Colors.yellow,
+                        width: 5,
+                      ),
+                    ),
+                    padding: const EdgeInsets.all(5),
+                    margin: const EdgeInsets.all(3),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisSize: MainAxisSize.max,
+                      children: [
+                        const Text(
+                          "Hypnotiques:",
+                          style: TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        Text(
+                          'Propofol: $dosePropofolmini - $dosePropofolmaxi mg',
+                          style: const TextStyle(fontSize: 16),
+                        ),
+                        const SizedBox(height: 2),
+                        Text(
+                          'Etomidate: ${doseEtomidate!.toStringAsFixed(1)} mg',
+                          style: const TextStyle(fontSize: 16),
+                        ),
+                        const SizedBox(height: 2),
+                        Text(
+                          'Ketamine: $doseKetaminemini - $doseKetaminemaxi mg',
+                          style: const TextStyle(fontSize: 16),
+                        ),
+                      ],
+                    ),
+                  ),
+
+                  const SizedBox(height: 4),
+                  //container bleu des morphiniques
+                  Container(
+                    decoration: BoxDecoration(
+                      border: Border.all(color: Colors.blue.shade700, width: 5),
+                    ),
+                    padding: const EdgeInsets.all(5),
+                    margin: const EdgeInsets.all(3),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        const Text(
+                          "Morphiniques:",
+                          style: TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        Text(
+                          'Sufentanyl: ${doseSufentamini!.toStringAsFixed(1)} - ${doseSufentamaxi!.toStringAsFixed(1)} µg',
+                          style: const TextStyle(fontSize: 16),
+                        ),
+                        const SizedBox(height: 2),
+                        Text(
+                          'Alfentanyl: $doseAlfentanylmini - $doseAlfentanylmaxi µg',
+                          style: const TextStyle(fontSize: 16),
+                        ),
+                        const SizedBox(height: 2),
+                        Text(
+                          'Remifentanyl: ${doseRemifentanylmini!.toStringAsFixed(1)} - ${doseRemifentanylmaxi!.toStringAsFixed(1)} µg',
+                          style: const TextStyle(fontSize: 16),
+                        ),
+                        const SizedBox(height: 2),
+                        Text(
+                          'Fentanyl: $doseFentanylmini - $doseFentanylmaxi µg',
+                          style: const TextStyle(fontSize: 16),
+                        ),
+                      ],
+                    ),
+                  ),
+                  const SizedBox(height: 4),
+                  //container rouge des curares
+                  Container(
+                    decoration: BoxDecoration(
+                      border: Border.all(color: Colors.red.shade700, width: 5),
+                    ),
+                    padding: const EdgeInsets.all(5),
+                    margin: const EdgeInsets.all(3),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        const Text(
+                    "Curares:",
+                    style: TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  Text(
+                    'Cisatracrium: ${doseCisatracrium!.toStringAsFixed(1)} mg',
+                    style: const TextStyle(
+                        fontSize: 16),
+                  ),
+                  const SizedBox(height: 2),
+                  Text(
+                    'Celocurine: $doseCelocurinemini mg',
+                    style: const TextStyle(
+                        fontSize: 16),
+                  ),
+                  const SizedBox(height: 2),
+                  Text(
+                    'Atracrium: ${doseAtracrium!.toStringAsFixed(1)} mg',
+                    style: const TextStyle(
+                        fontSize: 16),
+                  ),
+                  const SizedBox(height: 2),
+                  Text(
+                    'Rocuronium: ${doseRocuroniummini!.toStringAsFixed(0)} - ${doseRocuroniummaxi!.toStringAsFixed(0)} mg',
+                    style: const TextStyle(
+                         fontSize: 16),
+                  ),
+                      ],
+                    ),
+                  ),
+
+                  const SizedBox(height: 4),
+                   //container rouge des antalgiques
+                  Container(
+                    decoration: BoxDecoration(
+                      border: Border.all(color: Colors.purple.shade400, width: 5),
+                    ),
+                    padding: const EdgeInsets.all(5),
+                    margin: const EdgeInsets.all(3),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        
+                  const Text(
+                    "Amines:",
+                    style: TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  Text(
+                    'Adrénaline: ${doseAdrenaline!.toStringAsFixed(2)}  mg',
+                    style: const TextStyle(fontSize: 16),
+                  ),
+                  Text(
+                    'Atropine: ${doseMorphine!.toStringAsFixed(2)}  mg',
+                    style: const TextStyle(fontSize: 16),
+                  ),
+                  RichText(
+                    text: const TextSpan(
+                      children: <TextSpan>[
+                        TextSpan(
+                          text: 'Noradrénaline: ',
+                          style: TextStyle(
+                            fontSize: 16.0,
+                            color: Colors.black,
+                          ),
+                        ),
+                        TextSpan(
+                          text:
+                              'Noradre 3mg(1,5ml) + Séreum phy 48,5ml soit 0,06mg/ml => 0.1-0.3g/kg/min = O.1-0.3ml/kg/h',
+                          style: TextStyle(
+                            fontSize: 12.0,
+                            color: Colors.black,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  
+                      ],
+                    ),
+                  ),
+                  
+                  const SizedBox(height: 4),
+                   //container violet des amines
+                  Container(
+                    decoration: BoxDecoration(
+                      border: Border.all(color: Colors.green.shade400, width: 5),
+                    ),
+                    padding: const EdgeInsets.all(5),
+                    margin: const EdgeInsets.all(3),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        const Text(
+                    "Antalgiques:",
+                    style: TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  Text(
+                    'Paracétamol: ${doseParacetamol!.toStringAsFixed(0)} mg',
+                    style: const TextStyle(fontSize: 16),
+                  ),
+                  const SizedBox(height: 2),
+                  Text(
+                    'Profénid: $doseProfenid mg',
+                    style: const TextStyle(fontSize: 16),
+                  ),
+                  const SizedBox(height: 2),
+                  Text(
+                    'Nalbuphine: ${doseNalbuphine!.toStringAsFixed(1)} mg',
+                    style: const TextStyle(fontSize: 16),
+                  ),
+                  const SizedBox(height: 2),
+                  Text(
+                    'Morphine: ${doseMorphine!.toStringAsFixed(1)}  mg',
+                    style: const TextStyle(fontSize: 16),
+                  ),
+                      ],
+                    ),
+                  ),
+                  const SizedBox(height: 4),
+                  
+                    
+                  const SizedBox(height: 16),
+                  const Text(
+                    "Autres:",
+                    style: TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  const Text("data"),
+                ],
+              ),
+            )
+          ],
         ],
       ),
     );
   }
 }
-
-
-
-
-

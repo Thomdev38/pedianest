@@ -539,9 +539,11 @@ class InductionPage extends StatelessWidget {
             ),
             const SizedBox(height: 4),
             Text(
-              'Apport Liquidien: $apportLiquidien ml/h',
+              'Apport Liquidien de base: $apportLiquidien ml/h (au PSE chez le- de 10kg sinon avec régulateur de débit)' ,
               style: const TextStyle(fontSize: 16),
             ),
+            Text("Compensation du jeune: Durée du jeune x besoin horaire = volume à compenser"),
+            Text("Passer 50% de ce volume la première heure et 50% sur la deuxième heure"),
           ],
           const SizedBox(height: 16),
           if (dosePropofolmini != null && dosePropofolmaxi != null) ...[

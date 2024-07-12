@@ -52,7 +52,6 @@ class _PosologieCalculatorScreenState extends State<PosologieCalculatorScreen> {
   double? dosePropofolEntretien;
   double? doseAdrenaline;
   double? doseAtropine;
- 
   
 
   int calculerApportLiquidien(int poids) {
@@ -75,7 +74,7 @@ class _PosologieCalculatorScreenState extends State<PosologieCalculatorScreen> {
   Map<String, String> obtenirConstantesPhysiologiques(int ageEnMois) {
     if (ageEnMois <= 1) {
       return {
-        'FC': '90 - 190',
+        'FC': '90 - 180',
         'PAS': '60-80',
         'PAM': '> 40',
         'FR': '40 - 60',
@@ -247,6 +246,7 @@ class _PosologieCalculatorScreenState extends State<PosologieCalculatorScreen> {
       dosePropofolEntretien = poids * 10.0; // 10 mg/kg/h;
       doseAdrenaline = poids * 0.01;
       doseAtropine = poids * 0.02;
+      
 
       // Condition spécifique pour la dose de célocurine
       if (ageEnMois < 24) {
@@ -428,7 +428,6 @@ class InductionPage extends StatelessWidget {
     required this.doseAtracrium,
     required this.doseRocuroniummini,
     required this.doseRocuroniummaxi,
-    
     required this.apportLiquidien,
     required this.vtmin,
     required this.vtmax,
@@ -457,7 +456,7 @@ class InductionPage extends StatelessWidget {
             'Induction',
             style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
           ),
-          const SizedBox(height: 16),
+          const SizedBox(height: 12),
           TextField(
             controller: ageController,
             keyboardType: TextInputType.number,
@@ -466,13 +465,14 @@ class InductionPage extends StatelessWidget {
               border: OutlineInputBorder(),
             ),
           ),
-          const SizedBox(height: 8),
+          const SizedBox(height: 2),
           SwitchListTile(
             title: const Text('Âge en mois'),
             value: isAgeInMonths,
             onChanged: onSwitchChanged,
+            activeColor: Colors.green.shade400,
           ),
-          const SizedBox(height: 8),
+          const SizedBox(height: 2),
           TextField(
             controller: poidsController,
             keyboardType: TextInputType.number,
@@ -542,8 +542,8 @@ class InductionPage extends StatelessWidget {
               'Apport Liquidien de base: $apportLiquidien ml/h (au PSE chez le- de 10kg sinon avec régulateur de débit)' ,
               style: const TextStyle(fontSize: 16),
             ),
-            Text("Compensation du jeune: Durée du jeune x besoin horaire = volume à compenser"),
-            Text("Passer 50% de ce volume la première heure et 50% sur la deuxième heure"),
+            const Text("Compensation du jeune: Durée du jeune x besoin horaire = volume à compenser", style: TextStyle(fontSize: 11),),
+            const Text("Passer 50% de ce volume la première heure et 50% sur la deuxième heure", style: TextStyle(fontSize: 11),),
           ],
           const SizedBox(height: 16),
           if (dosePropofolmini != null && dosePropofolmaxi != null) ...[

@@ -17,7 +17,9 @@ class _PosologieCalculatorScreenState extends State<PosologieCalculatorScreen> {
 
   Map<String, String>? constantesPhysiologiques;
   Map<String, String>? taillelame;
-
+  Map<String, String>? circuit;
+  Map<String, String>? ballon;
+  Map<String, String>? taillesonde;
   bool isAgeInMonths = false; // Pour vérifier si l'âge est en mois ou en années
   int? dosePropofolmini;
   int? dosePropofolmaxi;
@@ -38,7 +40,6 @@ class _PosologieCalculatorScreenState extends State<PosologieCalculatorScreen> {
   double? doseAtracrium;
   double? doseRocuroniummini;
   double? doseRocuroniummaxi;
-  double? tailleSonde;
   int? apportLiquidien;
   int? vtmin;
   int? vtmax;
@@ -51,10 +52,8 @@ class _PosologieCalculatorScreenState extends State<PosologieCalculatorScreen> {
   double? dosePropofolEntretien;
   double? doseAdrenaline;
   double? doseAtropine;
-
-  double roundToHalf(double value) {
-    return (value * 2).floor() / 2.0;
-  }
+ 
+  
 
   int calculerApportLiquidien(int poids) {
     int apport = 0;
@@ -69,6 +68,9 @@ class _PosologieCalculatorScreenState extends State<PosologieCalculatorScreen> {
 
     return apport;
   }
+
+  
+
 
   Map<String, String> obtenirConstantesPhysiologiques(int ageEnMois) {
     if (ageEnMois <= 1) {
@@ -115,6 +117,83 @@ class _PosologieCalculatorScreenState extends State<PosologieCalculatorScreen> {
       };
     }
   }
+   Map<String, String> obtenirCircuit(int poids) {
+    if (poids <= 5) {
+      return {
+        'circuit': 'Néonat',
+      };
+    } else if (poids <= 25) {
+      return {
+        'circuit': 'pédiatrique',
+      };
+    } else {
+      return {
+        'circuit': 'adulte',
+      };
+    }
+  }
+
+  Map<String, String> obtenirBallon(int poids) {
+    if (poids <= 10) {
+      return {
+        'ballon': '0,5 litre',
+      };
+    } else if (poids <= 20) {
+      return {
+        'ballon': '1 litre',
+      };
+    } else if (poids <= 30) {
+      return {
+        'ballon': '2 litres',
+      };
+    } else {
+      return {
+        'ballon': 'adulte',
+      };
+    }
+  }
+
+  Map<String, String> obtenirtaillesonde(int poids) {
+    if (poids <= 4) {
+      return {
+        'taillesonde': '3.0',
+      };
+    } else if (poids <= 9) {
+      return {
+        'taillesonde': '3.5',
+      };
+    } else if (poids <= 14) {
+      return {
+        'taillesonde': '4.0',
+      };
+    } else if (poids <= 19) {
+      return {
+        'taillesonde': '4.5',
+      };
+    } else if (poids <= 24) {
+      return {
+        'taillesonde': '5.0',
+      };
+    } else if (poids <= 29) {
+      return {
+        'taillesonde': '5.5',
+      };
+    } else if (poids <= 34) {
+      return {
+        'taillesonde': '6.0',
+      };
+    } else if (poids <= 39) {
+      return {
+        'taillesonde': '6.5',
+      };
+    } else {
+      return {
+        'ballon': '7.0',
+      };
+    }
+  }
+
+
 
   Map<String, String> obtenirTailleLame(int poids) {
     if (poids <= 5) {
@@ -139,6 +218,7 @@ class _PosologieCalculatorScreenState extends State<PosologieCalculatorScreen> {
       };
     }
   }
+  
 
   void calculerDosesEtSonde() {
     final int age = int.tryParse(ageController.text) ?? 0;
@@ -174,7 +254,7 @@ class _PosologieCalculatorScreenState extends State<PosologieCalculatorScreen> {
       } else {
         doseCelocurinemini = poids;
       }
-
+    
       doseAtracrium = poids * 0.5;
       doseRocuroniummini = poids * 0.6;
       doseRocuroniummaxi = poids * 1.2;
@@ -184,12 +264,21 @@ class _PosologieCalculatorScreenState extends State<PosologieCalculatorScreen> {
       vtmax = poids * 8;
       repereiot = ageEnMois / 12 / 2 + 12;
       taillelame = obtenirTailleLame(poids);
+      circuit = obtenirCircuit(poids);
+      ballon = obtenirBallon(poids);
+      taillesonde = obtenirtaillesonde(poids);
 
-      if (ageEnMois < 12) {
-        tailleSonde = roundToHalf(ageEnMois / 10.0 + 3.0);
-      } else {
-        tailleSonde = roundToHalf((ageEnMois / 12.0 + 16) / 4.0);
-      }
+      
+      
+     
+
+
+
+     //if (ageEnMois < 12) {
+       // tailleSonde = roundToHalf(ageEnMois / 10.0 + 3.0);
+      //} else {
+        //tailleSonde = roundToHalf((ageEnMois / 12.0 + 16) / 4.0);
+      //}
     });
   }
 
@@ -239,7 +328,6 @@ class _PosologieCalculatorScreenState extends State<PosologieCalculatorScreen> {
               doseAtracrium: doseAtracrium,
               doseRocuroniummini: doseRocuroniummini,
               doseRocuroniummaxi: doseRocuroniummaxi,
-              tailleSonde: tailleSonde,
               doseParacetamol: doseParacetamol,
               doseNalbuphine: doseNalbuphine,
               doseMorphine: doseMorphine,
@@ -249,8 +337,14 @@ class _PosologieCalculatorScreenState extends State<PosologieCalculatorScreen> {
               vtmax: vtmax,
               repereiot: repereiot,
               taillelame: taillelame,
+              circuit: circuit,
+              ballon: ballon,
               doseAdrenaline: doseAdrenaline,
-              doseAtropine: doseAtropine,
+              doseAtropine: doseAtropine, 
+              taillesonde: taillesonde,
+              
+              
+              
             ),
             EntretienPage(
               dosePropofolEntretien:
@@ -289,7 +383,6 @@ class InductionPage extends StatelessWidget {
   final double? doseAtracrium;
   final double? doseRocuroniummini;
   final double? doseRocuroniummaxi;
-  final double? tailleSonde;
   final int? apportLiquidien;
   final int? vtmin;
   final int? doseParacetamol;
@@ -298,10 +391,14 @@ class InductionPage extends StatelessWidget {
   final double? doseNalbuphine;
   final double? doseAdrenaline;
   final double? doseAtropine;
-
   final int? vtmax;
   final double? repereiot;
   final Map<String, String>? taillelame;
+  final Map<String, String>? circuit;
+  final Map<String, String>? ballon;
+  final Map<String, String>? taillesonde;
+  
+
   int? dosePropofolEntretien;
 
   InductionPage({
@@ -331,7 +428,7 @@ class InductionPage extends StatelessWidget {
     required this.doseAtracrium,
     required this.doseRocuroniummini,
     required this.doseRocuroniummaxi,
-    required this.tailleSonde,
+    
     required this.apportLiquidien,
     required this.vtmin,
     required this.vtmax,
@@ -343,6 +440,10 @@ class InductionPage extends StatelessWidget {
     required this.doseNalbuphine,
     required this.doseAdrenaline,
     required this.doseAtropine,
+    required this.circuit,
+    required this.ballon,
+    required this.taillesonde,
+    
   });
 
   @override
@@ -398,13 +499,15 @@ class InductionPage extends StatelessWidget {
             Text('FR: ${constantesPhysiologiques!['FR']}'),
             const SizedBox(height: 16),
           ],
-          if (tailleSonde != null) ...[
+          if (taillesonde != null) ...[
             const Text(
               "Ventilation",
               style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
             ),
+            Text('Circuit: ${circuit!['circuit']}',style: const TextStyle(fontSize: 16),),
+            Text('Ballon: ${ballon!['ballon']}',style: const TextStyle(fontSize: 16),),
             Text(
-              'Taille de la sonde IOT: $tailleSonde',
+              'Taille Sonde IOT: ${taillesonde!['taillesonde']}',
               style: const TextStyle(fontSize: 16),
             ),
           ],
@@ -414,6 +517,7 @@ class InductionPage extends StatelessWidget {
               'Taille Lame: ${taillelame!['taillelame']}',
               style: const TextStyle(fontSize: 16),
             ),
+          
           ],
           if (repereiot != null) ...[
             const SizedBox(height: 4),

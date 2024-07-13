@@ -19,6 +19,7 @@ class _PosologieCalculatorScreenState extends State<PosologieCalculatorScreen> {
   Map<String, String>? taillelame;
   Map<String, String>? circuit;
   Map<String, String>? ballon;
+  Map<String, String>? tailleguedel;
   Map<String, String>? taillesonde;
   bool isAgeInMonths = false; // Pour vérifier si l'âge est en mois ou en années
   int? dosePropofolmini;
@@ -218,6 +219,29 @@ class _PosologieCalculatorScreenState extends State<PosologieCalculatorScreen> {
     }
   }
   
+  Map<String, String> obtenirTailleguedel(int ageEnMois) {
+    if (ageEnMois <= 1) {
+      return {
+        'tailleguedel': '000 ou 00 (transparente / bleue )',
+      };
+    } else if (ageEnMois <= 12) {
+      return {
+        'tailleguedel': '0 (grise)',
+      };
+    } else if (ageEnMois <= 60) {
+      return {
+        'tailleguedel': '1 blanche',
+      };
+    } else if (ageEnMois <= 144) {
+      return {
+        'tailleguedel': '2 (verte)',
+      };
+    } else {
+      return {
+        'tailleguedel': '2 ou 3 (verte / orange)',
+      };
+    }
+  }
 
   void calculerDosesEtSonde() {
     final int age = int.tryParse(ageController.text) ?? 0;
@@ -267,6 +291,7 @@ class _PosologieCalculatorScreenState extends State<PosologieCalculatorScreen> {
       circuit = obtenirCircuit(poids);
       ballon = obtenirBallon(poids);
       taillesonde = obtenirtaillesonde(poids);
+      tailleguedel = obtenirTailleguedel(ageEnMois);
 
       
       
@@ -342,6 +367,7 @@ class _PosologieCalculatorScreenState extends State<PosologieCalculatorScreen> {
               doseAdrenaline: doseAdrenaline,
               doseAtropine: doseAtropine, 
               taillesonde: taillesonde,
+              tailleguedel: tailleguedel,
               
               
               
@@ -397,7 +423,7 @@ class InductionPage extends StatelessWidget {
   final Map<String, String>? circuit;
   final Map<String, String>? ballon;
   final Map<String, String>? taillesonde;
-  
+  final Map<String, String>? tailleguedel;
 
   int? dosePropofolEntretien;
 
@@ -442,6 +468,7 @@ class InductionPage extends StatelessWidget {
     required this.circuit,
     required this.ballon,
     required this.taillesonde,
+    required this.tailleguedel,
     
   });
 
@@ -515,6 +542,12 @@ class InductionPage extends StatelessWidget {
             const SizedBox(height: 4),
             Text(
               'Taille Lame: ${taillelame!['taillelame']}',
+              style: const TextStyle(fontSize: 16),
+            ),
+          
+            const SizedBox(height: 4),
+            Text(
+              'Taille Guedel: ${tailleguedel!['tailleguedel']}',
               style: const TextStyle(fontSize: 16),
             ),
           
@@ -592,7 +625,7 @@ class InductionPage extends StatelessWidget {
                         ),
                         const SizedBox(height: 2),
                         Text(
-                          'Ketamine: $doseKetaminemini - $doseKetaminemaxi mg',
+                          "Ketamine (en dose d'induction): $doseKetaminemini - $doseKetaminemaxi mg",
                           style: const TextStyle(fontSize: 16),
                         ),
                       ],

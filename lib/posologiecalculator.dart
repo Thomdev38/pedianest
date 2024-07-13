@@ -54,6 +54,7 @@ class _PosologieCalculatorScreenState extends State<PosologieCalculatorScreen> {
   double? doseAdrenaline;
   double? doseAtropine;
   int? poidstext;
+  int? remplissagevasc;
   
 
   int calculerApportLiquidien(int poids) {
@@ -272,7 +273,7 @@ class _PosologieCalculatorScreenState extends State<PosologieCalculatorScreen> {
       doseAdrenaline = poids * 0.01;
       doseAtropine = poids * 0.02;
       poidstext = poids  * 1;
-      
+      remplissagevasc = poids * 20;
 
       // Condition spécifique pour la dose de célocurine
       if (ageEnMois < 24) {
@@ -370,6 +371,7 @@ class _PosologieCalculatorScreenState extends State<PosologieCalculatorScreen> {
               doseAtropine: doseAtropine, 
               taillesonde: taillesonde,
               tailleguedel: tailleguedel,
+              remplissagevasc: remplissagevasc,
               
               
               
@@ -421,7 +423,7 @@ class InductionPage extends StatelessWidget {
   final double? doseAdrenaline;
   final double? doseAtropine;
   final int? vtmax;
-  
+  final int? remplissagevasc;
   final double? repereiot;
   final Map<String, String>? taillelame;
   final Map<String, String>? circuit;
@@ -474,6 +476,7 @@ class InductionPage extends StatelessWidget {
     required this.ballon,
     required this.taillesonde,
     required this.tailleguedel,
+    required this.remplissagevasc,
     
     
   });
@@ -582,9 +585,10 @@ class InductionPage extends StatelessWidget {
               'Apport Liquidien de base: $apportLiquidien ml/h (au PSE chez le- de 10kg sinon avec régulateur de débit)' ,
               style: const TextStyle(fontSize: 16),
             ),
+              Text("Remplissage vasculaire par des bolus de $remplissagevasc ml de cristalloides.", style: const TextStyle(fontSize: 16),)
+          ],
             const Text("Compensation du jeune: Durée du jeune x besoin horaire = volume à compenser", style: TextStyle(fontSize: 11),),
             const Text("Passer 50% de ce volume la première heure et 50% sur la deuxième heure", style: TextStyle(fontSize: 11),),
-          ],
           const SizedBox(height: 16),
           if (dosePropofolmini != null && dosePropofolmaxi != null) ...[
             //container des médicaments (en noir)

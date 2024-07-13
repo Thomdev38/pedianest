@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_onboarding_slider/flutter_onboarding_slider.dart';
+import 'package:pedianesth/posologiecalculator.dart';
 
 class Homepage extends StatefulWidget {
   const Homepage({super.key});
@@ -10,8 +12,54 @@ class Homepage extends StatefulWidget {
 class _HomepageState extends State<Homepage> {
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
-      body: Text("home page"),
+    return Scaffold(
+      body: OnBoardingSlider(
+        headerBackgroundColor: Colors.white,
+        finishButtonText: 'Commencez',
+        onFinish: () {
+        Navigator.push(
+                          context,
+                          PageRouteBuilder(
+                              pageBuilder: (_, __, ___) => const PosologieCalculatorScreen()),
+                        );
+      },
+        finishButtonStyle: const FinishButtonStyle(
+          backgroundColor: Colors.black,
+        ),
+        skipTextButton: const Text('Passer'),
+        
+        background: [
+          Image.asset('assets/images/slide_1.jpeg'),
+          Image.asset('assets/images/slide_2.jpeg'),
+        ],
+        totalPage: 2,
+        speed: 1.8,
+        pageBodies: [
+          Container(
+            padding: const EdgeInsets.symmetric(horizontal: 40),
+            child: const Column(
+              children: <Widget>[
+                SizedBox(
+                  height: 480,
+                ),
+                Text("Rentrez les informations de l'enfant"),
+              ],
+            ),
+          ),
+          Container(
+            padding: const EdgeInsets.symmetric(horizontal: 40),
+            child: const Column(
+              children: <Widget>[
+                SizedBox(
+                  height: 480,
+                ),
+                Text('Description Text 2'),
+              ],
+            ),
+          ),
+        ],
+      ),
     );
+    
   }
 }

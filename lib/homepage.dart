@@ -24,15 +24,15 @@ class _HomepageState extends State<Homepage> {
                         );
       },
         finishButtonStyle: const FinishButtonStyle(
-          backgroundColor: Colors.black,
+          backgroundColor: Color.fromARGB(225, 86, 125, 199),
         ),
         skipTextButton: const Text('Passer'),
-        
         background: [
           Image.asset('assets/images/slide_1.jpeg'),
           Image.asset('assets/images/slide_2.jpeg'),
+          Image.asset('assets/images/slide_1.jpeg'),
         ],
-        totalPage: 2,
+        totalPage: 3,
         speed: 1.8,
         pageBodies: [
           Container(
@@ -53,7 +53,18 @@ class _HomepageState extends State<Homepage> {
                 SizedBox(
                   height: 480,
                 ),
-                Text('Description Text 2'),
+                Text('Préparez votre salle'),
+              ],
+            ),
+          ),
+          Container(
+            padding: const EdgeInsets.symmetric(horizontal: 40),
+            child: const Column(
+              children: <Widget>[
+                SizedBox(
+                  height: 480,
+                ),
+                Text('Gérer votre anesthésie'),
               ],
             ),
           ),

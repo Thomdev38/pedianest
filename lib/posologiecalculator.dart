@@ -585,11 +585,12 @@ class InductionPage extends StatelessWidget {
               'Apport Liquidien de base: $apportLiquidien ml/h (au PSE chez le- de 10kg sinon avec régulateur de débit)' ,
               style: const TextStyle(fontSize: 16),
             ),
-              Text("Remplissage vasculaire par des bolus de $remplissagevasc ml de cristalloides.", style: const TextStyle(fontSize: 16),)
-          ],
-            const Text("Compensation du jeune: Durée du jeune x besoin horaire = volume à compenser", style: TextStyle(fontSize: 11),),
+              Text("Remplissage vasculaire par des bolus de $remplissagevasc ml de cristalloides.", style: const TextStyle(fontSize: 16),),
+              const Text("Compensation du jeune: Durée du jeune x besoin horaire = volume à compenser", style: TextStyle(fontSize: 11),),
             const Text("Passer 50% de ce volume la première heure et 50% sur la deuxième heure", style: TextStyle(fontSize: 11),),
-          const SizedBox(height: 16),
+          
+          ],
+            const SizedBox(height: 16),
           if (dosePropofolmini != null && dosePropofolmaxi != null) ...[
             //container des médicaments (en noir)
             Container(

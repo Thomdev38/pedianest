@@ -53,6 +53,7 @@ class _PosologieCalculatorScreenState extends State<PosologieCalculatorScreen> {
   double? dosePropofolEntretien;
   double? doseAdrenaline;
   double? doseAtropine;
+  int? poidstext;
   
 
   int calculerApportLiquidien(int poids) {
@@ -270,6 +271,7 @@ class _PosologieCalculatorScreenState extends State<PosologieCalculatorScreen> {
       dosePropofolEntretien = poids * 10.0; // 10 mg/kg/h;
       doseAdrenaline = poids * 0.01;
       doseAtropine = poids * 0.02;
+      poidstext = poids  * 1;
       
 
       // Condition spécifique pour la dose de célocurine
@@ -374,7 +376,8 @@ class _PosologieCalculatorScreenState extends State<PosologieCalculatorScreen> {
             ),
             EntretienPage(
               dosePropofolEntretien:
-                  dosePropofolEntretien, // Passer la nouvelle variable
+                  dosePropofolEntretien, 
+                  poidstext: poidstext,// Passer la nouvelle variable
             ),
           ],
         ),
@@ -418,6 +421,7 @@ class InductionPage extends StatelessWidget {
   final double? doseAdrenaline;
   final double? doseAtropine;
   final int? vtmax;
+  
   final double? repereiot;
   final Map<String, String>? taillelame;
   final Map<String, String>? circuit;
@@ -426,6 +430,7 @@ class InductionPage extends StatelessWidget {
   final Map<String, String>? tailleguedel;
 
   int? dosePropofolEntretien;
+  
 
   InductionPage({
     super.key,
@@ -469,6 +474,7 @@ class InductionPage extends StatelessWidget {
     required this.ballon,
     required this.taillesonde,
     required this.tailleguedel,
+    
     
   });
 
@@ -537,6 +543,7 @@ class InductionPage extends StatelessWidget {
               'Taille Sonde IOT: ${taillesonde!['taillesonde']}',
               style: const TextStyle(fontSize: 16),
             ),
+            
           ],
           if (taillelame != null) ...[
             const SizedBox(height: 4),

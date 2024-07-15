@@ -20,10 +20,13 @@ class EntretienPage extends StatelessWidget {
             style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
           ),
           const SizedBox(height: 16),
-          Text(
-            'Pour un enfant de: ${poidstext!} kg voici les doses recommandés',
-            style: const TextStyle(fontSize: 16),
-          ),
+          if (dosePropofolEntretien == null)
+            const Text("Veuillez rentrer le poids et l'age de l'enfant pour obtenir les doses d'entretien"),
+          if (dosePropofolEntretien != null)
+            Text(
+              'Pour un enfant de: ${poidstext!} kg voici les doses recommandés',
+              style: const TextStyle(fontSize: 16),
+            ),
           Container(
             padding: const EdgeInsets.all(2),
             decoration:

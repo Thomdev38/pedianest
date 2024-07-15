@@ -55,6 +55,8 @@ class _PosologieCalculatorScreenState extends State<PosologieCalculatorScreen> {
   double? doseAtropine;
   int? poidstext;
   int? remplissagevasc;
+  double? doseDexametasone;
+  double? doseNarcan;
   
 
   int calculerApportLiquidien(int poids) {
@@ -274,6 +276,8 @@ class _PosologieCalculatorScreenState extends State<PosologieCalculatorScreen> {
       doseAtropine = poids * 0.02;
       poidstext = poids  * 1;
       remplissagevasc = poids * 20;
+      doseDexametasone = poids * 0.2;
+      doseNarcan = poids * 0.1;
 
       // Condition spécifique pour la dose de célocurine
       if (ageEnMois < 24) {
@@ -372,7 +376,8 @@ class _PosologieCalculatorScreenState extends State<PosologieCalculatorScreen> {
               taillesonde: taillesonde,
               tailleguedel: tailleguedel,
               remplissagevasc: remplissagevasc,
-              
+              doseDexametasone: doseDexametasone,
+              doseNarcan: doseNarcan,
               
               
             ),
@@ -425,11 +430,13 @@ class InductionPage extends StatelessWidget {
   final int? vtmax;
   final int? remplissagevasc;
   final double? repereiot;
+  final double? doseNarcan;
   final Map<String, String>? taillelame;
   final Map<String, String>? circuit;
   final Map<String, String>? ballon;
   final Map<String, String>? taillesonde;
   final Map<String, String>? tailleguedel;
+  final double? doseDexametasone;
 
   int? dosePropofolEntretien;
   
@@ -477,6 +484,8 @@ class InductionPage extends StatelessWidget {
     required this.taillesonde,
     required this.tailleguedel,
     required this.remplissagevasc,
+    required this.doseDexametasone,
+    required this.doseNarcan,
     
     
   });
@@ -833,7 +842,15 @@ class InductionPage extends StatelessWidget {
                       fontWeight: FontWeight.bold,
                     ),
                   ),
-                  const Text("data"),
+                  Text(
+                    'Dexamétasone: ${doseDexametasone!.toStringAsFixed(1)}  mg',
+                    style: const TextStyle(fontSize: 16),
+                  ),
+                  Text(
+                    'Narcan: ${doseNarcan!.toStringAsFixed(1)}  mg',
+                    style: const TextStyle(fontSize: 16),
+                  ),
+                  
                 ],
               ),
             )

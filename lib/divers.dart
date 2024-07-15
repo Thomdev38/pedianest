@@ -11,7 +11,14 @@ class _DiversState extends State<Divers> {
   @override
   Widget build(BuildContext context) {
     return const Scaffold(
-      body: Text("Divers"),
+      body: SingleChildScrollView(
+        child: 
+        Column(
+          children: [
+          Text("Privacy policie"),
+          Text("Sources ")
+        ],)
+      )
     );
   }
 }

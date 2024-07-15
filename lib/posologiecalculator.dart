@@ -635,7 +635,11 @@ class InductionPage extends StatelessWidget {
                             fontWeight: FontWeight.bold,
                           ),
                         ),
-                        Container(child: Column(children: [
+                        SizedBox(
+                          width: double.infinity,
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
                           Text(
                           'Propofol: $dosePropofolmini - $dosePropofolmaxi mg',
                           style: const TextStyle(fontSize: 16),
@@ -649,8 +653,10 @@ class InductionPage extends StatelessWidget {
                         
                         
                          const SizedBox(height: 7),
-                         Container(
+                         SizedBox(
+                          width: double.infinity,
                           child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
                           'Etomidate: ${doseEtomidate!.toStringAsFixed(1)} mg',
@@ -661,14 +667,16 @@ class InductionPage extends StatelessWidget {
                           ),
                          ),
                         const SizedBox(height: 7),
-                        Container(
+                        SizedBox(
+                          width: double.infinity,
                           child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
-                          "Ketamine (en dose d'induction): $doseKetaminemini - $doseKetaminemaxi mg",
+                          "Ketamine: $doseKetaminemini - $doseKetaminemaxi mg",
                           style: const TextStyle(fontSize: 16),
                         ),
-                        const Text("2 mg/kg",style: TextStyle(fontSize: 12, color: Colors.grey), textAlign: TextAlign.right),
+                        const Text("2 mg/kg pour induction IV",style: TextStyle(fontSize: 12, color: Colors.grey), textAlign: TextAlign.right),
                             ],
                           ),
                         ),  
@@ -679,6 +687,7 @@ class InductionPage extends StatelessWidget {
                   const SizedBox(height: 4),
                   //container bleu des morphiniques
                   Container(
+                    width: double.infinity,
                     decoration: BoxDecoration(
                       border: Border.all(color: Colors.blue.shade700, width: 5),
                     ),
@@ -694,10 +703,20 @@ class InductionPage extends StatelessWidget {
                             fontWeight: FontWeight.bold,
                           ),
                         ),
-                        Text(
+                        SizedBox(
+                          width: double.infinity,
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                            Text(
                           'Sufentanyl: ${doseSufentamini!.toStringAsFixed(1)} - ${doseSufentamaxi!.toStringAsFixed(1)} µg',
                           style: const TextStyle(fontSize: 16),
                         ),
+                        const Text("2 mg/kg pour induction IV",style: TextStyle(fontSize: 12, color: Colors.grey), textAlign: TextAlign.right),
+
+                          ],),
+                        ),
+                        
                         const SizedBox(height: 2),
                         Text(
                           'Alfentanyl: $doseAlfentanylmini - $doseAlfentanylmaxi µg',
@@ -719,6 +738,7 @@ class InductionPage extends StatelessWidget {
                   const SizedBox(height: 4),
                   //container rouge des curares
                   Container(
+                    width: double.infinity,
                     decoration: BoxDecoration(
                       border: Border.all(color: Colors.red.shade700, width: 5),
                     ),
@@ -764,6 +784,7 @@ class InductionPage extends StatelessWidget {
                   const SizedBox(height: 4),
                    //container rouge des antalgiques
                   Container(
+                    width: double.infinity,
                     decoration: BoxDecoration(
                       border: Border.all(color: Colors.purple.shade400, width: 5),
                     ),

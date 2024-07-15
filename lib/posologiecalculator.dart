@@ -635,20 +635,43 @@ class InductionPage extends StatelessWidget {
                             fontWeight: FontWeight.bold,
                           ),
                         ),
-                        Text(
+                        Container(child: Column(children: [
+                          Text(
                           'Propofol: $dosePropofolmini - $dosePropofolmaxi mg',
                           style: const TextStyle(fontSize: 16),
                         ),
-                        const SizedBox(height: 2),
-                        Text(
+                        const Text("2 à 5 mg/kg",style: TextStyle(fontSize: 12, color: Colors.grey), textAlign: TextAlign.right),
+
+                        ],
+                        
+                          
+                        ),),
+                        
+                        
+                         const SizedBox(height: 7),
+                         Container(
+                          child: Column(
+                            children: [
+                              Text(
                           'Etomidate: ${doseEtomidate!.toStringAsFixed(1)} mg',
                           style: const TextStyle(fontSize: 16),
                         ),
-                        const SizedBox(height: 2),
-                        Text(
+                        const Text("0,2 mg/kg",style: TextStyle(fontSize: 12, color: Colors.grey), textAlign: TextAlign.right,),
+                            ],
+                          ),
+                         ),
+                        const SizedBox(height: 7),
+                        Container(
+                          child: Column(
+                            children: [
+                              Text(
                           "Ketamine (en dose d'induction): $doseKetaminemini - $doseKetaminemaxi mg",
                           style: const TextStyle(fontSize: 16),
                         ),
+                        const Text("2 mg/kg",style: TextStyle(fontSize: 12, color: Colors.grey), textAlign: TextAlign.right),
+                            ],
+                          ),
+                        ),  
                       ],
                     ),
                   ),
@@ -850,6 +873,7 @@ class InductionPage extends StatelessWidget {
                     'Narcan: ${doseNarcan!.toStringAsFixed(1)}  mg',
                     style: const TextStyle(fontSize: 16),
                   ),
+                  
                   
                 ],
               ),

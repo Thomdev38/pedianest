@@ -527,7 +527,7 @@ class InductionPage extends StatelessWidget {
             ),
             const SizedBox(height: 8),
             Container(
-              padding: EdgeInsets.only(top: 40, bottom: 40),
+              padding: const EdgeInsets.only(top: 40, bottom: 40),
               color: Colors.black,
               height: 200,
               child: Column(
@@ -536,28 +536,28 @@ class InductionPage extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
 
-                      Spacer(),
+                      const Spacer(),
                       Text(
                         'FC: ${constantesPhysiologiques!['FC']}',
                         style: const TextStyle(color: Color.fromARGB(255, 94, 228, 41), fontSize: 18, fontWeight: FontWeight.bold),
                       ),
-                      Spacer(),
+                      const Spacer(),
                       Text('FR: ${constantesPhysiologiques!['FR']}',
                           style: const TextStyle(color: Colors.white, fontSize: 18, fontWeight: FontWeight.bold)),
                       
-                      Spacer(),
+                      const Spacer(),
                     ],
                   ), 
-                  Spacer(),
+                  const Spacer(),
                   Row(
                     children: [
-                      Spacer(),
+                      const Spacer(),
                       Text('PAS: ${constantesPhysiologiques!['PAS']}',
                           style: const TextStyle(color: Colors.red, fontSize: 18, fontWeight: FontWeight.bold)),
-                      Spacer(),
+                      const Spacer(),
                       Text('PAM: ${constantesPhysiologiques!['PAM']}',
                           style: const TextStyle(color: Color.fromARGB(255, 201, 84, 222), fontSize: 18, fontWeight: FontWeight.bold)),
-                      Spacer(),
+                      const Spacer(),
                     ],
                   )
                 ],

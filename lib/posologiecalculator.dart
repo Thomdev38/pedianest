@@ -57,7 +57,7 @@ class _PosologieCalculatorScreenState extends State<PosologieCalculatorScreen> {
   int? remplissagevasc;
   double? doseDexametasone;
   double? doseNarcan;
-  
+  double? doseketaNMDA;
 
   int calculerApportLiquidien(int poids) {
     int apport = 0;
@@ -72,9 +72,6 @@ class _PosologieCalculatorScreenState extends State<PosologieCalculatorScreen> {
 
     return apport;
   }
-
-  
-
 
   Map<String, String> obtenirConstantesPhysiologiques(int ageEnMois) {
     if (ageEnMois <= 1) {
@@ -121,7 +118,8 @@ class _PosologieCalculatorScreenState extends State<PosologieCalculatorScreen> {
       };
     }
   }
-   Map<String, String> obtenirCircuit(int poids) {
+
+  Map<String, String> obtenirCircuit(int poids) {
     if (poids <= 5) {
       return {
         'circuit': 'Néonat',
@@ -197,8 +195,6 @@ class _PosologieCalculatorScreenState extends State<PosologieCalculatorScreen> {
     }
   }
 
-
-
   Map<String, String> obtenirTailleLame(int poids) {
     if (poids <= 5) {
       return {
@@ -222,7 +218,7 @@ class _PosologieCalculatorScreenState extends State<PosologieCalculatorScreen> {
       };
     }
   }
-  
+
   Map<String, String> obtenirTailleguedel(int ageEnMois) {
     if (ageEnMois <= 1) {
       return {
@@ -274,10 +270,11 @@ class _PosologieCalculatorScreenState extends State<PosologieCalculatorScreen> {
       dosePropofolEntretien = poids * 10.0; // 10 mg/kg/h;
       doseAdrenaline = poids * 0.01;
       doseAtropine = poids * 0.02;
-      poidstext = poids  * 1;
+      poidstext = poids * 1;
       remplissagevasc = poids * 20;
       doseDexametasone = poids * 0.2;
       doseNarcan = poids * 0.1;
+      doseketaNMDA = poids * 0.2;
 
       // Condition spécifique pour la dose de célocurine
       if (ageEnMois < 24) {
@@ -285,7 +282,7 @@ class _PosologieCalculatorScreenState extends State<PosologieCalculatorScreen> {
       } else {
         doseCelocurinemini = poids;
       }
-    
+
       doseAtracrium = poids * 0.5;
       doseRocuroniummini = poids * 0.6;
       doseRocuroniummaxi = poids * 1.2;
@@ -300,16 +297,10 @@ class _PosologieCalculatorScreenState extends State<PosologieCalculatorScreen> {
       taillesonde = obtenirtaillesonde(poids);
       tailleguedel = obtenirTailleguedel(ageEnMois);
 
-      
-      
-     
-
-
-
-     //if (ageEnMois < 12) {
-       // tailleSonde = roundToHalf(ageEnMois / 10.0 + 3.0);
+      //if (ageEnMois < 12) {
+      // tailleSonde = roundToHalf(ageEnMois / 10.0 + 3.0);
       //} else {
-        //tailleSonde = roundToHalf((ageEnMois / 12.0 + 16) / 4.0);
+      //tailleSonde = roundToHalf((ageEnMois / 12.0 + 16) / 4.0);
       //}
     });
   }
@@ -372,19 +363,17 @@ class _PosologieCalculatorScreenState extends State<PosologieCalculatorScreen> {
               circuit: circuit,
               ballon: ballon,
               doseAdrenaline: doseAdrenaline,
-              doseAtropine: doseAtropine, 
+              doseAtropine: doseAtropine,
               taillesonde: taillesonde,
               tailleguedel: tailleguedel,
               remplissagevasc: remplissagevasc,
               doseDexametasone: doseDexametasone,
               doseNarcan: doseNarcan,
-              
-              
+              doseketaNMDA: doseketaNMDA,
             ),
             EntretienPage(
-              dosePropofolEntretien:
-                  dosePropofolEntretien, 
-                  poidstext: poidstext,// Passer la nouvelle variable
+              dosePropofolEntretien: dosePropofolEntretien,
+              poidstext: poidstext, // Passer la nouvelle variable
             ),
           ],
         ),
@@ -437,9 +426,9 @@ class InductionPage extends StatelessWidget {
   final Map<String, String>? taillesonde;
   final Map<String, String>? tailleguedel;
   final double? doseDexametasone;
+  final double? doseketaNMDA;
 
   int? dosePropofolEntretien;
-  
 
   InductionPage({
     super.key,
@@ -486,8 +475,7 @@ class InductionPage extends StatelessWidget {
     required this.remplissagevasc,
     required this.doseDexametasone,
     required this.doseNarcan,
-    
-    
+    required this.doseketaNMDA,
   });
 
   @override
@@ -538,10 +526,43 @@ class InductionPage extends StatelessWidget {
               style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
             ),
             const SizedBox(height: 8),
-            Text('FC: ${constantesPhysiologiques!['FC']}'),
-            Text('PAS: ${constantesPhysiologiques!['PAS']}'),
-            Text('PAM: ${constantesPhysiologiques!['PAM']}'),
-            Text('FR: ${constantesPhysiologiques!['FR']}'),
+            Container(
+              padding: EdgeInsets.only(top: 40, bottom: 40),
+              color: Colors.black,
+              height: 200,
+              child: Column(
+                children: [
+                  Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+
+                      Spacer(),
+                      Text(
+                        'FC: ${constantesPhysiologiques!['FC']}',
+                        style: const TextStyle(color: Color.fromARGB(255, 94, 228, 41), fontSize: 18, fontWeight: FontWeight.bold),
+                      ),
+                      Spacer(),
+                      Text('FR: ${constantesPhysiologiques!['FR']}',
+                          style: const TextStyle(color: Colors.white, fontSize: 18, fontWeight: FontWeight.bold)),
+                      
+                      Spacer(),
+                    ],
+                  ), 
+                  Spacer(),
+                  Row(
+                    children: [
+                      Spacer(),
+                      Text('PAS: ${constantesPhysiologiques!['PAS']}',
+                          style: const TextStyle(color: Colors.red, fontSize: 18, fontWeight: FontWeight.bold)),
+                      Spacer(),
+                      Text('PAM: ${constantesPhysiologiques!['PAM']}',
+                          style: const TextStyle(color: Color.fromARGB(255, 201, 84, 222), fontSize: 18, fontWeight: FontWeight.bold)),
+                      Spacer(),
+                    ],
+                  )
+                ],
+              ),
+            ),
             const SizedBox(height: 16),
           ],
           if (taillesonde != null) ...[
@@ -549,13 +570,18 @@ class InductionPage extends StatelessWidget {
               "Ventilation",
               style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
             ),
-            Text('Circuit: ${circuit!['circuit']}',style: const TextStyle(fontSize: 16),),
-            Text('Ballon: ${ballon!['ballon']}',style: const TextStyle(fontSize: 16),),
+            Text(
+              'Circuit: ${circuit!['circuit']}',
+              style: const TextStyle(fontSize: 16),
+            ),
+            Text(
+              'Ballon: ${ballon!['ballon']}',
+              style: const TextStyle(fontSize: 16),
+            ),
             Text(
               'Taille Sonde IOT: ${taillesonde!['taillesonde']}',
               style: const TextStyle(fontSize: 16),
             ),
-            
           ],
           if (taillelame != null) ...[
             const SizedBox(height: 4),
@@ -563,13 +589,11 @@ class InductionPage extends StatelessWidget {
               'Taille Lame: ${taillelame!['taillelame']}',
               style: const TextStyle(fontSize: 16),
             ),
-          
             const SizedBox(height: 4),
             Text(
               'Taille Guedel: ${tailleguedel!['tailleguedel']}',
               style: const TextStyle(fontSize: 16),
             ),
-          
           ],
           if (repereiot != null) ...[
             const SizedBox(height: 4),
@@ -591,15 +615,23 @@ class InductionPage extends StatelessWidget {
             ),
             const SizedBox(height: 4),
             Text(
-              'Apport Liquidien de base: $apportLiquidien ml/h (au PSE chez le- de 10kg sinon avec régulateur de débit)' ,
+              'Apport Liquidien de base: $apportLiquidien ml/h (au PSE chez le- de 10kg sinon avec régulateur de débit)',
               style: const TextStyle(fontSize: 16),
             ),
-              Text("Remplissage vasculaire par des bolus de $remplissagevasc ml de cristalloides.", style: const TextStyle(fontSize: 16),),
-              const Text("Compensation du jeune: Durée du jeune x besoin horaire = volume à compenser", style: TextStyle(fontSize: 11),),
-            const Text("Passer 50% de ce volume la première heure et 50% sur la deuxième heure", style: TextStyle(fontSize: 11),),
-          
+            Text(
+              "Remplissage vasculaire par des bolus de $remplissagevasc ml de cristalloides.",
+              style: const TextStyle(fontSize: 16),
+            ),
+            const Text(
+              "Compensation du jeune: Durée du jeune x besoin horaire = volume à compenser",
+              style: TextStyle(fontSize: 11),
+            ),
+            const Text(
+              "Passer 50% de ce volume la première heure et 50% sur la deuxième heure",
+              style: TextStyle(fontSize: 11),
+            ),
           ],
-            const SizedBox(height: 16),
+          const SizedBox(height: 16),
           if (dosePropofolmini != null && dosePropofolmaxi != null) ...[
             //container des médicaments (en noir)
             Container(
@@ -640,32 +672,17 @@ class InductionPage extends StatelessWidget {
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                          Text(
-                          'Propofol: $dosePropofolmini - $dosePropofolmaxi mg',
-                          style: const TextStyle(fontSize: 16),
-                        ),
-                        const Text("2 à 5 mg/kg",style: TextStyle(fontSize: 12, color: Colors.grey), textAlign: TextAlign.right),
-
-                        ],
-                        
-                          
-                        ),),
-                        
-                        
-                         const SizedBox(height: 7),
-                         SizedBox(
-                          width: double.infinity,
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
                               Text(
-                          'Etomidate: ${doseEtomidate!.toStringAsFixed(1)} mg',
-                          style: const TextStyle(fontSize: 16),
-                        ),
-                        const Text("0,2 mg/kg",style: TextStyle(fontSize: 12, color: Colors.grey), textAlign: TextAlign.right,),
+                                'Propofol: $dosePropofolmini - $dosePropofolmaxi mg',
+                                style: const TextStyle(fontSize: 16),
+                              ),
+                              const Text("2 à 5 mg/kg",
+                                  style: TextStyle(
+                                      fontSize: 12, color: Colors.grey),
+                                  textAlign: TextAlign.right),
                             ],
                           ),
-                         ),
+                        ),
                         const SizedBox(height: 7),
                         SizedBox(
                           width: double.infinity,
@@ -673,13 +690,51 @@ class InductionPage extends StatelessWidget {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
-                          "Ketamine: $doseKetaminemini - $doseKetaminemaxi mg",
-                          style: const TextStyle(fontSize: 16),
-                        ),
-                        const Text("2 mg/kg pour induction IV",style: TextStyle(fontSize: 12, color: Colors.grey), textAlign: TextAlign.right),
+                                'Etomidate: ${doseEtomidate!.toStringAsFixed(1)} mg',
+                                style: const TextStyle(fontSize: 16),
+                              ),
+                              const Text(
+                                "0,2 mg/kg",
+                                style:
+                                    TextStyle(fontSize: 12, color: Colors.grey),
+                                textAlign: TextAlign.right,
+                              ),
                             ],
                           ),
-                        ),  
+                        ),
+                        const SizedBox(height: 7),
+                        SizedBox(
+                          width: double.infinity,
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                "Ketamine: $doseKetaminemini - $doseKetaminemaxi mg",
+                                style: const TextStyle(fontSize: 16),
+                              ),
+                              const Text("2 mg/kg pour induction IV",
+                                  style: TextStyle(
+                                      fontSize: 12, color: Colors.grey),
+                                  textAlign: TextAlign.right),
+                            ],
+                          ),
+                        ),
+                        SizedBox(
+                          width: double.infinity,
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                "Ketamine: $doseketaNMDA mg",
+                                style: const TextStyle(fontSize: 16),
+                              ),
+                              const Text("0.2 mg/kg (anti NMDA)",
+                                  style: TextStyle(
+                                      fontSize: 12, color: Colors.grey),
+                                  textAlign: TextAlign.right),
+                            ],
+                          ),
+                        ),
                       ],
                     ),
                   ),
@@ -703,34 +758,70 @@ class InductionPage extends StatelessWidget {
                             fontWeight: FontWeight.bold,
                           ),
                         ),
+                        const SizedBox(height: 7),
                         SizedBox(
                           width: double.infinity,
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                            Text(
-                          'Sufentanyl: ${doseSufentamini!.toStringAsFixed(1)} - ${doseSufentamaxi!.toStringAsFixed(1)} µg',
-                          style: const TextStyle(fontSize: 16),
+                              Text(
+                                'Sufentanyl: ${doseSufentamini!.toStringAsFixed(1)} - ${doseSufentamaxi!.toStringAsFixed(1)} µg',
+                                style: const TextStyle(fontSize: 16),
+                              ),
+                              const Text("2 mg/kg",
+                                  style: TextStyle(
+                                      fontSize: 12, color: Colors.grey),
+                                  textAlign: TextAlign.right),
+                            ],
+                          ),
                         ),
-                        const Text("2 mg/kg pour induction IV",style: TextStyle(fontSize: 12, color: Colors.grey), textAlign: TextAlign.right),
-
-                          ],),
+                        const SizedBox(height: 7),
+                        SizedBox(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                'Alfentanyl: $doseAlfentanylmini - $doseAlfentanylmaxi µg',
+                                style: const TextStyle(fontSize: 16),
+                              ),
+                              const Text(" 20 à 40 mcg/kg",
+                                  style: TextStyle(
+                                      fontSize: 12, color: Colors.grey),
+                                  textAlign: TextAlign.right),
+                            ],
+                          ),
                         ),
-                        
-                        const SizedBox(height: 2),
-                        Text(
-                          'Alfentanyl: $doseAlfentanylmini - $doseAlfentanylmaxi µg',
-                          style: const TextStyle(fontSize: 16),
+                        const SizedBox(height: 7),
+                        SizedBox(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                'Remifentanyl: ${doseRemifentanylmini!.toStringAsFixed(1)} - ${doseRemifentanylmaxi!.toStringAsFixed(1)} µg',
+                                style: const TextStyle(fontSize: 16),
+                              ),
+                              const Text(" 20 à 40 mcg/kg",
+                                  style: TextStyle(
+                                      fontSize: 12, color: Colors.grey),
+                                  textAlign: TextAlign.right),
+                            ],
+                          ),
                         ),
-                        const SizedBox(height: 2),
-                        Text(
-                          'Remifentanyl: ${doseRemifentanylmini!.toStringAsFixed(1)} - ${doseRemifentanylmaxi!.toStringAsFixed(1)} µg',
-                          style: const TextStyle(fontSize: 16),
-                        ),
-                        const SizedBox(height: 2),
-                        Text(
-                          'Fentanyl: $doseFentanylmini - $doseFentanylmaxi µg',
-                          style: const TextStyle(fontSize: 16),
+                        const SizedBox(height: 7),
+                        SizedBox(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                'Fentanyl: $doseFentanylmini - $doseFentanylmaxi µg',
+                                style: const TextStyle(fontSize: 16),
+                              ),
+                              const Text(" 20 à 50 mcg/kg",
+                                  style: TextStyle(
+                                      fontSize: 12, color: Colors.grey),
+                                  textAlign: TextAlign.right),
+                            ],
+                          ),
                         ),
                       ],
                     ),
@@ -748,98 +839,42 @@ class InductionPage extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         const Text(
-                    "Curares:",
-                    style: TextStyle(
-                      fontSize: 16,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  Text(
-                    'Cisatracrium: ${doseCisatracrium!.toStringAsFixed(1)} mg',
-                    style: const TextStyle(
-                        fontSize: 16),
-                  ),
-                  const SizedBox(height: 2),
-                  Text(
-                    'Celocurine: $doseCelocurinemini mg',
-                    style: const TextStyle(
-                        fontSize: 16),
-                  ),
-                  const SizedBox(height: 2),
-                  Text(
-                    'Atracrium: ${doseAtracrium!.toStringAsFixed(1)} mg',
-                    style: const TextStyle(
-                        fontSize: 16),
-                  ),
-                  const SizedBox(height: 2),
-                  Text(
-                    'Rocuronium: ${doseRocuroniummini!.toStringAsFixed(0)} - ${doseRocuroniummaxi!.toStringAsFixed(0)} mg',
-                    style: const TextStyle(
-                         fontSize: 16),
-                  ),
+                          "Curares:",
+                          style: TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        Text(
+                          'Cisatracrium: ${doseCisatracrium!.toStringAsFixed(1)} mg',
+                          style: const TextStyle(fontSize: 16),
+                        ),
+                        const SizedBox(height: 2),
+                        Text(
+                          'Celocurine: $doseCelocurinemini mg',
+                          style: const TextStyle(fontSize: 16),
+                        ),
+                        const SizedBox(height: 2),
+                        Text(
+                          'Atracrium: ${doseAtracrium!.toStringAsFixed(1)} mg',
+                          style: const TextStyle(fontSize: 16),
+                        ),
+                        const SizedBox(height: 2),
+                        Text(
+                          'Rocuronium: ${doseRocuroniummini!.toStringAsFixed(0)} - ${doseRocuroniummaxi!.toStringAsFixed(0)} mg',
+                          style: const TextStyle(fontSize: 16),
+                        ),
                       ],
                     ),
                   ),
 
                   const SizedBox(height: 4),
-                   //container rouge des antalgiques
+                  //container rouge des antalgiques
                   Container(
                     width: double.infinity,
                     decoration: BoxDecoration(
-                      border: Border.all(color: Colors.purple.shade400, width: 5),
-                    ),
-                    padding: const EdgeInsets.all(5),
-                    margin: const EdgeInsets.all(3),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        
-                  const Text(
-                    "Amines:",
-                    style: TextStyle(
-                      fontSize: 16,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  Text(
-                    'Adrénaline: ${doseAdrenaline!.toStringAsFixed(2)}  mg',
-                    style: const TextStyle(fontSize: 16),
-                  ),
-                  Text(
-                    'Atropine: ${doseMorphine!.toStringAsFixed(2)}  mg',
-                    style: const TextStyle(fontSize: 16),
-                  ),
-                  RichText(
-                    text: const TextSpan(
-                      children: <TextSpan>[
-                        TextSpan(
-                          text: 'Noradrénaline: ',
-                          style: TextStyle(
-                            fontSize: 16.0,
-                            color: Colors.black,
-                          ),
-                        ),
-                        TextSpan(
-                          text:
-                              'Noradre 3mg(1,5ml) + Séreum phy 48,5ml soit 0,06mg/ml => 0.1-0.3g/kg/min = O.1-0.3ml/kg/h',
-                          style: TextStyle(
-                            fontSize: 12.0,
-                            color: Colors.black,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                  
-                      ],
-                    ),
-                  ),
-                  
-                  const SizedBox(height: 4),
-                   //container violet des amines
-                  Container(
-                    decoration: BoxDecoration(
-                      border: Border.all(color: Colors.green.shade400, width: 5),
+                      border:
+                          Border.all(color: Colors.purple.shade400, width: 5),
                     ),
                     padding: const EdgeInsets.all(5),
                     margin: const EdgeInsets.all(3),
@@ -847,37 +882,89 @@ class InductionPage extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         const Text(
-                    "Antalgiques:",
-                    style: TextStyle(
-                      fontSize: 16,
-                      fontWeight: FontWeight.bold,
+                          "Amines:",
+                          style: TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        Text(
+                          'Adrénaline: ${doseAdrenaline!.toStringAsFixed(2)}  mg',
+                          style: const TextStyle(fontSize: 16),
+                        ),
+                        Text(
+                          'Atropine: ${doseMorphine!.toStringAsFixed(2)}  mg',
+                          style: const TextStyle(fontSize: 16),
+                        ),
+                        RichText(
+                          text: const TextSpan(
+                            children: <TextSpan>[
+                              TextSpan(
+                                text: 'Noradrénaline: ',
+                                style: TextStyle(
+                                  fontSize: 16.0,
+                                  color: Colors.black,
+                                ),
+                              ),
+                              TextSpan(
+                                text:
+                                    'Noradre 3mg(1,5ml) + Séreum phy 48,5ml soit 0,06mg/ml => 0.1-0.3g/kg/min = O.1-0.3ml/kg/h',
+                                style: TextStyle(
+                                  fontSize: 12.0,
+                                  color: Colors.black,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
                     ),
                   ),
-                  Text(
-                    'Paracétamol: ${doseParacetamol!.toStringAsFixed(0)} mg',
-                    style: const TextStyle(fontSize: 16),
-                  ),
-                  const SizedBox(height: 2),
-                  Text(
-                    'Profénid: $doseProfenid mg',
-                    style: const TextStyle(fontSize: 16),
-                  ),
-                  const SizedBox(height: 2),
-                  Text(
-                    'Nalbuphine: ${doseNalbuphine!.toStringAsFixed(1)} mg',
-                    style: const TextStyle(fontSize: 16),
-                  ),
-                  const SizedBox(height: 2),
-                  Text(
-                    'Morphine: ${doseMorphine!.toStringAsFixed(1)}  mg',
-                    style: const TextStyle(fontSize: 16),
-                  ),
+
+                  const SizedBox(height: 4),
+                  //container violet des amines
+                  Container(
+                    width: double.infinity,
+                    decoration: BoxDecoration(
+                      border:
+                          Border.all(color: Colors.green.shade400, width: 5),
+                    ),
+                    padding: const EdgeInsets.all(5),
+                    margin: const EdgeInsets.all(3),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        const Text(
+                          "Antalgiques:",
+                          style: TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        Text(
+                          'Paracétamol: ${doseParacetamol!.toStringAsFixed(0)} mg',
+                          style: const TextStyle(fontSize: 16),
+                        ),
+                        const SizedBox(height: 2),
+                        Text(
+                          'Profénid: $doseProfenid mg',
+                          style: const TextStyle(fontSize: 16),
+                        ),
+                        const SizedBox(height: 2),
+                        Text(
+                          'Nalbuphine: ${doseNalbuphine!.toStringAsFixed(1)} mg',
+                          style: const TextStyle(fontSize: 16),
+                        ),
+                        const SizedBox(height: 2),
+                        Text(
+                          'Morphine: ${doseMorphine!.toStringAsFixed(1)}  mg',
+                          style: const TextStyle(fontSize: 16),
+                        ),
                       ],
                     ),
                   ),
                   const SizedBox(height: 4),
-                  
-                    
+
                   const SizedBox(height: 16),
                   const Text(
                     "Autres:",
@@ -894,8 +981,6 @@ class InductionPage extends StatelessWidget {
                     'Narcan: ${doseNarcan!.toStringAsFixed(1)}  mg',
                     style: const TextStyle(fontSize: 16),
                   ),
-                  
-                  
                 ],
               ),
             )

@@ -13,9 +13,12 @@ class _HomepageState extends State<Homepage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: OnBoardingSlider(
+      body: Container(
+        padding: const EdgeInsets.only(top: 20, bottom: 20, right: 20, left: 20),
+        child:
+      OnBoardingSlider(
         headerBackgroundColor: Colors.white,
-        finishButtonText: 'Commencez',
+        finishButtonText: "Accédez à l'outils",
         onFinish: () {
         Navigator.push(
                           context,
@@ -26,36 +29,30 @@ class _HomepageState extends State<Homepage> {
         finishButtonStyle: const FinishButtonStyle(
           backgroundColor: Color.fromARGB(225, 86, 125, 199),
         ),
-        skipTextButton: const Text('Passer'),
+        
         background: [
-          Image.asset('assets/images/slide_1.jpeg'),
+          Image.asset('assets/images/slide_1.jpeg'), 
           Image.asset('assets/images/slide_2.jpeg'),
           Image.asset('assets/images/slide_1.jpeg'),
         ],
         totalPage: 3,
         speed: 1.8,
         pageBodies: [
-          Container(
-            padding: const EdgeInsets.symmetric(horizontal: 40),
-            child: const Column(
-              children: <Widget>[
-                SizedBox(
-                  height: 480,
-                ),
-                Text("Rentrez les informations de l'enfant"),
-              ],
-            ),
+          const Column(
+            children: <Widget>[
+              SizedBox(
+                height: 480,
+              ),
+              Text("Rentrez les informations de l'enfant"),
+            ],
           ),
-          Container(
-            padding: const EdgeInsets.symmetric(horizontal: 40),
-            child: const Column(
-              children: <Widget>[
-                SizedBox(
-                  height: 480,
-                ),
-                Text('Préparez votre salle'),
-              ],
-            ),
+          const Column(
+            children: <Widget>[
+              SizedBox(
+                height: 480,
+              ),
+              Text('Préparez votre salle'),
+            ],
           ),
           Container(
             padding: const EdgeInsets.symmetric(horizontal: 40),
@@ -69,7 +66,7 @@ class _HomepageState extends State<Homepage> {
             ),
           ),
         ],
-      ),
+      ),)
     );
     
   }

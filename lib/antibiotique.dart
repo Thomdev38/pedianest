@@ -1,10 +1,10 @@
 import "package:flutter/material.dart";
 
-class UrgencePage extends StatelessWidget {
+class AntibioPage extends StatelessWidget {
   final double? dosePropofolEntretien; // Recevoir la variable du parent
   final int? poidstext;
 
-  const UrgencePage({
+  const AntibioPage({
     super.key,
     this.dosePropofolEntretien,
     this.poidstext,
@@ -21,10 +21,10 @@ class UrgencePage extends StatelessWidget {
           ),
           const SizedBox(height: 16),
           if (dosePropofolEntretien == null)
-            const Text("Veuillez rentrer le poids et l'age de l'enfant pour obtenir les médicaments suivant"),
+            const Text("Veuillez rentrer le poids et l'age de l'enfant pour obtenir les doses d'entretien"),
           if (dosePropofolEntretien != null)
             Text(
-              'Pour un enfant de: ${poidstext!} kg voici les doses recommandés',
+              "Pour un enfant de: ${poidstext!} kg voici les doses d'antibio-prophylaxie recommandés",
               style: const TextStyle(fontSize: 16),
             ),
           Container(
@@ -36,25 +36,31 @@ class UrgencePage extends StatelessWidget {
               children: [
                 const SizedBox(height: 4),
                 //container des hypnotiques
-                const Text("Exacyl"),
-                const SizedBox(height: 6,),
-                const Text("Gluconate de calcium"),
-                const SizedBox(height: 6,),
-                const Text("Hydrocortisone"),
-                const SizedBox(height: 6,),
-                const Text("Solumédrol"),
-                const SizedBox(height: 6,),
-                const Text("Manitol"),
-                const SizedBox(height: 6,),
-                const Text("bupivacaine"),
-                const SizedBox(height: 6,),
-                const Text("Naropeine"),
-                const SizedBox(height: 6,),
-                const Text("Lidocaine"),
-                const SizedBox(height: 6,),
-
-
-
+                Container(
+                  decoration: BoxDecoration(
+                    border: Border.all(
+                      color: Colors.yellow,
+                      width: 5,
+                    ),
+                  ),
+                  padding: const EdgeInsets.all(5),
+                  margin: const EdgeInsets.all(3),
+                  child: const Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisSize: MainAxisSize.max,
+                    children: [
+                      Text(
+                        "Cefazoline:",
+                        style: TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+            
+                      SizedBox(height: 2),
+                    ],
+                  ),
+                ),
 
                 const SizedBox(height: 4),
                 //container bleu des morphiniques

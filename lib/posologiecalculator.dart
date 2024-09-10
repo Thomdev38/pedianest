@@ -1,5 +1,6 @@
 // ignore_for_file: must_be_immutable
 import 'package:flutter/material.dart';
+import 'antibiotique.dart';
 import 'entretien.dart';
 
 class PosologieCalculatorScreen extends StatefulWidget {
@@ -21,6 +22,7 @@ class _PosologieCalculatorScreenState extends State<PosologieCalculatorScreen> {
   Map<String, String>? ballon;
   Map<String, String>? tailleguedel;
   Map<String, String>? taillesonde;
+  Map<String, String>? tailleaspi;
   bool isAgeInMonths = false; // Pour vérifier si l'âge est en mois ou en années
   int? dosePropofolmini;
   int? dosePropofolmaxi;
@@ -72,6 +74,7 @@ class _PosologieCalculatorScreenState extends State<PosologieCalculatorScreen> {
 
     return apport;
   }
+
 
   Map<String, String> obtenirConstantesPhysiologiques(int ageEnMois) {
     if (ageEnMois <= 1) {
@@ -219,6 +222,35 @@ class _PosologieCalculatorScreenState extends State<PosologieCalculatorScreen> {
     }
   }
 
+  Map<String, String> obtenirTailleAspi(int poids) {
+    if (poids < 5) {
+      return {
+        'tailleaspi': '6 - 8',
+      };
+    } else if (poids <= 10) {
+      return {
+        'tailleaspi': '8',
+      };
+    } else if (poids <= 15) {
+      return {
+        'tailleaspi': '10',
+      };
+    } else if (poids <= 20) {
+      return {
+        'tailleaspi': '12',
+      };
+    } else if (poids <= 35) {
+      return {
+        'tailleaspi': '14',
+      };
+    
+    } else {
+      return {
+        'tailleaspi': '16',
+      };
+    }
+  }
+
   Map<String, String> obtenirTailleguedel(int ageEnMois) {
     if (ageEnMois <= 1) {
       return {
@@ -292,6 +324,7 @@ class _PosologieCalculatorScreenState extends State<PosologieCalculatorScreen> {
       vtmax = poids * 8;
       repereiot = ageEnMois / 12 / 2 + 12;
       taillelame = obtenirTailleLame(poids);
+      tailleaspi = obtenirTailleAspi(poids);
       circuit = obtenirCircuit(poids);
       ballon = obtenirBallon(poids);
       taillesonde = obtenirtaillesonde(poids);
@@ -308,14 +341,15 @@ class _PosologieCalculatorScreenState extends State<PosologieCalculatorScreen> {
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
-      length: 2,
+      length: 3,
       child: Scaffold(
         appBar: AppBar(
           title: const Text('Calculette de Posologie'),
           bottom: const TabBar(
             tabs: [
               Tab(text: 'Induction'),
-              Tab(text: 'Entretien'),
+              Tab(text: 'Autres'),
+              Tab(text: "Antibiotique",),
             ],
           ),
         ),
@@ -365,16 +399,22 @@ class _PosologieCalculatorScreenState extends State<PosologieCalculatorScreen> {
               doseAdrenaline: doseAdrenaline,
               doseAtropine: doseAtropine,
               taillesonde: taillesonde,
+              tailleaspi: tailleaspi,
               tailleguedel: tailleguedel,
               remplissagevasc: remplissagevasc,
               doseDexametasone: doseDexametasone,
               doseNarcan: doseNarcan,
               doseketaNMDA: doseketaNMDA,
             ),
-            EntretienPage(
+            UrgencePage(
               dosePropofolEntretien: dosePropofolEntretien,
               poidstext: poidstext, // Passer la nouvelle variable
             ),
+            AntibioPage(
+              dosePropofolEntretien: dosePropofolEntretien,
+              poidstext: poidstext, // Passer la nouvelle variable
+            ),
+
           ],
         ),
       ),
@@ -424,6 +464,7 @@ class InductionPage extends StatelessWidget {
   final Map<String, String>? circuit;
   final Map<String, String>? ballon;
   final Map<String, String>? taillesonde;
+  final Map<String, String>? tailleaspi;
   final Map<String, String>? tailleguedel;
   final double? doseDexametasone;
   final double? doseketaNMDA;
@@ -472,6 +513,7 @@ class InductionPage extends StatelessWidget {
     required this.ballon,
     required this.taillesonde,
     required this.tailleguedel,
+    required this.tailleaspi,
     required this.remplissagevasc,
     required this.doseDexametasone,
     required this.doseNarcan,
@@ -492,7 +534,7 @@ class InductionPage extends StatelessWidget {
           const SizedBox(height: 12),
           TextField(
             controller: ageController,
-            keyboardType: TextInputType.number,
+            keyboardType: TextInputType.text,
             decoration: const InputDecoration(
               labelText: 'Âge',
               border: OutlineInputBorder(),
@@ -508,7 +550,7 @@ class InductionPage extends StatelessWidget {
           const SizedBox(height: 2),
           TextField(
             controller: poidsController,
-            keyboardType: TextInputType.number,
+            keyboardType: TextInputType.text,
             decoration: const InputDecoration(
               labelText: 'Poids (kg)',
               border: OutlineInputBorder(),
@@ -528,7 +570,8 @@ class InductionPage extends StatelessWidget {
             const SizedBox(height: 8),
             Container(
               padding: const EdgeInsets.only(top: 40, bottom: 40),
-              color: Colors.black,
+              //color: Colors.black,
+              decoration: const BoxDecoration(image: DecorationImage(image: AssetImage("assets/images/ecg.jpg"), fit: BoxFit.cover) ),
               height: 200,
               child: Column(
                 children: [
@@ -548,7 +591,7 @@ class InductionPage extends StatelessWidget {
                       const Spacer(),
                     ],
                   ), 
-                  const Spacer(),
+                 const Spacer(),
                   Row(
                     children: [
                       const Spacer(),
@@ -582,6 +625,11 @@ class InductionPage extends StatelessWidget {
               'Taille Sonde IOT: ${taillesonde!['taillesonde']}',
               style: const TextStyle(fontSize: 16),
             ),
+            Text(
+              "Taille Sonde d'aspiration: ${tailleaspi!['tailleaspi']}",
+              style: const TextStyle(fontSize: 16),
+            ),
+
           ],
           if (taillelame != null) ...[
             const SizedBox(height: 4),
@@ -606,6 +654,7 @@ class InductionPage extends StatelessWidget {
               'Volume courant: $vtmin - $vtmax ml',
               style: const TextStyle(fontSize: 16),
             ),
+            Text('Fréquence Respiratoire: ${constantesPhysiologiques!['FR']}', style: const TextStyle(fontSize: 16),),
             const SizedBox(height: 16),
           ],
           if (apportLiquidien != null) ...[
@@ -768,7 +817,7 @@ class InductionPage extends StatelessWidget {
                                 'Sufentanyl: ${doseSufentamini!.toStringAsFixed(1)} - ${doseSufentamaxi!.toStringAsFixed(1)} µg',
                                 style: const TextStyle(fontSize: 16),
                               ),
-                              const Text("2 mg/kg",
+                              const Text("0,2 mcg/kg",
                                   style: TextStyle(
                                       fontSize: 12, color: Colors.grey),
                                   textAlign: TextAlign.right),
@@ -908,7 +957,7 @@ class InductionPage extends StatelessWidget {
                               ),
                               TextSpan(
                                 text:
-                                    'Noradre 3mg(1,5ml) + Séreum phy 48,5ml soit 0,06mg/ml => 0.1-0.3g/kg/min = O.1-0.3ml/kg/h',
+                                    'Noradre 3mg(1,5ml) + Séreum phy 48,5ml soit 0,06mg/ml => 0.1-0.3mcg/kg/min = O.1-0.3ml/kg/h',
                                 style: TextStyle(
                                   fontSize: 12.0,
                                   color: Colors.black,
@@ -981,6 +1030,7 @@ class InductionPage extends StatelessWidget {
                     'Narcan: ${doseNarcan!.toStringAsFixed(1)}  mg',
                     style: const TextStyle(fontSize: 16),
                   ),
+
                 ],
               ),
             )

@@ -10,15 +10,18 @@ class Divers extends StatefulWidget {
 class _DiversState extends State<Divers> {
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
+    return  Scaffold(
       body: SingleChildScrollView(
-        child: 
-        Column(
+        child: Container(
+          padding: const EdgeInsets.all(20),
+          child: 
+        const Column(
+          
           children: [
           Text("Privacy policie"),
-          Text("Sources ")
+          Text("Sources "),
         ],)
       )
-    );
+    ));
   }
 }

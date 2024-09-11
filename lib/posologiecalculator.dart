@@ -75,7 +75,6 @@ class _PosologieCalculatorScreenState extends State<PosologieCalculatorScreen> {
     return apport;
   }
 
-
   Map<String, String> obtenirConstantesPhysiologiques(int ageEnMois) {
     if (ageEnMois <= 1) {
       return {
@@ -243,7 +242,6 @@ class _PosologieCalculatorScreenState extends State<PosologieCalculatorScreen> {
       return {
         'tailleaspi': '14',
       };
-    
     } else {
       return {
         'tailleaspi': '16',
@@ -349,7 +347,9 @@ class _PosologieCalculatorScreenState extends State<PosologieCalculatorScreen> {
             tabs: [
               Tab(text: 'Induction'),
               Tab(text: 'Autres'),
-              Tab(text: "Antibiotique",),
+              Tab(
+                text: "Antibiotique",
+              ),
             ],
           ),
         ),
@@ -414,7 +414,6 @@ class _PosologieCalculatorScreenState extends State<PosologieCalculatorScreen> {
               dosePropofolEntretien: dosePropofolEntretien,
               poidstext: poidstext, // Passer la nouvelle variable
             ),
-
           ],
         ),
       ),
@@ -571,35 +570,48 @@ class InductionPage extends StatelessWidget {
             Container(
               padding: const EdgeInsets.only(top: 40, bottom: 40),
               //color: Colors.black,
-              decoration: const BoxDecoration(image: DecorationImage(image: AssetImage("assets/images/ecg.jpg"), fit: BoxFit.cover) ),
+              decoration: const BoxDecoration(
+                  image: DecorationImage(
+                      image: AssetImage("assets/images/ecg.jpg"),
+                      fit: BoxFit.cover)),
               height: 200,
               child: Column(
                 children: [
                   Row(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-
                       const Spacer(),
                       Text(
                         'FC: ${constantesPhysiologiques!['FC']}',
-                        style: const TextStyle(color: Color.fromARGB(255, 94, 228, 41), fontSize: 18, fontWeight: FontWeight.bold),
+                        style: const TextStyle(
+                            color: Color.fromARGB(255, 94, 228, 41),
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold),
                       ),
                       const Spacer(),
                       Text('FR: ${constantesPhysiologiques!['FR']}',
-                          style: const TextStyle(color: Colors.white, fontSize: 18, fontWeight: FontWeight.bold)),
-                      
+                          style: const TextStyle(
+                              color: Colors.white,
+                              fontSize: 18,
+                              fontWeight: FontWeight.bold)),
                       const Spacer(),
                     ],
-                  ), 
-                 const Spacer(),
+                  ),
+                  const Spacer(),
                   Row(
                     children: [
                       const Spacer(),
                       Text('PAS: ${constantesPhysiologiques!['PAS']}',
-                          style: const TextStyle(color: Colors.red, fontSize: 18, fontWeight: FontWeight.bold)),
+                          style: const TextStyle(
+                              color: Colors.red,
+                              fontSize: 18,
+                              fontWeight: FontWeight.bold)),
                       const Spacer(),
                       Text('PAM: ${constantesPhysiologiques!['PAM']}',
-                          style: const TextStyle(color: Color.fromARGB(255, 201, 84, 222), fontSize: 18, fontWeight: FontWeight.bold)),
+                          style: const TextStyle(
+                              color: Color.fromARGB(255, 201, 84, 222),
+                              fontSize: 18,
+                              fontWeight: FontWeight.bold)),
                       const Spacer(),
                     ],
                   )
@@ -629,7 +641,6 @@ class InductionPage extends StatelessWidget {
               "Taille Sonde d'aspiration: ${tailleaspi!['tailleaspi']}",
               style: const TextStyle(fontSize: 16),
             ),
-
           ],
           if (taillelame != null) ...[
             const SizedBox(height: 4),
@@ -654,31 +665,11 @@ class InductionPage extends StatelessWidget {
               'Volume courant: $vtmin - $vtmax ml',
               style: const TextStyle(fontSize: 16),
             ),
-            Text('Fréquence Respiratoire: ${constantesPhysiologiques!['FR']}', style: const TextStyle(fontSize: 16),),
+            Text(
+              'Fréquence Respiratoire: ${constantesPhysiologiques!['FR']}',
+              style: const TextStyle(fontSize: 16),
+            ),
             const SizedBox(height: 16),
-          ],
-          if (apportLiquidien != null) ...[
-            const Text(
-              "Divers",
-              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-            ),
-            const SizedBox(height: 4),
-            Text(
-              'Apport Liquidien de base: $apportLiquidien ml/h (au PSE chez le- de 10kg sinon avec régulateur de débit)',
-              style: const TextStyle(fontSize: 16),
-            ),
-            Text(
-              "Remplissage vasculaire par des bolus de $remplissagevasc ml de cristalloides.",
-              style: const TextStyle(fontSize: 16),
-            ),
-            const Text(
-              "Compensation du jeune: Durée du jeune x besoin horaire = volume à compenser",
-              style: TextStyle(fontSize: 11),
-            ),
-            const Text(
-              "Passer 50% de ce volume la première heure et 50% sur la deuxième heure",
-              style: TextStyle(fontSize: 11),
-            ),
           ],
           const SizedBox(height: 16),
           if (dosePropofolmini != null && dosePropofolmaxi != null) ...[
@@ -1013,6 +1004,32 @@ class InductionPage extends StatelessWidget {
                     ),
                   ),
                   const SizedBox(height: 4),
+                  const SizedBox(height: 16),
+
+                  if (apportLiquidien != null) ...[
+                    const Text(
+                      "Divers",
+                      style:
+                          TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                    ),
+                    const SizedBox(height: 4),
+                    Text(
+                      'Apport Liquidien de base: $apportLiquidien ml/h (au PSE chez le- de 10kg sinon avec régulateur de débit)',
+                      style: const TextStyle(fontSize: 16),
+                    ),
+                    Text(
+                      "Remplissage vasculaire par des bolus de $remplissagevasc ml de cristalloides.",
+                      style: const TextStyle(fontSize: 16),
+                    ),
+                    const Text(
+                      "Compensation du jeune: Durée du jeune x besoin horaire = volume à compenser",
+                      style: TextStyle(fontSize: 11),
+                    ),
+                    const Text(
+                      "Passer 50% de ce volume la première heure et 50% sur la deuxième heure",
+                      style: TextStyle(fontSize: 11),
+                    ),
+                  ],
 
                   const SizedBox(height: 16),
                   const Text(
@@ -1030,7 +1047,6 @@ class InductionPage extends StatelessWidget {
                     'Narcan: ${doseNarcan!.toStringAsFixed(1)}  mg',
                     style: const TextStyle(fontSize: 16),
                   ),
-
                 ],
               ),
             )

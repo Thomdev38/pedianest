@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_onboarding_slider/flutter_onboarding_slider.dart';
-import 'package:pedianesth/posologiecalculator.dart';
+import 'package:pedianesth/english/mainen.dart';
 
 class Homepage extends StatefulWidget {
   const Homepage({super.key});
@@ -13,61 +12,26 @@ class _HomepageState extends State<Homepage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Container(
-        padding: const EdgeInsets.only(top: 20, bottom: 20, right: 20, left: 20),
-        child:
-      OnBoardingSlider(
-        headerBackgroundColor: Colors.white,
-        finishButtonText: "Accédez à l'outils",
-        onFinish: () {
-        Navigator.push(
-                          context,
-                          PageRouteBuilder(
-                              pageBuilder: (_, __, ___) => const PosologieCalculatorScreen()),
-                        );
-      },
-        finishButtonStyle: const FinishButtonStyle(
-          backgroundColor: Color.fromARGB(225, 86, 125, 199),
-        ),
-        
-        background: [
-          Image.asset('assets/images/slide_1.jpeg'), 
-          Image.asset('assets/images/slide_2.jpeg'),
-          Image.asset('assets/images/slide_1.jpeg'),
-        ],
-        totalPage: 3,
-        speed: 1.8,
-        pageBodies: [
-          const Column(
-            children: <Widget>[
-              SizedBox(
-                height: 480,
-              ),
-              Text("Rentrez les informations de l'enfant"),
-            ],
-          ),
-          const Column(
-            children: <Widget>[
-              SizedBox(
-                height: 480,
-              ),
-              Text('Préparez votre salle'),
-            ],
-          ),
-          Container(
-            padding: const EdgeInsets.symmetric(horizontal: 40),
-            child: const Column(
-              children: <Widget>[
-                SizedBox(
-                  height: 480,
+        body: Container(
+            padding:
+                const EdgeInsets.only(top: 60, bottom: 20, right: 20, left: 20),
+            child: Column(
+              mainAxisSize: MainAxisSize.max,
+              children: [
+                const Text("Simple"),
+                const SizedBox(
+                  height: 50,
                 ),
-                Text('Gérer votre anesthésie'),
+                ElevatedButton(
+                  child: const Text('English'),
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => const Mainen()),
+                    );
+                  },
+                ),
               ],
-            ),
-          ),
-        ],
-      ),)
-    );
-    
+            )));
   }
 }

@@ -1,18 +1,17 @@
 // ignore_for_file: must_be_immutable
 import 'package:flutter/material.dart';
-import 'antibiotique.dart';
-import 'entretien.dart';
+import 'package:pedianesth/english/entretienenglish.dart';
+import 'antibiotiquesenglish.dart';
 
-class PosologieCalculatorScreen extends StatefulWidget {
-  const PosologieCalculatorScreen({super.key});
+class PosologieEnglishScreen extends StatefulWidget {
+  const PosologieEnglishScreen({super.key});
 
   @override
   // ignore: library_private_types_in_public_api
-  _PosologieCalculatorScreenState createState() =>
-      _PosologieCalculatorScreenState();
+  _PosologieEnglishScreenState createState() => _PosologieEnglishScreenState();
 }
 
-class _PosologieCalculatorScreenState extends State<PosologieCalculatorScreen> {
+class _PosologieEnglishScreenState extends State<PosologieEnglishScreen> {
   final TextEditingController ageController = TextEditingController();
   final TextEditingController poidsController = TextEditingController();
 
@@ -406,11 +405,11 @@ class _PosologieCalculatorScreenState extends State<PosologieCalculatorScreen> {
               doseNarcan: doseNarcan,
               doseketaNMDA: doseketaNMDA,
             ),
-            UrgencePage(
+            UrgenceEnglish(
               dosePropofolEntretien: dosePropofolEntretien,
               poidstext: poidstext, // Passer la nouvelle variable
             ),
-            AntibioPage(
+            Antibiotiquesenglish(
               dosePropofolEntretien: dosePropofolEntretien,
               poidstext: poidstext, // Passer la nouvelle variable
             ),

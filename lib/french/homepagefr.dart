@@ -2,14 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_onboarding_slider/flutter_onboarding_slider.dart';
 import 'package:pedianesth/french/posologiecalculator.dart';
 
-class Homeenglish extends StatefulWidget {
-  const Homeenglish({super.key});
+class Homefrench extends StatefulWidget {
+  const Homefrench({super.key});
 
   @override
-  State<Homeenglish> createState() => _HomeenglishState();
+  State<Homefrench> createState() => _HomefrenchState();
 }
 
-class _HomeenglishState extends State<Homeenglish> {
+class _HomefrenchState extends State<Homefrench> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -41,7 +41,7 @@ class _HomeenglishState extends State<Homeenglish> {
               SizedBox(
                 height: 480,
               ),
-              Text("entrer caracteristic patient"),
+              Text("entrez caracteristique patient"),
             ],
           ),
           const Column(
@@ -49,7 +49,7 @@ class _HomeenglishState extends State<Homeenglish> {
               SizedBox(
                 height: 480,
               ),
-              Text('prepar operating room'),
+              Text('preparer salle'),
             ],
           ),
           Container(
@@ -59,7 +59,7 @@ class _HomeenglishState extends State<Homeenglish> {
                 SizedBox(
                   height: 480,
                 ),
-                Text('netflix'),
+                Text('anesthésie'),
               ],
             ),
           ),

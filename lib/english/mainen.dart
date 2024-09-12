@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:pedianesth/divers.dart';
+import 'package:pedianesth/french/divers.dart';
 import 'package:pedianesth/english/homeenglish.dart';
 import 'package:pedianesth/english/posologieenglish.dart';
-import 'package:pedianesth/fiches.dart';
+import 'package:pedianesth/french/fiches.dart';
 
 //import 'package:pedianesth/poids.dart';
 

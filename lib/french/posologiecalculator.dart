@@ -346,7 +346,7 @@ class _PosologieCalculatorScreenState extends State<PosologieCalculatorScreen> {
           bottom: const TabBar(
             tabs: [
               Tab(text: 'Induction'),
-              Tab(text: 'Autres'),
+              Tab(text: 'ALR/Divers'),
               Tab(
                 text: "Antibiotique",
               ),

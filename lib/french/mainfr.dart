@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:pedianesth/french/divers.dart';
 import 'package:pedianesth/french/fiches.dart';
 import 'package:pedianesth/french/homepagefr.dart';
-import 'package:pedianesth/homepage.dart';
+
 //import 'package:pedianesth/poids.dart';
 import 'package:pedianesth/french/posologiecalculator.dart';
 

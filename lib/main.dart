@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:pedianesth/french/divers.dart';
-import 'package:pedianesth/french/fiches.dart';
+import 'package:pedianesth/divers.dart';
+import 'package:pedianesth/fiches.dart';
 import 'package:pedianesth/homepage.dart';
 //import 'package:pedianesth/poids.dart';
-import 'package:pedianesth/french/posologiecalculator.dart';
+import 'package:pedianesth/posologiecalculator.dart';
 
 void main() {
   runApp(const MainApp());

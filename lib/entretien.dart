@@ -1,13 +1,15 @@
 import "package:flutter/material.dart";
 
-class EntretienPage extends StatelessWidget {
+class UrgencePage extends StatelessWidget {
   final double? dosePropofolEntretien; // Recevoir la variable du parent
   final int? poidstext;
+  final double? doseExacyl;
 
-  const EntretienPage({
+  const UrgencePage({
     super.key,
     this.dosePropofolEntretien,
     this.poidstext,
+    this.doseExacyl,
   });
 
   @override
@@ -16,12 +18,13 @@ class EntretienPage extends StatelessWidget {
         padding: const EdgeInsets.all(16.0),
         child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
           const Text(
-            "Doses d'entretien",
+            "Médicaments autres",
             style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
           ),
           const SizedBox(height: 16),
           if (dosePropofolEntretien == null)
-            const Text("Veuillez rentrer le poids et l'age de l'enfant pour obtenir les doses d'entretien"),
+            const Text(
+                "Veuillez rentrer le poids et l'age de l'enfant pour obtenir les médicaments suivant"),
           if (dosePropofolEntretien != null)
             Text(
               'Pour un enfant de: ${poidstext!} kg voici les doses recommandés',
@@ -36,34 +39,51 @@ class EntretienPage extends StatelessWidget {
               children: [
                 const SizedBox(height: 4),
                 //container des hypnotiques
-                Container(
-                  decoration: BoxDecoration(
-                    border: Border.all(
-                      color: Colors.yellow,
-                      width: 5,
-                    ),
-                  ),
-                  padding: const EdgeInsets.all(5),
-                  margin: const EdgeInsets.all(3),
+                SizedBox(
+                  width: double.infinity,
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisSize: MainAxisSize.max,
                     children: [
-                      const Text(
-                        "Hypnotiques:",
-                        style: TextStyle(
-                          fontSize: 16,
-                          fontWeight: FontWeight.bold,
-                        ),
+                      Text(
+                        'Exacyl: $doseExacyl mg',
+                        style: const TextStyle(fontSize: 16),
                       ),
-                      if (dosePropofolEntretien != null)
-                        Text(
-                          'Dose d\'entretien de Propofol: ${dosePropofolEntretien!.toStringAsFixed(1)} mg/h',
-                          style: const TextStyle(fontSize: 16),
-                        ),
-                      const SizedBox(height: 2),
+                      const Text("20 mg/kg",
+                          style: TextStyle(fontSize: 12, color: Colors.grey),
+                          textAlign: TextAlign.right),
                     ],
                   ),
+                ),
+                const SizedBox(
+                  height: 6,
+                ),
+                const Text("Gluconate de calcium"),
+                const SizedBox(
+                  height: 6,
+                ),
+                const Text("Hydrocortisone"),
+                const SizedBox(
+                  height: 6,
+                ),
+                const Text("Solumédrol"),
+                const SizedBox(
+                  height: 6,
+                ),
+                const Text("Manitol"),
+                const SizedBox(
+                  height: 6,
+                ),
+                const Text("bupivacaine"),
+                const SizedBox(
+                  height: 6,
+                ),
+                const Text("Naropeine"),
+                const SizedBox(
+                  height: 6,
+                ),
+                const Text("Lidocaine"),
+                const SizedBox(
+                  height: 6,
                 ),
 
                 const SizedBox(height: 4),

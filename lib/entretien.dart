@@ -119,7 +119,7 @@ class UrgencePage extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        "Curares:",
+                        "Blood management:",
                         style: TextStyle(
                           fontSize: 16,
                           fontWeight: FontWeight.bold,

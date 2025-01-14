@@ -21,7 +21,8 @@ class AntibioPage extends StatelessWidget {
           ),
           const SizedBox(height: 16),
           if (dosePropofolEntretien == null)
-            const Text("Veuillez rentrer le poids et l'age de l'enfant pour obtenir les doses d'entretien"),
+            const Text(
+                "Veuillez rentrer le poids et l'age de l'enfant pour obtenir les doses d'entretien"),
           if (dosePropofolEntretien != null)
             Text(
               "Pour un enfant de: ${poidstext!} kg voici les doses d'antibio-prophylaxie recommandés",
@@ -39,7 +40,7 @@ class AntibioPage extends StatelessWidget {
                 Container(
                   decoration: BoxDecoration(
                     border: Border.all(
-                      color: Colors.yellow,
+                      color: const Color.fromARGB(255, 164, 228, 80),
                       width: 5,
                     ),
                   ),
@@ -56,7 +57,6 @@ class AntibioPage extends StatelessWidget {
                           fontWeight: FontWeight.bold,
                         ),
                       ),
-            
                       SizedBox(height: 2),
                     ],
                   ),
@@ -66,7 +66,9 @@ class AntibioPage extends StatelessWidget {
                 //container bleu des morphiniques
                 Container(
                   decoration: BoxDecoration(
-                    border: Border.all(color: Colors.blue.shade700, width: 5),
+                    border: Border.all(
+                        color: const Color.fromARGB(255, 152, 153, 153),
+                        width: 5),
                   ),
                   padding: const EdgeInsets.all(5),
                   margin: const EdgeInsets.all(3),
@@ -74,36 +76,26 @@ class AntibioPage extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        "Morphiniques:",
+                        "Anesthésique locaux:",
                         style: TextStyle(
                           fontSize: 16,
                           fontWeight: FontWeight.bold,
                         ),
                       ),
+                      Text("bupivacaine"),
+                      SizedBox(
+                        height: 6,
+                      ),
+                      Text("Naropeine"),
+                      SizedBox(
+                        height: 6,
+                      ),
+                      Text("Lidocaine"),
                     ],
                   ),
                 ),
                 const SizedBox(height: 4),
                 //container rouge des curares
-                Container(
-                  decoration: BoxDecoration(
-                    border: Border.all(color: Colors.red.shade700, width: 5),
-                  ),
-                  padding: const EdgeInsets.all(5),
-                  margin: const EdgeInsets.all(3),
-                  child: const Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        "Curares:",
-                        style: TextStyle(
-                          fontSize: 16,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
 
                 // Autres éléments à afficher...
               ],

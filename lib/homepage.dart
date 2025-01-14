@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+
 import 'package:pedianesth/antibiotique.dart';
 import 'package:pedianesth/entretien.dart';
 
@@ -344,12 +345,17 @@ class _PosologieCalculatorScreenState extends State<PosologieCalculatorScreen> {
       child: Scaffold(
         appBar: AppBar(
           title: const Text('Calculette de Posologie'),
+          centerTitle: true,
           bottom: const TabBar(
+            isScrollable: true,
+            dividerColor: Colors.deepPurple,
+            indicatorWeight: 4.0,
+            indicatorColor: Color.fromARGB(255, 230, 129, 163),
             tabs: [
               Tab(text: 'Anesthésie'),
               Tab(text: 'Urgences'),
               Tab(
-                text: "Antibiotiques",
+                text: "Antibiotiques/ ALR",
               ),
             ],
           ),

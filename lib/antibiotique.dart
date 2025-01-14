@@ -9,6 +9,14 @@ class AntibioPage extends StatelessWidget {
   final int? dosePrilocaine;
   final int? age;
   final int? isAgeInMonths;
+  final int? doseCefazoline;
+  final int? doseAmox;
+  final int? doseCefoxitine;
+  final int? doseClindamycine;
+  final int? doseGentamycine;
+  final int? doseMetronidazole;
+  final int? doseVancomycinemini;
+  final int? doseVancomycinemaxi;
 
   const AntibioPage({
     super.key,
@@ -20,6 +28,14 @@ class AntibioPage extends StatelessWidget {
     this.dosePrilocaine,
     this.isAgeInMonths,
     this.age,
+    this.doseCefazoline,
+    this.doseCefoxitine,
+    this.doseAmox,
+    this.doseClindamycine,
+    this.doseGentamycine,
+    this.doseMetronidazole,
+    this.doseVancomycinemini,
+    this.doseVancomycinemaxi,
   });
 
   @override
@@ -174,18 +190,18 @@ class AntibioPage extends StatelessWidget {
                   ),
                   padding: const EdgeInsets.all(5),
                   margin: const EdgeInsets.all(3),
-                  child: const Column(
+                  child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisSize: MainAxisSize.max,
                     children: [
-                      Text(
+                      const Text(
                         "Antibioprophylaxie:",
                         style: TextStyle(
                           fontSize: 16,
                           fontWeight: FontWeight.bold,
                         ),
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 6,
                       ),
                       SizedBox(
@@ -194,17 +210,18 @@ class AntibioPage extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              'Cefazoline mg',
-                              style: TextStyle(fontSize: 16),
+                              'Cefazoline: $doseCefazoline mg',
+                              style: const TextStyle(fontSize: 16),
                             ),
-                            Text("30 mg/kg, si durée > 4h refaire la même dose",
+                            const Text(
+                                "30 mg/kg, si durée > 4h refaire la même dose",
                                 style:
                                     TextStyle(fontSize: 12, color: Colors.grey),
                                 textAlign: TextAlign.right),
                           ],
                         ),
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 6,
                       ),
                       SizedBox(
@@ -213,10 +230,10 @@ class AntibioPage extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              'Amoxicilline/acide clavulanique mg',
-                              style: TextStyle(fontSize: 16),
+                              'Amoxicilline/acide clavulanique: $doseAmox mg',
+                              style: const TextStyle(fontSize: 16),
                             ),
-                            Text(
+                            const Text(
                                 "50 mg/kg (max 2g), si durée > 2h refaire la même dose (max 1g)",
                                 style:
                                     TextStyle(fontSize: 12, color: Colors.grey),
@@ -224,7 +241,7 @@ class AntibioPage extends StatelessWidget {
                           ],
                         ),
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 6,
                       ),
                       SizedBox(
@@ -233,10 +250,10 @@ class AntibioPage extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              'Clindamycine: mg',
-                              style: TextStyle(fontSize: 16),
+                              'Clindamycine: $doseClindamycine mg',
+                              style: const TextStyle(fontSize: 16),
                             ),
-                            Text(
+                            const Text(
                                 "10 mg/kg (max 900mg), si durée > 4h refaire la même dose (max 450mg à 600mg suivant les indications)",
                                 style:
                                     TextStyle(fontSize: 12, color: Colors.grey),
@@ -244,7 +261,7 @@ class AntibioPage extends StatelessWidget {
                           ],
                         ),
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 6,
                       ),
                       SizedBox(
@@ -253,17 +270,17 @@ class AntibioPage extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              'Gentamicyne: mg',
-                              style: TextStyle(fontSize: 16),
+                              'Gentamicyne: $doseGentamycine mg',
+                              style: const TextStyle(fontSize: 16),
                             ),
-                            Text("6 mg/kg dose unique",
+                            const Text("6 mg/kg dose unique",
                                 style:
                                     TextStyle(fontSize: 12, color: Colors.grey),
                                 textAlign: TextAlign.right),
                           ],
                         ),
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 6,
                       ),
                       SizedBox(
@@ -272,10 +289,10 @@ class AntibioPage extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              'Cefoxitine: mg',
-                              style: TextStyle(fontSize: 16),
+                              'Cefoxitine: $doseCefoxitine mg',
+                              style: const TextStyle(fontSize: 16),
                             ),
-                            Text(
+                            const Text(
                                 "40 mg/kg (max 2g), si durée > 2h refaire même dose (max 1g)",
                                 style:
                                     TextStyle(fontSize: 12, color: Colors.grey),
@@ -283,7 +300,7 @@ class AntibioPage extends StatelessWidget {
                           ],
                         ),
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 6,
                       ),
                       SizedBox(
@@ -292,17 +309,17 @@ class AntibioPage extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              'Métronidazole: mg',
-                              style: TextStyle(fontSize: 16),
+                              'Métronidazole: $doseMetronidazole mg',
+                              style: const TextStyle(fontSize: 16),
                             ),
-                            Text("15 mg/kg, dose unique",
+                            const Text("15 mg/kg, dose unique",
                                 style:
                                     TextStyle(fontSize: 12, color: Colors.grey),
                                 textAlign: TextAlign.right),
                           ],
                         ),
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 6,
                       ),
                       SizedBox(
@@ -311,10 +328,11 @@ class AntibioPage extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              'Vancomycine: mg',
-                              style: TextStyle(fontSize: 16),
+                              'Vancomycine: $doseVancomycinemini à $doseVancomycinemaxi mg',
+                              style: const TextStyle(fontSize: 16),
                             ),
-                            Text("20 à 30 mg/kg en 60 minutes, dose unique",
+                            const Text(
+                                "20 à 30 mg/kg en 60 minutes, dose unique",
                                 style:
                                     TextStyle(fontSize: 12, color: Colors.grey),
                                 textAlign: TextAlign.right),

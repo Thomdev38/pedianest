@@ -65,6 +65,14 @@ class _PosologieCalculatorScreenState extends State<PosologieCalculatorScreen> {
   int? dosePrilocaine;
   int? doseRopivacaine;
   double? doseBupivacaine;
+  int? doseCefazoline;
+  int? doseAmox;
+  int? doseClindamycine;
+  int? doseGentamycine;
+  int? doseCefoxitine;
+  int? doseMetronidazole;
+  int? doseVancomycinemini;
+  int? doseVancomycinemaxi;
 
   int calculerApportLiquidien(int poids) {
     int apport = 0;
@@ -315,6 +323,14 @@ class _PosologieCalculatorScreenState extends State<PosologieCalculatorScreen> {
       doseBupivacaine = poids * 2.5;
       dosePrilocaine = poids * 5;
       doseRopivacaine = poids * 3;
+      doseCefazoline = poids * 30;
+      doseAmox = poids * 50;
+      doseClindamycine = poids * 10;
+      doseGentamycine = poids * 6;
+      doseCefoxitine = poids * 40;
+      doseMetronidazole = poids * 15;
+      doseVancomycinemini = poids * 20;
+      doseVancomycinemaxi = poids * 30;
 
       // Condition spécifique pour la dose de célocurine
       if (ageEnMois < 24) {
@@ -433,6 +449,14 @@ class _PosologieCalculatorScreenState extends State<PosologieCalculatorScreen> {
               doseBupivacaine: doseBupivacaine,
               dosePrilocaine: dosePrilocaine,
               doseRopivacaine: doseRopivacaine,
+              doseClindamycine: doseClindamycine,
+              doseGentamycine: doseGentamycine,
+              doseCefoxitine: doseCefoxitine,
+              doseMetronidazole: doseMetronidazole,
+              doseVancomycinemini: doseVancomycinemini,
+              doseVancomycinemaxi: doseVancomycinemaxi,
+              doseAmox: doseAmox,
+              doseCefazoline: doseCefazoline,
             ),
           ],
         ),

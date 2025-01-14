@@ -73,6 +73,7 @@ class _PosologieCalculatorScreenState extends State<PosologieCalculatorScreen> {
   int? doseMetronidazole;
   int? doseVancomycinemini;
   int? doseVancomycinemaxi;
+  int? agemoistext;
 
   int calculerApportLiquidien(int poids) {
     int apport = 0;
@@ -288,7 +289,7 @@ class _PosologieCalculatorScreenState extends State<PosologieCalculatorScreen> {
 
   void calculerDosesEtSonde() {
     final int age = int.tryParse(ageController.text) ?? 0;
-    final int ageEnMois = isAgeInMonths ? age : age * 12;
+    int ageEnMois = isAgeInMonths ? age : age * 12;
     final int poids = int.tryParse(poidsController.text) ?? 0;
 
     setState(() {
@@ -314,6 +315,7 @@ class _PosologieCalculatorScreenState extends State<PosologieCalculatorScreen> {
       doseAdrenaline = poids * 0.01;
       doseAtropine = poids * 0.02;
       poidstext = poids * 1;
+      agemoistext = ageEnMois * 1;
       remplissagevasc = poids * 20;
       doseDexametasone = poids * 0.2;
       doseNarcan = poids * 0.1;
@@ -457,6 +459,7 @@ class _PosologieCalculatorScreenState extends State<PosologieCalculatorScreen> {
               doseVancomycinemaxi: doseVancomycinemaxi,
               doseAmox: doseAmox,
               doseCefazoline: doseCefazoline,
+              agemoistext: agemoistext,
             ),
           ],
         ),

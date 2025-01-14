@@ -61,6 +61,10 @@ class _PosologieCalculatorScreenState extends State<PosologieCalculatorScreen> {
   double? doseNarcan;
   double? doseketaNMDA;
   double? doseExacyl;
+  int? doseLidocaine;
+  int? dosePrilocaine;
+  int? doseRopivacaine;
+  double? doseBupivacaine;
 
   int calculerApportLiquidien(int poids) {
     int apport = 0;
@@ -307,6 +311,10 @@ class _PosologieCalculatorScreenState extends State<PosologieCalculatorScreen> {
       doseNarcan = poids * 0.1;
       doseketaNMDA = poids * 0.2;
       doseExacyl = poids * 20;
+      doseLidocaine = poids * 5;
+      doseBupivacaine = poids * 2.5;
+      dosePrilocaine = poids * 5;
+      doseRopivacaine = poids * 3;
 
       // Condition spécifique pour la dose de célocurine
       if (ageEnMois < 24) {
@@ -421,6 +429,10 @@ class _PosologieCalculatorScreenState extends State<PosologieCalculatorScreen> {
             AntibioPage(
               dosePropofolEntretien: dosePropofolEntretien,
               poidstext: poidstext, // Passer la nouvelle variable
+              doseLidocaine: doseLidocaine,
+              doseBupivacaine: doseBupivacaine,
+              dosePrilocaine: dosePrilocaine,
+              doseRopivacaine: doseRopivacaine,
             ),
           ],
         ),

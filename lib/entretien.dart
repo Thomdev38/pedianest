@@ -73,15 +73,7 @@ class UrgencePage extends StatelessWidget {
                 const SizedBox(
                   height: 6,
                 ),
-                const Text("bupivacaine"),
-                const SizedBox(
-                  height: 6,
-                ),
-                const Text("Naropeine"),
-                const SizedBox(
-                  height: 6,
-                ),
-                const Text("Lidocaine"),
+
                 const SizedBox(
                   height: 6,
                 ),

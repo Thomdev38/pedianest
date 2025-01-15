@@ -1049,26 +1049,23 @@ class InductionPage extends StatelessWidget {
                           'Atropine: ${doseMorphine!.toStringAsFixed(2)}  mg',
                           style: const TextStyle(fontSize: 16),
                         ),
-                        RichText(
-                          text: const TextSpan(
-                            children: <TextSpan>[
-                              TextSpan(
-                                text: 'Noradrénaline: ',
-                                style: TextStyle(
-                                  fontSize: 16.0,
-                                  color: Colors.black,
-                                ),
-                              ),
-                              TextSpan(
-                                text:
-                                    'Noradre 3mg(1,5ml) + Séreum phy 48,5ml soit 0,06mg/ml => 0.1-0.3mcg/kg/min = O.1-0.3ml/kg/h',
-                                style: TextStyle(
-                                  fontSize: 12.0,
-                                  color: Colors.black,
-                                ),
+                        ExpansionTile(
+                          title: const Row(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                'Noradrénaline',
+                                style: TextStyle(fontSize: 16),
                               ),
                             ],
                           ),
+                          children: <Widget>[
+                            Container(
+                              padding: const EdgeInsets.all(4.0),
+                              child: const Text(
+                                  'Noradre 3mg(1,5ml) + Séreum phy 48,5ml soit 0,06mg/ml => 0.1-0.3mcg/kg/min = O.1-0.3ml/kg/h'),
+                            )
+                          ],
                         ),
                       ],
                     ),
@@ -1184,12 +1181,25 @@ class InductionPage extends StatelessWidget {
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Text(
-                                'Apport Liquidien de base: $apportLiquidien ml/h (au PSE chez le- de 10kg sinon avec régulateur de débit)',
-                                style: const TextStyle(fontSize: 16),
+                              ExpansionTile(
+                                title: Row(
+                                  children: [
+                                    Text(
+                                      'Apport Liquidien de base: $apportLiquidien ml/h ',
+                                      style: const TextStyle(fontSize: 16),
+                                    ),
+                                  ],
+                                ),
+                                children: <Widget>[
+                                  Container(
+                                    padding: const EdgeInsets.all(4.0),
+                                    child: const Text(
+                                        "(au PSE chez le moins de 10kg sinon avec régulateur de débit)"),
+                                  )
+                                ],
                               ),
                               Text(
-                                "Remplissage vasculaire par des bolus de $remplissagevasc ml de cristalloides.",
+                                "Bolus de $remplissagevasc ml de cristalloides.",
                                 style: const TextStyle(fontSize: 16),
                               ),
                               const Text(

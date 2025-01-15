@@ -20,13 +20,37 @@ class _InformationState extends State<Information> {
                     top: 50, left: 50, right: 50, bottom: 50),
                 // ignore: prefer_const_constructors
                 child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: const [
                     Text(
-                        "Cette application a été écrite en lien avec les recommandations de la SFAR et de la prise en charge recommandé par les différentes organisation scientifiques notamment France USA Suisse. Pedianest n'est qu'un support d'aide à la prise en charge et l'auteur et développeur ne peut être tenu responsable de problème de dosage ou autres. Seul le professionel est responsable de ses actes. "),
+                        "Voici la liste des ressources scientifiques sur lesquelles sont tirées les données de cette application."),
                     SizedBox(
                       height: 15,
                     ),
-                    Text("Lien vers l'association les petits doudous"),
+                    Text(
+                        "Le site de l'anesthésie pédiatrique francophone: https://e-adarpef.fr"),
+                    SizedBox(
+                      height: 8,
+                    ),
+                    Text("https://sfar.org/recommandations/"),
+                    SizedBox(
+                      height: 8,
+                    ),
+                    Text("pedworld.ch"),
+                    SizedBox(
+                      height: 8,
+                    ),
+                    Text("https://pedsanesthesia.org/"),
+                    SizedBox(
+                      height: 8,
+                    ),
+                    Text(
+                        "Anesthésie pédiatrique de Gilles Orliaguet aux éditions Elsevier Masson"),
+                    SizedBox(
+                      height: 8,
+                    ),
+                    Text(
+                        "Principes et protocoles en anesthésie pédiatrique (4e édition) de Nathalie Bourdaud et Frédéric Duflo aux éditions ARNETTE"),
                     SizedBox(
                       height: 10,
                     ),

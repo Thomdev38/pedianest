@@ -15,8 +15,19 @@ class _SourcesState extends State<Sources> {
           title: const Text("Sources"),
         ),
         body: SingleChildScrollView(
-            child: Container(
-                padding: const EdgeInsets.all(100),
-                child: const Text("Cette application "))));
+            padding: EdgeInsets.all(5),
+            child: Column(
+              children: [
+                SizedBox(
+                  height: 5,
+                ),
+                const Text(
+                    "vous pouvez souscrire si vous trouvez l'application interessante en cliquant sur le lien suivant "),
+                const SizedBox(
+                  height: 50,
+                ),
+                Image.asset("assets/images/ours.jpg")
+              ],
+            )));
   }
 }

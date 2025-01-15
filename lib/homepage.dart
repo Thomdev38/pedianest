@@ -1172,6 +1172,7 @@ class InductionPage extends StatelessWidget {
                       children: [
                         const Text(
                           "Remplissage:",
+                          textAlign: TextAlign.start,
                           style: TextStyle(
                             fontSize: 16,
                             fontWeight: FontWeight.bold,
@@ -1182,13 +1183,9 @@ class InductionPage extends StatelessWidget {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               ExpansionTile(
-                                title: Row(
-                                  children: [
-                                    Text(
-                                      'Apport Liquidien de base: $apportLiquidien ml/h ',
-                                      style: const TextStyle(fontSize: 16),
-                                    ),
-                                  ],
+                                title: Text(
+                                  'Apport Liquidien de base: $apportLiquidien ml/h ',
+                                  style: const TextStyle(fontSize: 16),
                                 ),
                                 children: <Widget>[
                                   Container(

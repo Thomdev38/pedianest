@@ -76,21 +76,7 @@ class UrgencePage extends StatelessWidget {
                 const SizedBox(
                   height: 6,
                 ),
-                SizedBox(
-                  width: double.infinity,
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        'Hydrocortisone: $doseExacyl mg',
-                        style: const TextStyle(fontSize: 16),
-                      ),
-                      const Text("20 mg/kg",
-                          style: TextStyle(fontSize: 12, color: Colors.grey),
-                          textAlign: TextAlign.right),
-                    ],
-                  ),
-                ),
+
                 const SizedBox(
                   height: 6,
                 ),
@@ -116,25 +102,7 @@ class UrgencePage extends StatelessWidget {
 
                 const SizedBox(height: 4),
                 //container bleu des morphiniques
-                Container(
-                  decoration: BoxDecoration(
-                    border: Border.all(color: Colors.blue.shade700, width: 5),
-                  ),
-                  padding: const EdgeInsets.all(5),
-                  margin: const EdgeInsets.all(3),
-                  child: const Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        "Morphiniques:",
-                        style: TextStyle(
-                          fontSize: 16,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
+
                 const SizedBox(height: 4),
                 //container rouge des curares
                 Container(

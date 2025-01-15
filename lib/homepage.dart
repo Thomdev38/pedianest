@@ -75,6 +75,7 @@ class _PosologieCalculatorScreenState extends State<PosologieCalculatorScreen> {
   int? doseVancomycinemaxi;
   int? agemoistext;
   int? ageEnMois;
+  double? doseOndansetron;
 
   int calculerApportLiquidien(int poids) {
     int apport = 0;
@@ -318,7 +319,7 @@ class _PosologieCalculatorScreenState extends State<PosologieCalculatorScreen> {
       poidstext = poids * 1;
       agemoistext = ageEnMois * 1;
       remplissagevasc = poids * 20;
-      doseDexametasone = poids * 0.2;
+      doseDexametasone = poids * 0.15;
       doseNarcan = poids * 0.1;
       doseketaNMDA = poids * 0.2;
       doseExacyl = poids * 20;
@@ -334,7 +335,8 @@ class _PosologieCalculatorScreenState extends State<PosologieCalculatorScreen> {
       doseMetronidazole = poids * 15;
       doseVancomycinemini = poids * 20;
       doseVancomycinemaxi = poids * 30;
-      ageEnMois = ageEnMois * 1;
+
+      doseOndansetron = poids * 0.1;
 
       // Condition spécifique pour la dose de célocurine
       if (ageEnMois < 24) {
@@ -440,6 +442,7 @@ class _PosologieCalculatorScreenState extends State<PosologieCalculatorScreen> {
               doseDexametasone: doseDexametasone,
               doseNarcan: doseNarcan,
               doseketaNMDA: doseketaNMDA,
+              doseOndansetron: doseOndansetron,
             ),
             UrgencePage(
               dosePropofolEntretien: dosePropofolEntretien,
@@ -516,6 +519,7 @@ class InductionPage extends StatelessWidget {
   final Map<String, String>? tailleguedel;
   final double? doseDexametasone;
   final double? doseketaNMDA;
+  final double? doseOndansetron;
 
   int? dosePropofolEntretien;
 
@@ -566,6 +570,7 @@ class InductionPage extends StatelessWidget {
     required this.doseDexametasone,
     required this.doseNarcan,
     required this.doseketaNMDA,
+    required this.doseOndansetron,
   });
 
   @override
@@ -1206,7 +1211,7 @@ class InductionPage extends StatelessWidget {
                     width: double.infinity,
                     decoration: BoxDecoration(
                       border: Border.all(
-                          color: Color.fromARGB(255, 8, 8, 8), width: 1),
+                          color: const Color.fromARGB(255, 8, 8, 8), width: 1),
                     ),
                     padding: const EdgeInsets.all(5),
                     margin: const EdgeInsets.all(3),
@@ -1228,7 +1233,22 @@ class InductionPage extends StatelessWidget {
                                 'Dexamétasone: ${doseDexametasone!.toStringAsFixed(1)}  mg',
                                 style: const TextStyle(fontSize: 16),
                               ),
-                              const Text(" 0.2 mg/kg",
+                              const Text(" 0.15 mg/kg",
+                                  style: TextStyle(
+                                      fontSize: 12, color: Colors.grey),
+                                  textAlign: TextAlign.right),
+                            ],
+                          ),
+                        ),
+                        SizedBox(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                'Ondansetron: ${doseOndansetron!.toStringAsFixed(1)}  mg',
+                                style: const TextStyle(fontSize: 16),
+                              ),
+                              const Text(" 0.1 mg/kg",
                                   style: TextStyle(
                                       fontSize: 12, color: Colors.grey),
                                   textAlign: TextAlign.right),
@@ -1245,6 +1265,22 @@ class InductionPage extends StatelessWidget {
                                 style: const TextStyle(fontSize: 16),
                               ),
                               const Text(" 0.1 mg/kg",
+                                  style: TextStyle(
+                                      fontSize: 12, color: Colors.grey),
+                                  textAlign: TextAlign.right),
+                            ],
+                          ),
+                        ),
+                        const SizedBox(
+                          width: double.infinity,
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                'Hydrocortisone:  mg',
+                                style: TextStyle(fontSize: 16),
+                              ),
+                              Text("20 mg/kg",
                                   style: TextStyle(
                                       fontSize: 12, color: Colors.grey),
                                   textAlign: TextAlign.right),

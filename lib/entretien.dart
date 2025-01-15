@@ -57,21 +57,57 @@ class UrgencePage extends StatelessWidget {
                 const SizedBox(
                   height: 6,
                 ),
-                const Text("Gluconate de calcium"),
+                SizedBox(
+                  width: double.infinity,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        'Gluconate de calcium: $doseExacyl mg',
+                        style: const TextStyle(fontSize: 16),
+                      ),
+                      const Text("20 mg/kg",
+                          style: TextStyle(fontSize: 12, color: Colors.grey),
+                          textAlign: TextAlign.right),
+                    ],
+                  ),
+                ),
+
                 const SizedBox(
                   height: 6,
                 ),
-                const Text("Hydrocortisone"),
+                SizedBox(
+                  width: double.infinity,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        'Hydrocortisone: $doseExacyl mg',
+                        style: const TextStyle(fontSize: 16),
+                      ),
+                      const Text("20 mg/kg",
+                          style: TextStyle(fontSize: 12, color: Colors.grey),
+                          textAlign: TextAlign.right),
+                    ],
+                  ),
+                ),
                 const SizedBox(
                   height: 6,
                 ),
-                const Text("Solumédrol"),
-                const SizedBox(
-                  height: 6,
-                ),
-                const Text("Manitol"),
-                const SizedBox(
-                  height: 6,
+                SizedBox(
+                  width: double.infinity,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        'Manitol: $doseExacyl mg',
+                        style: const TextStyle(fontSize: 16),
+                      ),
+                      const Text("20 mg/kg",
+                          style: TextStyle(fontSize: 12, color: Colors.grey),
+                          textAlign: TextAlign.right),
+                    ],
+                  ),
                 ),
 
                 const SizedBox(

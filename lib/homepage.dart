@@ -74,6 +74,7 @@ class _PosologieCalculatorScreenState extends State<PosologieCalculatorScreen> {
   int? doseVancomycinemini;
   int? doseVancomycinemaxi;
   int? agemoistext;
+  int? ageEnMois;
 
   int calculerApportLiquidien(int poids) {
     int apport = 0;
@@ -333,6 +334,7 @@ class _PosologieCalculatorScreenState extends State<PosologieCalculatorScreen> {
       doseMetronidazole = poids * 15;
       doseVancomycinemini = poids * 20;
       doseVancomycinemaxi = poids * 30;
+      ageEnMois = ageEnMois * 1;
 
       // Condition spécifique pour la dose de célocurine
       if (ageEnMois < 24) {
@@ -459,7 +461,6 @@ class _PosologieCalculatorScreenState extends State<PosologieCalculatorScreen> {
               doseVancomycinemaxi: doseVancomycinemaxi,
               doseAmox: doseAmox,
               doseCefazoline: doseCefazoline,
-              agemoistext: agemoistext,
             ),
           ],
         ),
@@ -754,7 +755,7 @@ class InductionPage extends StatelessWidget {
                     decoration: BoxDecoration(
                       border: Border.all(
                         color: Colors.yellow,
-                        width: 5,
+                        width: 1,
                       ),
                     ),
                     padding: const EdgeInsets.all(5),
@@ -847,7 +848,7 @@ class InductionPage extends StatelessWidget {
                   Container(
                     width: double.infinity,
                     decoration: BoxDecoration(
-                      border: Border.all(color: Colors.blue.shade700, width: 5),
+                      border: Border.all(color: Colors.blue.shade700, width: 1),
                     ),
                     padding: const EdgeInsets.all(5),
                     margin: const EdgeInsets.all(3),
@@ -934,7 +935,7 @@ class InductionPage extends StatelessWidget {
                   Container(
                     width: double.infinity,
                     decoration: BoxDecoration(
-                      border: Border.all(color: Colors.red.shade700, width: 5),
+                      border: Border.all(color: Colors.red.shade700, width: 1),
                     ),
                     padding: const EdgeInsets.all(5),
                     margin: const EdgeInsets.all(3),
@@ -1021,7 +1022,7 @@ class InductionPage extends StatelessWidget {
                     width: double.infinity,
                     decoration: BoxDecoration(
                       border:
-                          Border.all(color: Colors.purple.shade400, width: 5),
+                          Border.all(color: Colors.purple.shade400, width: 1),
                     ),
                     padding: const EdgeInsets.all(5),
                     margin: const EdgeInsets.all(3),
@@ -1074,7 +1075,7 @@ class InductionPage extends StatelessWidget {
                     width: double.infinity,
                     decoration: BoxDecoration(
                       border:
-                          Border.all(color: Colors.green.shade400, width: 5),
+                          Border.all(color: Colors.green.shade400, width: 1),
                     ),
                     padding: const EdgeInsets.all(5),
                     margin: const EdgeInsets.all(3),
@@ -1088,71 +1089,171 @@ class InductionPage extends StatelessWidget {
                             fontWeight: FontWeight.bold,
                           ),
                         ),
-                        Text(
-                          'Paracétamol: ${doseParacetamol!.toStringAsFixed(0)} mg',
-                          style: const TextStyle(fontSize: 16),
+                        SizedBox(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                'Paracétamol: ${doseParacetamol!.toStringAsFixed(0)} mg',
+                                style: const TextStyle(fontSize: 16),
+                              ),
+                              const Text(" 15 mg/kg",
+                                  style: TextStyle(
+                                      fontSize: 12, color: Colors.grey),
+                                  textAlign: TextAlign.right),
+                            ],
+                          ),
                         ),
-                        const SizedBox(height: 2),
-                        Text(
-                          'Profénid: $doseProfenid mg',
-                          style: const TextStyle(fontSize: 16),
+                        const SizedBox(height: 6),
+                        SizedBox(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                'Profénid: $doseProfenid mg',
+                                style: const TextStyle(fontSize: 16),
+                              ),
+                              const Text(" 1 mg/kg",
+                                  style: TextStyle(
+                                      fontSize: 12, color: Colors.grey),
+                                  textAlign: TextAlign.right),
+                            ],
+                          ),
                         ),
-                        const SizedBox(height: 2),
-                        Text(
-                          'Nalbuphine: ${doseNalbuphine!.toStringAsFixed(1)} mg',
-                          style: const TextStyle(fontSize: 16),
+                        const SizedBox(height: 6),
+                        SizedBox(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                'Nalbuphine: ${doseNalbuphine!.toStringAsFixed(1)} mg',
+                                style: const TextStyle(fontSize: 16),
+                              ),
+                              const Text(" 0.2 mg/kg",
+                                  style: TextStyle(
+                                      fontSize: 12, color: Colors.grey),
+                                  textAlign: TextAlign.right),
+                            ],
+                          ),
                         ),
-                        const SizedBox(height: 2),
-                        Text(
-                          'Morphine: ${doseMorphine!.toStringAsFixed(1)}  mg',
-                          style: const TextStyle(fontSize: 16),
+                        const SizedBox(height: 6),
+                        SizedBox(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                'Morphine: ${doseMorphine!.toStringAsFixed(1)}  mg',
+                                style: const TextStyle(fontSize: 16),
+                              ),
+                              const Text(" 0.1 mg/kg",
+                                  style: TextStyle(
+                                      fontSize: 12, color: Colors.grey),
+                                  textAlign: TextAlign.right),
+                            ],
+                          ),
                         ),
                       ],
                     ),
                   ),
                   const SizedBox(height: 4),
-                  const SizedBox(height: 16),
-
-                  if (apportLiquidien != null) ...[
-                    const Text(
-                      "Divers",
-                      style:
-                          TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                  Container(
+                    width: double.infinity,
+                    decoration: BoxDecoration(
+                      border: Border.all(
+                          color: const Color.fromARGB(255, 211, 173, 47),
+                          width: 1),
                     ),
-                    const SizedBox(height: 4),
-                    Text(
-                      'Apport Liquidien de base: $apportLiquidien ml/h (au PSE chez le- de 10kg sinon avec régulateur de débit)',
-                      style: const TextStyle(fontSize: 16),
-                    ),
-                    Text(
-                      "Remplissage vasculaire par des bolus de $remplissagevasc ml de cristalloides.",
-                      style: const TextStyle(fontSize: 16),
-                    ),
-                    const Text(
-                      "Compensation du jeune: Durée du jeune x besoin horaire = volume à compenser",
-                      style: TextStyle(fontSize: 11),
-                    ),
-                    const Text(
-                      "Passer 50% de ce volume la première heure et 50% sur la deuxième heure",
-                      style: TextStyle(fontSize: 11),
-                    ),
-                  ],
-
-                  const SizedBox(height: 16),
-                  const Text(
-                    "Autres:",
-                    style: TextStyle(
-                      fontSize: 16,
-                      fontWeight: FontWeight.bold,
+                    padding: const EdgeInsets.all(5),
+                    margin: const EdgeInsets.all(3),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        const Text(
+                          "Remplissage:",
+                          style: TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        SizedBox(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                'Apport Liquidien de base: $apportLiquidien ml/h (au PSE chez le- de 10kg sinon avec régulateur de débit)',
+                                style: const TextStyle(fontSize: 16),
+                              ),
+                              Text(
+                                "Remplissage vasculaire par des bolus de $remplissagevasc ml de cristalloides.",
+                                style: const TextStyle(fontSize: 16),
+                              ),
+                              const Text(
+                                "Compensation du jeune: Durée du jeune x besoin horaire = volume à compenser",
+                                style: TextStyle(fontSize: 11),
+                              ),
+                              const Text(
+                                "Passer 50% de ce volume la première heure et 50% sur la deuxième heure",
+                                style: TextStyle(fontSize: 11),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
                     ),
                   ),
-                  Text(
-                    'Dexamétasone: ${doseDexametasone!.toStringAsFixed(1)}  mg',
-                    style: const TextStyle(fontSize: 16),
-                  ),
-                  Text(
-                    'Narcan: ${doseNarcan!.toStringAsFixed(1)}  mg',
-                    style: const TextStyle(fontSize: 16),
+
+                  Container(
+                    width: double.infinity,
+                    decoration: BoxDecoration(
+                      border: Border.all(
+                          color: Color.fromARGB(255, 8, 8, 8), width: 1),
+                    ),
+                    padding: const EdgeInsets.all(5),
+                    margin: const EdgeInsets.all(3),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        const Text(
+                          "Divers:",
+                          style: TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        SizedBox(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                'Dexamétasone: ${doseDexametasone!.toStringAsFixed(1)}  mg',
+                                style: const TextStyle(fontSize: 16),
+                              ),
+                              const Text(" 0.2 mg/kg",
+                                  style: TextStyle(
+                                      fontSize: 12, color: Colors.grey),
+                                  textAlign: TextAlign.right),
+                            ],
+                          ),
+                        ),
+                        const SizedBox(height: 6),
+                        SizedBox(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                'Narcan: ${doseNarcan!.toStringAsFixed(1)}  mg',
+                                style: const TextStyle(fontSize: 16),
+                              ),
+                              const Text(" 0.1 mg/kg",
+                                  style: TextStyle(
+                                      fontSize: 12, color: Colors.grey),
+                                  textAlign: TextAlign.right),
+                            ],
+                          ),
+                        ),
+                        const SizedBox(height: 6),
+                      ],
+                    ),
                   ),
                 ],
               ),

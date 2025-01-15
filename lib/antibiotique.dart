@@ -17,27 +17,26 @@ class AntibioPage extends StatelessWidget {
   final int? doseMetronidazole;
   final int? doseVancomycinemini;
   final int? doseVancomycinemaxi;
-  final int? agemoistext;
 
-  const AntibioPage(
-      {super.key,
-      this.dosePropofolEntretien,
-      this.poidstext,
-      this.doseLidocaine,
-      this.doseBupivacaine,
-      this.doseRopivacaine,
-      this.dosePrilocaine,
-      this.isAgeInMonths,
-      this.age,
-      this.doseCefazoline,
-      this.doseCefoxitine,
-      this.doseAmox,
-      this.doseClindamycine,
-      this.doseGentamycine,
-      this.doseMetronidazole,
-      this.doseVancomycinemini,
-      this.doseVancomycinemaxi,
-      this.agemoistext});
+  const AntibioPage({
+    super.key,
+    this.dosePropofolEntretien,
+    this.poidstext,
+    this.doseLidocaine,
+    this.doseBupivacaine,
+    this.doseRopivacaine,
+    this.dosePrilocaine,
+    this.isAgeInMonths,
+    this.age,
+    this.doseCefazoline,
+    this.doseCefoxitine,
+    this.doseAmox,
+    this.doseClindamycine,
+    this.doseGentamycine,
+    this.doseMetronidazole,
+    this.doseVancomycinemini,
+    this.doseVancomycinemaxi,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -54,7 +53,7 @@ class AntibioPage extends StatelessWidget {
                 "Veuillez rentrer le poids et l'age de l'enfant pour obtenir les doses d'antibiotiques et d'anesthésiques locaux"),
           if (dosePropofolEntretien != null)
             Text(
-              "Pour un enfant de ${poidstext!} kg voici les doses d'antibio-prophylaxie recommandés et d'anesthésiques locaux", //${agemoistext != null ? agemoistext! : '?? mois'},
+              "Pour un enfant de ${poidstext!} kg voici les doses d'antibio-prophylaxie recommandés et d'anesthésiques locaux ",
               style: const TextStyle(fontSize: 16),
             ),
           Container(

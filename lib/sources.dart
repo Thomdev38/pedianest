@@ -22,11 +22,15 @@ class _SourcesState extends State<Sources> {
                   height: 5,
                 ),
                 const Text(
-                    "vous pouvez souscrire si vous trouvez l'application interessante en cliquant sur le lien suivant "),
+                    "Vous pouvez souscrire si vous trouvez l'application interessante en cliquant sur le lien suivant "),
                 const SizedBox(
                   height: 50,
                 ),
-                Image.asset("assets/images/ours.jpg")
+                CircleAvatar(
+                  backgroundColor: Colors.black12,
+                  radius: 150,
+                  child: Image.asset("assets/images/ours.jpg"),
+                )
               ],
             )));
   }

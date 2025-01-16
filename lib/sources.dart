@@ -15,10 +15,10 @@ class _SourcesState extends State<Sources> {
           title: const Text("Sources"),
         ),
         body: SingleChildScrollView(
-            padding: EdgeInsets.all(5),
+            padding: const EdgeInsets.all(5),
             child: Column(
               children: [
-                SizedBox(
+                const SizedBox(
                   height: 5,
                 ),
                 const Text(

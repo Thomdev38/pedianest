@@ -750,10 +750,18 @@ class InductionPage extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const Text(
-                    'Doses Induction',
-                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                  const Row(
+                    children: [
+                      Spacer(),
+                      Text(
+                        'Doses Induction',
+                        style: TextStyle(
+                            fontSize: 18, fontWeight: FontWeight.bold),
+                      ),
+                      Spacer(),
+                    ],
                   ),
+
                   const SizedBox(height: 4),
                   //container des hypnotiques
                   Container(
@@ -1300,7 +1308,64 @@ class InductionPage extends StatelessWidget {
                   ),
                 ],
               ),
-            )
+            ),
+            SizedBox(
+              height: 6,
+            ),
+            if (dosePropofolmini != null && dosePropofolmaxi != null) ...[
+              Container(
+                padding: EdgeInsets.all(5),
+                decoration:
+                    BoxDecoration(border: Border.all(color: Colors.black)),
+                child: Column(
+                  children: [
+                    const SizedBox(
+                      width: double.infinity,
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          const Text(
+                            "Equipements",
+                            style: TextStyle(
+                              fontSize: 16,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                          SizedBox(
+                            height: 4,
+                          ),
+                          Text(
+                            'Catheter arteriel',
+                            style: TextStyle(fontSize: 16),
+                          ),
+                          SizedBox(
+                            height: 4,
+                          ),
+                          Text(
+                            'Catheter veineux central',
+                            style: TextStyle(fontSize: 16),
+                          ),
+                          SizedBox(
+                            height: 4,
+                          ),
+                          Text(
+                            'Sonde urinaire  ',
+                            style: TextStyle(fontSize: 16),
+                          ),
+                          SizedBox(
+                            height: 4,
+                          ),
+                          Text(
+                            'Drain thoracique ',
+                            style: TextStyle(fontSize: 16),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+              )
+            ]
           ],
         ],
       ),

@@ -43,7 +43,7 @@ class UrgencePage extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          'Exacyl: $doseExacyl mg',
+                          'Exacyl: ${doseExacyl!.toStringAsFixed(0)} mg ',
                           style: const TextStyle(fontSize: 16),
                         ),
                         const Text("20 mg/kg",
@@ -61,7 +61,7 @@ class UrgencePage extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          'Gluconate de calcium: $doseExacyl mg',
+                          'Gluconate de calcium: ${doseExacyl!.toStringAsFixed(0)} mg',
                           style: const TextStyle(fontSize: 16),
                         ),
                         const Text("20 mg/kg",
@@ -110,7 +110,7 @@ class UrgencePage extends StatelessWidget {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
-                                'Volume sanguin estimé: $doseExacyl mg',
+                                'Volume sanguin estimé: ${doseExacyl!.toStringAsFixed(0)} mg',
                                 style: const TextStyle(fontSize: 16),
                               ),
                               const Text("ml",
@@ -119,7 +119,7 @@ class UrgencePage extends StatelessWidget {
                                   textAlign: TextAlign.right),
                               const SizedBox(height: 4),
                               Text(
-                                'Volume sanguin: $doseExacyl mg',
+                                'Bolus de sang: ${doseExacyl!.toStringAsFixed(0)} mg',
                                 style: const TextStyle(fontSize: 16),
                               ),
                               const Text("/kg",

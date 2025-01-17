@@ -47,7 +47,8 @@ class AntibioPage extends StatelessWidget {
           if (dosePropofolEntretien == null)
             const Text(
                 "Veuillez rentrer le poids et l'age de l'enfant pour obtenir les doses d'antibiotiques et d'anesthésiques locaux"),
-          Image.asset("assets/images/ours.jpg"),
+          if (dosePropofolEntretien == null)
+            Image.asset("assets/images/ours.jpg"),
           if (doseLidocaine != null && doseLidocaine != null) ...[
             if (dosePropofolEntretien != null)
               Text(

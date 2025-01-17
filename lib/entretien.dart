@@ -21,7 +21,7 @@ class UrgencePage extends StatelessWidget {
           if (doseExacyl == null)
             const Text(
                 "Veuillez rentrer le poids et l'age de l'enfant sur l'onglet Anesthésie"),
-          Image.asset("assets/images/ours.jpg"),
+          if (doseExacyl == null) Image.asset("assets/images/ours.jpg"),
           if (doseExacyl != null)
             Text(
               'Pour un enfant de: ${poidstext!} kg voici les doses recommandés',
@@ -78,21 +78,6 @@ class UrgencePage extends StatelessWidget {
                   const SizedBox(
                     height: 6,
                   ),
-                  SizedBox(
-                    width: double.infinity,
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          'Manitol: $doseExacyl mg',
-                          style: const TextStyle(fontSize: 16),
-                        ),
-                        const Text("20 mg/kg",
-                            style: TextStyle(fontSize: 12, color: Colors.grey),
-                            textAlign: TextAlign.right),
-                      ],
-                    ),
-                  ),
 
                   const SizedBox(
                     height: 6,
@@ -105,18 +90,104 @@ class UrgencePage extends StatelessWidget {
                   //container rouge des curares
                   Container(
                     decoration: BoxDecoration(
-                      border: Border.all(color: Colors.red.shade700, width: 5),
+                      border: Border.all(color: Colors.red.shade700, width: 1),
                     ),
                     padding: const EdgeInsets.all(5),
                     margin: const EdgeInsets.all(3),
-                    child: const Column(
+                    child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text(
+                        const Text(
                           "Blood management:",
                           style: TextStyle(
                             fontSize: 16,
                             fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        SizedBox(
+                          width: double.infinity,
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                'Volume sanguin estimé: $doseExacyl mg',
+                                style: const TextStyle(fontSize: 16),
+                              ),
+                              const Text("ml",
+                                  style: TextStyle(
+                                      fontSize: 12, color: Colors.grey),
+                                  textAlign: TextAlign.right),
+                              const SizedBox(height: 4),
+                              Text(
+                                'Volume sanguin: $doseExacyl mg',
+                                style: const TextStyle(fontSize: 16),
+                              ),
+                              const Text("/kg",
+                                  style: TextStyle(
+                                      fontSize: 12, color: Colors.grey),
+                                  textAlign: TextAlign.right),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+
+                  const SizedBox(height: 4),
+                  //container vert medoc neurologique
+                  Container(
+                    decoration: BoxDecoration(
+                      border: Border.all(
+                          color: const Color.fromARGB(255, 155, 209, 127),
+                          width: 1),
+                    ),
+                    padding: const EdgeInsets.all(5),
+                    margin: const EdgeInsets.all(3),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        const Text(
+                          "Neurologie:",
+                          style: TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        SizedBox(
+                          width: double.infinity,
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                'Volume sanguin estimé: $doseExacyl mg',
+                                style: const TextStyle(fontSize: 16),
+                              ),
+                              SizedBox(
+                                width: double.infinity,
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      'Manitol: $doseExacyl mg',
+                                      style: const TextStyle(fontSize: 16),
+                                    ),
+                                    const Text("20 mg/kg",
+                                        style: TextStyle(
+                                            fontSize: 12, color: Colors.grey),
+                                        textAlign: TextAlign.right),
+                                  ],
+                                ),
+                              ),
+                              const SizedBox(height: 4),
+                              Text(
+                                'Volume sanguin: $doseExacyl mg',
+                                style: const TextStyle(fontSize: 16),
+                              ),
+                              const Text("/kg",
+                                  style: TextStyle(
+                                      fontSize: 12, color: Colors.grey),
+                                  textAlign: TextAlign.right),
+                            ],
                           ),
                         ),
                       ],

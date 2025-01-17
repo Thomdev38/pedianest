@@ -834,7 +834,7 @@ class InductionPage extends StatelessWidget {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
-                                "Ketamine: $doseketaNMDA mg",
+                                "Ketamine:  ${doseketaNMDA!.toStringAsFixed(1)} mg",
                                 style: const TextStyle(fontSize: 16),
                               ),
                               const Text("0.2 mg/kg (anti NMDA)",

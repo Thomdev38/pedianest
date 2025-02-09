@@ -1194,29 +1194,109 @@ class InductionPage extends StatelessWidget {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               ExpansionTile(
+                                expandedAlignment: Alignment.topLeft,
                                 title: Text(
                                   'Apport Liquidien de base: $apportLiquidien ml/h ',
-                                  style: const TextStyle(fontSize: 16),
+                                  style: const TextStyle(fontSize: 14),
                                 ),
                                 children: <Widget>[
                                   Container(
-                                    padding: const EdgeInsets.all(4.0),
-                                    child: const Text(
-                                        "(au PSE chez le moins de 10kg sinon avec régulateur de débit)"),
-                                  )
+                                      padding: const EdgeInsets.all(4.0),
+                                      child: const Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Text(
+                                            "Méthode de calcul des apports de base 4 2 1",
+                                            style: TextStyle(
+                                                fontSize: 12,
+                                                color: Colors.grey),
+                                          ),
+                                          SizedBox(
+                                            height: 10,
+                                          ),
+                                          Text(
+                                            "Attention, cette règle ne prend pas en compte les pertes insensibles et la compensation du jeûne",
+                                            style: TextStyle(
+                                                fontSize: 12,
+                                                color: Colors.grey),
+                                          ),
+                                          SizedBox(
+                                            height: 10,
+                                          ),
+                                          Text(
+                                            "Compensation du jeune: Durée du jeune x besoin horaire = volume à compenser",
+                                            style: TextStyle(
+                                                fontSize: 12,
+                                                color: Colors.grey),
+                                          ),
+                                          Text(
+                                            "Passer 50% de ce volume la première heure et 50% sur la deuxième heure",
+                                            style: TextStyle(
+                                                fontSize: 12,
+                                                color: Colors.grey),
+                                          ),
+                                        ],
+                                      ))
                                 ],
                               ),
-                              Text(
-                                "Bolus de $remplissagevasc ml de cristalloides.",
-                                style: const TextStyle(fontSize: 16),
+                              ExpansionTile(
+                                expandedAlignment: Alignment.topLeft,
+                                title: Text(
+                                  'Bolus de $remplissagevasc ml de cristalloides en 20 à 30min',
+                                  style: const TextStyle(fontSize: 14),
+                                ),
+                                children: <Widget>[
+                                  Container(
+                                      padding: const EdgeInsets.all(4.0),
+                                      child: const Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Text(
+                                            "10 à 20ml/kg en 20 à 30 min",
+                                            style: TextStyle(
+                                                fontSize: 12,
+                                                color: Colors.grey),
+                                          ),
+                                          Text(
+                                            "Remplissage de SSI ou RL",
+                                            style: TextStyle(
+                                                fontSize: 12,
+                                                color: Colors.grey),
+                                          ),
+                                        ],
+                                      ))
+                                ],
                               ),
-                              const Text(
-                                "Compensation du jeune: Durée du jeune x besoin horaire = volume à compenser",
-                                style: TextStyle(fontSize: 11),
-                              ),
-                              const Text(
-                                "Passer 50% de ce volume la première heure et 50% sur la deuxième heure",
-                                style: TextStyle(fontSize: 11),
+                              ExpansionTile(
+                                expandedAlignment: Alignment.topLeft,
+                                title: const Text(
+                                  'Quel soluté pour quel enfant ? ',
+                                  style: TextStyle(fontSize: 14),
+                                ),
+                                children: <Widget>[
+                                  Container(
+                                      padding: const EdgeInsets.all(4.0),
+                                      child: const Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Text(
+                                            "Isopédia",
+                                            style: TextStyle(
+                                                fontSize: 12,
+                                                color: Colors.grey),
+                                          ),
+                                          Text(
+                                            "RL possible après 4 ans",
+                                            style: TextStyle(
+                                                fontSize: 12,
+                                                color: Colors.grey),
+                                          ),
+                                        ],
+                                      ))
+                                ],
                               ),
                             ],
                           ),

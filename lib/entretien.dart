@@ -3,14 +3,37 @@ import "package:flutter/material.dart";
 class UrgencePage extends StatelessWidget {
   final double? dosePropofolEntretien; // Recevoir la variable du parent
   final int? poidstext;
+  final int? agemoistext;
+
   final double? doseExacyl;
+  final Map<String, String>? hb;
 
   const UrgencePage({
     super.key,
     this.dosePropofolEntretien,
     this.poidstext,
     this.doseExacyl,
+    this.agemoistext,
+    this.hb,
   });
+
+  String getBloodVolume() {
+    if (agemoistext == null || poidstext == null) {
+      return "Âge ou poids non spécifié";
+    }
+    double volumePerKg;
+    if (agemoistext! < 1) {
+      volumePerKg = 95;
+    } else if (agemoistext! < 2) {
+      volumePerKg = 90;
+    } else if (agemoistext! < 13) {
+      volumePerKg = 80;
+    } else {
+      volumePerKg = 70;
+    }
+    double totalVolume = poidstext! * volumePerKg;
+    return "Volume sanguin estimé: ${totalVolume.toStringAsFixed(0)} ml";
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -110,22 +133,78 @@ class UrgencePage extends StatelessWidget {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
-                                'Volume sanguin estimé: ${doseExacyl!.toStringAsFixed(0)} mg',
+                                "Taux d'hémoglobine: ${hb!['hb']}",
                                 style: const TextStyle(fontSize: 16),
                               ),
-                              const Text("ml",
-                                  style: TextStyle(
-                                      fontSize: 12, color: Colors.grey),
-                                  textAlign: TextAlign.right),
+                              Text(
+                                getBloodVolume(),
+                                style: const TextStyle(fontSize: 16),
+                              ),
                               const SizedBox(height: 4),
+                              ExpansionTile(
+                                expandedAlignment: Alignment.topLeft,
+                                title: const Text(
+                                  'Seuil transfusionnel',
+                                  style: TextStyle(fontSize: 14),
+                                  textAlign: TextAlign.center,
+                                ),
+                                children: <Widget>[
+                                  Container(
+                                      padding: const EdgeInsets.all(4.0),
+                                      child: const Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Text(
+                                            "Nouveau-né et nourrisson = 10g/dl",
+                                            style: TextStyle(
+                                                fontSize: 12,
+                                                color: Colors.grey),
+                                          ),
+                                          Text(
+                                            "Enfant = 8g/dl",
+                                            style: TextStyle(
+                                                fontSize: 12,
+                                                color: Colors.grey),
+                                          ),
+                                          Text(
+                                            "Si cardiopathie cyanogène: 12g/dl",
+                                            style: TextStyle(
+                                                fontSize: 12,
+                                                color: Colors.grey),
+                                          ),
+                                        ],
+                                      ))
+                                ],
+                              ),
                               Text(
                                 'Bolus de sang: ${doseExacyl!.toStringAsFixed(0)} mg',
                                 style: const TextStyle(fontSize: 16),
                               ),
-                              const Text("/kg",
-                                  style: TextStyle(
-                                      fontSize: 12, color: Colors.grey),
-                                  textAlign: TextAlign.right),
+                              ExpansionTile(
+                                expandedAlignment: Alignment.topLeft,
+                                title: const Text(
+                                  'Transfusion de CGR',
+                                  style: TextStyle(fontSize: 14),
+                                  textAlign: TextAlign.center,
+                                ),
+                                children: <Widget>[
+                                  Container(
+                                      padding: const EdgeInsets.all(4.0),
+                                      child: const Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Text(
+                                            "Volume en ml de CGR à transfuser = 3 x (Hb souhaitée - Hb observée) x poids (kg)",
+                                            style: TextStyle(
+                                                fontSize: 12,
+                                                color: Colors.grey),
+                                          ),
+                                        ],
+                                      ))
+                                ],
+                              ),
                             ],
                           ),
                         ),

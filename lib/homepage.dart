@@ -23,6 +23,8 @@ class _PosologieCalculatorScreenState extends State<PosologieCalculatorScreen> {
   Map<String, String>? tailleguedel;
   Map<String, String>? taillesonde;
   Map<String, String>? tailleaspi;
+  Map<String, String>? hb;
+  Map<String, String>? volumesanguin;
 
   bool isAgeInMonths = false; // Pour vérifier si l'âge est en mois ou en années
   int? dosePropofolmini;
@@ -168,10 +170,38 @@ class _PosologieCalculatorScreenState extends State<PosologieCalculatorScreen> {
     }
   }
 
+  Map<String, String> obtenirtauxhb(int ageEnMois) {
+    if (ageEnMois < 1) {
+      return {
+        'hb': '17 g/dl',
+      };
+    } else if (ageEnMois < 2) {
+      return {
+        'hb': '14 g/dl',
+      };
+    } else if (ageEnMois < 3) {
+      return {
+        'hb': '10 - 11 g/dl (anémie physiologique)',
+      };
+    } else if (ageEnMois < 24) {
+      return {
+        'hb': '12 g/dl',
+      };
+    } else if (ageEnMois < 72) {
+      return {
+        'hb': '13.5 g/dl',
+      };
+    } else {
+      return {
+        'hb': '14 g/dl',
+      };
+    }
+  }
+
   Map<String, String> obtenirtaillesonde(int poids) {
     if (poids <= 4) {
       return {
-        'taillesonde': '3.0',
+        'taillesonde': '2.5 à 3.0',
       };
     } else if (poids <= 9) {
       return {
@@ -291,7 +321,6 @@ class _PosologieCalculatorScreenState extends State<PosologieCalculatorScreen> {
 
     setState(() {
       hypotensionsup1 = age + 70;
-
       dosePropofolmini = poids * 2; // Dose de propofol à 3 mg/kg
       dosePropofolmaxi = poids * 5; // Dose de propofol à 5 mg/kg
       doseEtomidate = poids * 0.2; // Dose de etomidate à 0.2 mg/kg
@@ -356,6 +385,7 @@ class _PosologieCalculatorScreenState extends State<PosologieCalculatorScreen> {
       ballon = obtenirBallon(poids);
       taillesonde = obtenirtaillesonde(poids);
       tailleguedel = obtenirTailleguedel(ageEnMois);
+      hb = obtenirtauxhb(ageEnMois);
     });
   }
 
@@ -439,6 +469,9 @@ class _PosologieCalculatorScreenState extends State<PosologieCalculatorScreen> {
             UrgencePage(
               dosePropofolEntretien: dosePropofolEntretien,
               poidstext: poidstext,
+              agemoistext: agemoistext,
+              hb: hb,
+
               doseExacyl: doseExacyl, // Passer la nouvelle variable
             ),
             AntibioPage(
@@ -446,6 +479,7 @@ class _PosologieCalculatorScreenState extends State<PosologieCalculatorScreen> {
               poidstext: poidstext, // Passer la nouvelle variable
               doseLidocaine: doseLidocaine,
               doseBupivacaine: doseBupivacaine,
+
               dosePrilocaine: dosePrilocaine,
               doseRopivacaine: doseRopivacaine,
               doseClindamycine: doseClindamycine,

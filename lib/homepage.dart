@@ -23,8 +23,10 @@ class _PosologieCalculatorScreenState extends State<PosologieCalculatorScreen> {
   Map<String, String>? tailleguedel;
   Map<String, String>? taillesonde;
   Map<String, String>? tailleaspi;
+
   bool isAgeInMonths = false; // Pour vérifier si l'âge est en mois ou en années
   int? dosePropofolmini;
+  int? hypotensionsup1;
   int? dosePropofolmaxi;
   double? doseEtomidate;
   int? doseKetaminemini;
@@ -94,45 +96,38 @@ class _PosologieCalculatorScreenState extends State<PosologieCalculatorScreen> {
   Map<String, String> obtenirConstantesPhysiologiques(int ageEnMois) {
     if (ageEnMois <= 1) {
       return {
-        'FC': '90 - 180',
-        'PAS': '60-80',
-        'PAM': '> 40',
-        'FR': '40 - 60',
+        'FC': '140 - 180',
+        'PAS': '60-35',
+        'FR': '30 - 60',
+        'Hypotension': 'si PAM < âge gestationnel à la naissance (SA)',
       };
-    } else if (ageEnMois <= 6) {
+    } else if (ageEnMois <= 12) {
       return {
-        'FC': '80 - 180',
-        'PAS': '65 - 90',
-        'PAM': '> 45',
-        'FR': '30 - 40',
+        'FC': '120 - 150',
+        'PAS': '90 - 65',
+        'FR': '24 - 40',
+        'Hypotension': 'si PAM < âge gestationnel à la naissance (SA)',
       };
     } else if (ageEnMois <= 24) {
       return {
-        'FC': '60 - 160',
-        'PAS': '70 - 94',
-        'PAM': '> 50',
-        'FR': '25 - 35',
+        'FC': '110 - 130',
+        'PAS': '95 - 65',
+        'FR': '20 - 30',
+        'Hypotension': 'si PAS <$hypotensionsup1',
       };
     } else if (ageEnMois <= 60) {
       return {
-        'FC': '60 - 140',
-        'PAS': '72 - 100',
-        'PAM': '> 60',
-        'FR': '25 - 30',
-      };
-    } else if (ageEnMois <= 120) {
-      return {
-        'FC': '60 - 130',
-        'PAS': '80 - 110',
-        'PAM': '> 60',
-        'FR': '20 - 25',
+        'FC': '105 - 120',
+        'PAS': '110 - 60',
+        'FR': '16 - 20',
+        'hypotension': 'si PAS <$hypotensionsup1',
       };
     } else {
       return {
-        'FC': '60 - 130',
-        'PAS': '90 - 120',
-        'PAM': '> 65',
-        'FR': '12 - 20',
+        'FC': '70 - 100',
+        'PAS': '120 - 65',
+        'FR': '16 - 20',
+        'Hypotension': 'si PAS <$hypotensionsup1',
       };
     }
   }
@@ -208,7 +203,7 @@ class _PosologieCalculatorScreenState extends State<PosologieCalculatorScreen> {
       };
     } else {
       return {
-        'ballon': '7.0',
+        'taillesonde': '7.0',
       };
     }
   }
@@ -295,6 +290,8 @@ class _PosologieCalculatorScreenState extends State<PosologieCalculatorScreen> {
     final int poids = int.tryParse(poidsController.text) ?? 0;
 
     setState(() {
+      hypotensionsup1 = age + 70;
+
       dosePropofolmini = poids * 2; // Dose de propofol à 3 mg/kg
       dosePropofolmaxi = poids * 5; // Dose de propofol à 5 mg/kg
       doseEtomidate = poids * 0.2; // Dose de etomidate à 0.2 mg/kg
@@ -359,12 +356,6 @@ class _PosologieCalculatorScreenState extends State<PosologieCalculatorScreen> {
       ballon = obtenirBallon(poids);
       taillesonde = obtenirtaillesonde(poids);
       tailleguedel = obtenirTailleguedel(ageEnMois);
-
-      //if (ageEnMois < 12) {
-      // tailleSonde = roundToHalf(ageEnMois / 10.0 + 3.0);
-      //} else {
-      //tailleSonde = roundToHalf((ageEnMois / 12.0 + 16) / 4.0);
-      //}
     });
   }
 
@@ -443,6 +434,7 @@ class _PosologieCalculatorScreenState extends State<PosologieCalculatorScreen> {
               doseNarcan: doseNarcan,
               doseketaNMDA: doseketaNMDA,
               doseOndansetron: doseOndansetron,
+              hypotensionsup1: hypotensionsup1,
             ),
             UrgencePage(
               dosePropofolEntretien: dosePropofolEntretien,
@@ -517,6 +509,8 @@ class InductionPage extends StatelessWidget {
   final Map<String, String>? taillesonde;
   final Map<String, String>? tailleaspi;
   final Map<String, String>? tailleguedel;
+
+  final int? hypotensionsup1;
   final double? doseDexametasone;
   final double? doseketaNMDA;
   final double? doseOndansetron;
@@ -571,6 +565,7 @@ class InductionPage extends StatelessWidget {
     required this.doseNarcan,
     required this.doseketaNMDA,
     required this.doseOndansetron,
+    required this.hypotensionsup1,
   });
 
   @override
@@ -641,6 +636,7 @@ class InductionPage extends StatelessWidget {
               //color: Colors.black,
               decoration: const BoxDecoration(
                   image: DecorationImage(
+                      opacity: 1,
                       image: AssetImage("assets/images/ecg.jpg"),
                       fit: BoxFit.cover)),
               height: 200,
@@ -670,16 +666,23 @@ class InductionPage extends StatelessWidget {
                   Row(
                     children: [
                       const Spacer(),
-                      Text('PAS: ${constantesPhysiologiques!['PAS']}',
+                      Text('PAS - PAD: ${constantesPhysiologiques!['PAS']}',
                           style: const TextStyle(
                               color: Colors.red,
                               fontSize: 18,
                               fontWeight: FontWeight.bold)),
                       const Spacer(),
-                      Text('PAM: ${constantesPhysiologiques!['PAM']}',
+                    ],
+                  ),
+                  const Spacer(),
+                  Row(
+                    children: [
+                      const Spacer(),
+                      Text(
+                          'Hypotension: ${constantesPhysiologiques!['Hypotension']}',
                           style: const TextStyle(
-                              color: Color.fromARGB(255, 201, 84, 222),
-                              fontSize: 18,
+                              color: Color.fromARGB(255, 235, 59, 241),
+                              fontSize: 12,
                               fontWeight: FontWeight.bold)),
                       const Spacer(),
                     ],
@@ -1309,22 +1312,22 @@ class InductionPage extends StatelessWidget {
                 ],
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 6,
             ),
             if (dosePropofolmini != null && dosePropofolmaxi != null) ...[
               Container(
-                padding: EdgeInsets.all(5),
+                padding: const EdgeInsets.all(5),
                 decoration:
                     BoxDecoration(border: Border.all(color: Colors.black)),
-                child: Column(
+                child: const Column(
                   children: [
-                    const SizedBox(
+                    SizedBox(
                       width: double.infinity,
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          const Text(
+                          Text(
                             "Equipements",
                             style: TextStyle(
                               fontSize: 16,

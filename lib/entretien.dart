@@ -4,6 +4,10 @@ class UrgencePage extends StatelessWidget {
   final double? dosePropofolEntretien; // Recevoir la variable du parent
   final int? poidstext;
   final int? agemoistext;
+  final int? dosemaxPFC;
+  final int? doseminPFC;
+  final int? dosemaxPqt;
+  final int? doseminPqt;
 
   final double? doseExacyl;
   final Map<String, String>? hb;
@@ -12,6 +16,10 @@ class UrgencePage extends StatelessWidget {
     super.key,
     this.dosePropofolEntretien,
     this.poidstext,
+    this.doseminPFC,
+    this.dosemaxPFC,
+    this.doseminPqt,
+    this.dosemaxPqt,
     this.doseExacyl,
     this.agemoistext,
     this.hb,
@@ -177,10 +185,6 @@ class UrgencePage extends StatelessWidget {
                                       ))
                                 ],
                               ),
-                              Text(
-                                'Bolus de sang: ${doseExacyl!.toStringAsFixed(0)} mg',
-                                style: const TextStyle(fontSize: 16),
-                              ),
                               ExpansionTile(
                                 expandedAlignment: Alignment.topLeft,
                                 title: const Text(
@@ -204,6 +208,38 @@ class UrgencePage extends StatelessWidget {
                                         ],
                                       ))
                                 ],
+                              ),
+                              SizedBox(
+                                width: double.infinity,
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      "Volume PFC:  ${doseminPFC!.toStringAsFixed(0)} - ${dosemaxPFC!.toStringAsFixed(0)} ml",
+                                      style: const TextStyle(fontSize: 16),
+                                    ),
+                                    const Text("10 à 30ml/kg",
+                                        style: TextStyle(
+                                            fontSize: 12, color: Colors.grey),
+                                        textAlign: TextAlign.right),
+                                  ],
+                                ),
+                              ),
+                              SizedBox(
+                                width: double.infinity,
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      "Volume plaquettes:  ${doseminPqt!.toStringAsFixed(0)} - ${dosemaxPqt!.toStringAsFixed(0)} ml",
+                                      style: const TextStyle(fontSize: 16),
+                                    ),
+                                    const Text("15 à 20ml/kg",
+                                        style: TextStyle(
+                                            fontSize: 12, color: Colors.grey),
+                                        textAlign: TextAlign.right),
+                                  ],
+                                ),
                               ),
                             ],
                           ),

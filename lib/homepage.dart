@@ -80,6 +80,10 @@ class _PosologieCalculatorScreenState extends State<PosologieCalculatorScreen> {
   int? agemoistext;
   int? ageEnMois;
   double? doseOndansetron;
+  int? doseminPFC;
+  int? dosemaxPFC;
+  int? doseminPqt;
+  int? dosemaxPqt;
 
   int calculerApportLiquidien(int poids) {
     int apport = 0;
@@ -361,7 +365,10 @@ class _PosologieCalculatorScreenState extends State<PosologieCalculatorScreen> {
       doseMetronidazole = poids * 15;
       doseVancomycinemini = poids * 20;
       doseVancomycinemaxi = poids * 30;
-
+      doseminPFC = poids * 10;
+      dosemaxPFC = poids * 30;
+      doseminPqt = poids * 15;
+      dosemaxPqt = poids * 20;
       doseOndansetron = poids * 0.1;
 
       // Condition spécifique pour la dose de célocurine
@@ -469,6 +476,10 @@ class _PosologieCalculatorScreenState extends State<PosologieCalculatorScreen> {
             UrgencePage(
               dosePropofolEntretien: dosePropofolEntretien,
               poidstext: poidstext,
+              dosemaxPFC: dosemaxPFC,
+              doseminPFC: doseminPFC,
+              dosemaxPqt: dosemaxPqt,
+              doseminPqt: doseminPqt,
               agemoistext: agemoistext,
               hb: hb,
 

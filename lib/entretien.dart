@@ -88,7 +88,7 @@ class UrgencePage extends StatelessWidget {
                         if (poidstext! > 30)
                           const Text(
                             'Exacyl: 1g ',
-                            style: const TextStyle(fontSize: 16),
+                            style: TextStyle(fontSize: 16),
                           ),
                         const Text(
                             "10 mg/kg si <30 kg sinon 1g puis 10mg/kg/h PSE",
@@ -115,14 +115,6 @@ class UrgencePage extends StatelessWidget {
                             textAlign: TextAlign.right),
                       ],
                     ),
-                  ),
-
-                  const SizedBox(
-                    height: 6,
-                  ),
-
-                  const SizedBox(
-                    height: 6,
                   ),
 
                   const SizedBox(
@@ -216,6 +208,42 @@ class UrgencePage extends StatelessWidget {
                                         children: [
                                           Text(
                                             "Volume en ml de CGR à transfuser = 3 x (Hb souhaitée - Hb observée) x poids (kg)",
+                                            style: TextStyle(
+                                                fontSize: 12,
+                                                color: Colors.grey),
+                                          ),
+                                          SizedBox(
+                                            height: 4,
+                                          ),
+                                          Column(
+                                            children: [
+                                              Row(
+                                                children: [
+                                                  Spacer(),
+                                                  Text(
+                                                    "Ratio CGR/PFC/PLQ",
+                                                    style: TextStyle(
+                                                        fontSize: 14,
+                                                        fontWeight:
+                                                            FontWeight.w500,
+                                                        color: Color.fromARGB(
+                                                            255, 3, 3, 3)),
+                                                    textAlign:
+                                                        TextAlign.justify,
+                                                  ),
+                                                  Spacer(),
+                                                ],
+                                              )
+                                            ],
+                                          ),
+                                          Text(
+                                            "Si enfant > 30 kg : 1/1/1 (CGR/PFC/PLQ)",
+                                            style: TextStyle(
+                                                fontSize: 12,
+                                                color: Colors.grey),
+                                          ),
+                                          Text(
+                                            "Si enfant < 30 kg : 30/20/20 ml/kg (CGR/PFC/PLQ)",
                                             style: TextStyle(
                                                 fontSize: 12,
                                                 color: Colors.grey),

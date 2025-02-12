@@ -57,8 +57,6 @@ class AntibioPage extends StatelessWidget {
               ),
             Container(
               padding: const EdgeInsets.all(2),
-              decoration:
-                  BoxDecoration(border: Border.all(color: Colors.black54)),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -68,7 +66,7 @@ class AntibioPage extends StatelessWidget {
                     decoration: BoxDecoration(
                       border: Border.all(
                           color: const Color.fromARGB(255, 152, 153, 153),
-                          width: 5),
+                          width: 1),
                     ),
                     padding: const EdgeInsets.all(5),
                     margin: const EdgeInsets.all(3),
@@ -173,6 +171,24 @@ class AntibioPage extends StatelessWidget {
                           height: 6,
                         ),
                         const SizedBox(
+                          width: double.infinity,
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              // if (isAgeInMonths != null &&
+                              //isAgeInMonths! > 6) ...[
+                              Text(
+                                'Xylocaine Spray 5%: 1 pulvérisation / 10 kg de poids',
+                                style: TextStyle(fontSize: 16),
+                              ),
+                              Text("1 pulvérisation = 8mg",
+                                  style: TextStyle(
+                                      fontSize: 12, color: Colors.grey),
+                                  textAlign: TextAlign.right),
+                            ],
+                          ),
+                        ),
+                        const SizedBox(
                           height: 6,
                         ),
                       ],
@@ -184,7 +200,7 @@ class AntibioPage extends StatelessWidget {
                     decoration: BoxDecoration(
                       border: Border.all(
                         color: const Color.fromARGB(255, 164, 228, 80),
-                        width: 5,
+                        width: 1,
                       ),
                     ),
                     padding: const EdgeInsets.all(5),

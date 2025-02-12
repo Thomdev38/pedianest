@@ -480,6 +480,7 @@ class _PosologieCalculatorScreenState extends State<PosologieCalculatorScreen> {
               doseketaNMDA: doseketaNMDA,
               doseOndansetron: doseOndansetron,
               hypotensionsup1: hypotensionsup1,
+              agemoistext: agemoistext,
             ),
             UrgencePage(
               dosePropofolEntretien: dosePropofolEntretien,
@@ -566,7 +567,7 @@ class InductionPage extends StatelessWidget {
   final Map<String, String>? taillesonde;
   final Map<String, String>? tailleaspi;
   final Map<String, String>? tailleguedel;
-
+  final int? agemoistext;
   final int? hypotensionsup1;
   final double? doseDexametasone;
   final double? doseketaNMDA;
@@ -623,6 +624,7 @@ class InductionPage extends StatelessWidget {
     required this.doseketaNMDA,
     required this.doseOndansetron,
     required this.hypotensionsup1,
+    required this.agemoistext,
   });
 
   @override
@@ -805,8 +807,6 @@ class InductionPage extends StatelessWidget {
             //container des médicaments (en noir)
             Container(
               padding: const EdgeInsets.all(2),
-              decoration:
-                  BoxDecoration(border: Border.all(color: Colors.black54)),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -1179,14 +1179,21 @@ class InductionPage extends StatelessWidget {
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Text(
-                                'Profénid: $doseProfenid mg',
-                                style: const TextStyle(fontSize: 16),
-                              ),
-                              const Text(" 1 mg/kg",
-                                  style: TextStyle(
-                                      fontSize: 12, color: Colors.grey),
-                                  textAlign: TextAlign.right),
+                              if (agemoistext! < 12)
+                                const Text(
+                                  "Pas d'AMM pour les AINS",
+                                  style: TextStyle(fontSize: 16),
+                                ),
+                              if (agemoistext! >= 12)
+                                Text(
+                                  'Profénid: $doseProfenid mg',
+                                  style: const TextStyle(fontSize: 16),
+                                ),
+                              if (agemoistext! >= 12)
+                                const Text(" 0.5 - 1 mg/kg",
+                                    style: TextStyle(
+                                        fontSize: 12, color: Colors.grey),
+                                    textAlign: TextAlign.right),
                             ],
                           ),
                         ),

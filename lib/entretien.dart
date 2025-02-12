@@ -8,7 +8,10 @@ class UrgencePage extends StatelessWidget {
   final int? doseminPFC;
   final int? dosemaxPqt;
   final int? doseminPqt;
-
+  final double? doseGluconateCamin;
+  final double? doseGluconateCamax;
+  final double? dosemaxFibri;
+  final double? doseminFibri;
   final double? doseExacyl;
   final Map<String, String>? hb;
 
@@ -23,6 +26,10 @@ class UrgencePage extends StatelessWidget {
     this.doseExacyl,
     this.agemoistext,
     this.hb,
+    this.doseGluconateCamax,
+    this.doseGluconateCamin,
+    this.dosemaxFibri,
+    this.doseminFibri,
   });
 
   String getBloodVolume() {
@@ -73,11 +80,18 @@ class UrgencePage extends StatelessWidget {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text(
-                          'Exacyl: ${doseExacyl!.toStringAsFixed(0)} mg ',
-                          style: const TextStyle(fontSize: 16),
-                        ),
-                        const Text("20 mg/kg",
+                        if (poidstext! <= 30)
+                          Text(
+                            'Exacyl: ${doseExacyl!.toStringAsFixed(0)} mg ',
+                            style: const TextStyle(fontSize: 16),
+                          ),
+                        if (poidstext! > 30)
+                          const Text(
+                            'Exacyl: 1g ',
+                            style: const TextStyle(fontSize: 16),
+                          ),
+                        const Text(
+                            "10 mg/kg si <30 kg sinon 1g puis 10mg/kg/h PSE",
                             style: TextStyle(fontSize: 12, color: Colors.grey),
                             textAlign: TextAlign.right),
                       ],
@@ -86,16 +100,17 @@ class UrgencePage extends StatelessWidget {
                   const SizedBox(
                     height: 6,
                   ),
+
                   SizedBox(
                     width: double.infinity,
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          'Gluconate de calcium: ${doseExacyl!.toStringAsFixed(0)} mg',
+                          'Gluconate de calcium: ${doseGluconateCamin!.toStringAsFixed(1)} - ${doseGluconateCamax!.toStringAsFixed(0)}mg',
                           style: const TextStyle(fontSize: 16),
                         ),
-                        const Text("20 mg/kg",
+                        const Text("7.5 - 15 mg/kg",
                             style: TextStyle(fontSize: 12, color: Colors.grey),
                             textAlign: TextAlign.right),
                       ],
@@ -235,6 +250,23 @@ class UrgencePage extends StatelessWidget {
                                       style: const TextStyle(fontSize: 16),
                                     ),
                                     const Text("15 à 20ml/kg",
+                                        style: TextStyle(
+                                            fontSize: 12, color: Colors.grey),
+                                        textAlign: TextAlign.right),
+                                  ],
+                                ),
+                              ),
+                              SizedBox(
+                                width: double.infinity,
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      "Fibrinogène:  ${doseminFibri!.toStringAsFixed(2)} - ${dosemaxFibri!.toStringAsFixed(2)} g",
+                                      style: const TextStyle(fontSize: 16),
+                                    ),
+                                    const Text(
+                                        "0,03 g/kg jusqu'a 0.06 g/kg si choc hémorragique",
                                         style: TextStyle(
                                             fontSize: 12, color: Colors.grey),
                                         textAlign: TextAlign.right),

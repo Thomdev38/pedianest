@@ -84,6 +84,10 @@ class _PosologieCalculatorScreenState extends State<PosologieCalculatorScreen> {
   int? dosemaxPFC;
   int? doseminPqt;
   int? dosemaxPqt;
+  double? doseGluconateCamin;
+  double? doseGluconateCamax;
+  double? doseminFibri;
+  double? dosemaxFibri;
 
   int calculerApportLiquidien(int poids) {
     int apport = 0;
@@ -370,6 +374,10 @@ class _PosologieCalculatorScreenState extends State<PosologieCalculatorScreen> {
       doseminPqt = poids * 15;
       dosemaxPqt = poids * 20;
       doseOndansetron = poids * 0.1;
+      doseGluconateCamin = poids * 7.5;
+      doseGluconateCamax = poids * 15;
+      dosemaxFibri = poids * 0.03;
+      doseminFibri = poids * 0.06;
 
       // Condition spécifique pour la dose de célocurine
       if (ageEnMois < 24) {
@@ -482,6 +490,10 @@ class _PosologieCalculatorScreenState extends State<PosologieCalculatorScreen> {
               doseminPqt: doseminPqt,
               agemoistext: agemoistext,
               hb: hb,
+              doseGluconateCamin: doseGluconateCamin,
+              doseGluconateCamax: doseGluconateCamax,
+              dosemaxFibri: dosemaxFibri,
+              doseminFibri: doseminFibri,
 
               doseExacyl: doseExacyl, // Passer la nouvelle variable
             ),

@@ -126,7 +126,7 @@ class _PosologieCalculatorScreenState extends State<PosologieCalculatorScreen> {
         'FC': '105 - 120',
         'PAS': '110 - 60',
         'FR': '16 - 20',
-        'hypotension': 'si PAS <$hypotensionsup1',
+        'Hypotension': 'si PAS <$hypotensionsup1',
       };
     } else {
       return {

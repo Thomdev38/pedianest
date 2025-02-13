@@ -12,7 +12,7 @@ class _InformationState extends State<Information> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: const Text("Information"),
+          title: const Text("Décharge de responsabilité"),
         ),
         body: SingleChildScrollView(
             padding: const EdgeInsets.all(5),
@@ -22,9 +22,9 @@ class _InformationState extends State<Information> {
                   height: 5,
                 ),
                 const Text(
-                    "Vous pouvez souscrire si vous trouvez l'application interessante en cliquant sur le lien suivant "),
+                    "Cette application a été construite en fonction des différentes recommandations Française et internationale sur la prise en charge anesthésique des enfants. Le développeur de PEDIANESTH ne peut être tenu responsable des différents problèmes pouvant survenir sur vos patients. L'application n'est qu'une aide cognitive, si doute référé vous aux protocoles de vos établissements ou à vos collègues.   "),
                 const SizedBox(
-                  height: 50,
+                  height: 80,
                 ),
                 CircleAvatar(
                   backgroundColor: Colors.black12,

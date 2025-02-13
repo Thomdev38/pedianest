@@ -23,9 +23,13 @@ class _SourcesState extends State<Sources> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: const [
                     Text(
-                        "Voici la liste des ressources scientifiques sur lesquelles sont tirées les données de cette application."),
+                        "Cette application d'aide au calcul de posologie s'est appuyé sur les sites, livres et applications suivantes:"),
                     SizedBox(
                       height: 15,
+                    ),
+                    Text("Le Vidal: https://www.vidal.fr/"),
+                    SizedBox(
+                      height: 8,
                     ),
                     Text(
                         "Le site de l'anesthésie pédiatrique francophone: https://e-adarpef.fr"),
@@ -51,6 +55,10 @@ class _SourcesState extends State<Sources> {
                     ),
                     Text(
                         "Principes et protocoles en anesthésie pédiatrique (4e édition) de Nathalie Bourdaud et Frédéric Duflo aux éditions ARNETTE"),
+                    SizedBox(
+                      height: 8,
+                    ),
+                    Text("https://pharmapp.care/"),
                     SizedBox(
                       height: 10,
                     ),

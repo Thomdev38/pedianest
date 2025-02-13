@@ -88,6 +88,10 @@ class _PosologieCalculatorScreenState extends State<PosologieCalculatorScreen> {
   double? doseGluconateCamax;
   double? doseminFibri;
   double? dosemaxFibri;
+  double? doseOramorph;
+  double? doseSkenan;
+  double? doseActiskenan;
+  int? doseAdvil;
 
   int calculerApportLiquidien(int poids) {
     int apport = 0;
@@ -378,6 +382,10 @@ class _PosologieCalculatorScreenState extends State<PosologieCalculatorScreen> {
       doseGluconateCamax = poids * 15;
       dosemaxFibri = poids * 0.03;
       doseminFibri = poids * 0.06;
+      doseOramorph = poids * 0.2;
+      doseActiskenan = poids * 1;
+      doseSkenan = poids * 1;
+      doseAdvil = poids * 10;
 
       // Condition spécifique pour la dose de célocurine
       if (ageEnMois < 24) {
@@ -481,6 +489,10 @@ class _PosologieCalculatorScreenState extends State<PosologieCalculatorScreen> {
               doseOndansetron: doseOndansetron,
               hypotensionsup1: hypotensionsup1,
               agemoistext: agemoistext,
+              doseOramorph: doseOramorph,
+              doseSkenan: doseSkenan,
+              doseActiskenan: doseActiskenan,
+              doseAdvil: doseAdvil,
             ),
             UrgencePage(
               dosePropofolEntretien: dosePropofolEntretien,
@@ -572,6 +584,10 @@ class InductionPage extends StatelessWidget {
   final double? doseDexametasone;
   final double? doseketaNMDA;
   final double? doseOndansetron;
+  final double? doseOramorph;
+  final double? doseSkenan;
+  final double? doseActiskenan;
+  final int? doseAdvil;
 
   int? dosePropofolEntretien;
 
@@ -625,6 +641,10 @@ class InductionPage extends StatelessWidget {
     required this.doseOndansetron,
     required this.hypotensionsup1,
     required this.agemoistext,
+    required this.doseOramorph,
+    required this.doseActiskenan,
+    required this.doseSkenan,
+    required this.doseAdvil,
   });
 
   @override
@@ -1179,11 +1199,6 @@ class InductionPage extends StatelessWidget {
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              if (agemoistext! < 12)
-                                const Text(
-                                  "Pas d'AMM pour les AINS",
-                                  style: TextStyle(fontSize: 16),
-                                ),
                               if (agemoistext! >= 12)
                                 Text(
                                   'Profénid: $doseProfenid mg',
@@ -1202,11 +1217,30 @@ class InductionPage extends StatelessWidget {
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
+                              if (agemoistext! >= 3)
+                                Text(
+                                  'Advil/ibuprofène: $doseAdvil mg',
+                                  style: const TextStyle(fontSize: 16),
+                                ),
+                              if (agemoistext! >= 12)
+                                const Text(" 10mg/kg/8h max 400mg/prise",
+                                    style: TextStyle(
+                                        fontSize: 12, color: Colors.grey),
+                                    textAlign: TextAlign.right),
+                            ],
+                          ),
+                        ),
+                        const SizedBox(height: 6),
+                        SizedBox(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
                               Text(
                                 'Nalbuphine: ${doseNalbuphine!.toStringAsFixed(1)} mg',
                                 style: const TextStyle(fontSize: 16),
                               ),
-                              const Text(" 0.2 mg/kg",
+                              const Text(
+                                  " 0.2 mg/kg, divisé par deux si enfant< 6 mois",
                                   style: TextStyle(
                                       fontSize: 12, color: Colors.grey),
                                   textAlign: TextAlign.right),
@@ -1218,11 +1252,78 @@ class InductionPage extends StatelessWidget {
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
+                              if (agemoistext! >= 180)
+                                const Text(
+                                  'Acupan: 1 ampoule 4 à 6/jour',
+                                  style: TextStyle(fontSize: 16),
+                                ),
+                            ],
+                          ),
+                        ),
+                        const SizedBox(height: 6),
+                        SizedBox(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              if (agemoistext! >= 6)
+                                Text(
+                                  'Oramorph: ${doseOramorph!.toStringAsFixed(1)} mg',
+                                  style: const TextStyle(fontSize: 16),
+                                ),
+                              if (agemoistext! >= 6)
+                                const Text(" 0.2 mg/kg toute les 4 à 6h",
+                                    style: TextStyle(
+                                        fontSize: 12, color: Colors.grey),
+                                    textAlign: TextAlign.right),
+                            ],
+                          ),
+                        ),
+                        const SizedBox(height: 6),
+                        SizedBox(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              if (agemoistext! >= 6)
+                                Text(
+                                  'Actiskénan ${doseActiskenan!.toStringAsFixed(0)} mg',
+                                  style: const TextStyle(fontSize: 16),
+                                ),
+                              if (agemoistext! >= 6)
+                                const Text(" 1 mg/kg/j en 6 prises",
+                                    style: TextStyle(
+                                        fontSize: 12, color: Colors.grey),
+                                    textAlign: TextAlign.right),
+                            ],
+                          ),
+                        ),
+                        const SizedBox(height: 6),
+                        SizedBox(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              if (agemoistext! >= 6)
+                                Text(
+                                  'Skénan lp ${doseSkenan!.toStringAsFixed(0)} mg',
+                                  style: const TextStyle(fontSize: 16),
+                                ),
+                              if (agemoistext! >= 6)
+                                const Text(" 1 mg/kg/j en 2 prises",
+                                    style: TextStyle(
+                                        fontSize: 12, color: Colors.grey),
+                                    textAlign: TextAlign.right),
+                            ],
+                          ),
+                        ),
+                        SizedBox(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
                               Text(
                                 'Morphine: ${doseMorphine!.toStringAsFixed(1)}  mg',
                                 style: const TextStyle(fontSize: 16),
                               ),
-                              const Text(" 0.1 mg/kg",
+                              const Text(
+                                  " 0.1 mg/kg puis titration de 25 à 50 μg/kg/5 mn",
                                   style: TextStyle(
                                       fontSize: 12, color: Colors.grey),
                                   textAlign: TextAlign.right),

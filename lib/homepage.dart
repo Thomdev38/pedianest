@@ -92,6 +92,8 @@ class _PosologieCalculatorScreenState extends State<PosologieCalculatorScreen> {
   double? doseSkenan;
   double? doseActiskenan;
   int? doseAdvil;
+  int? doseSpasfon;
+  double? doseDroleptan;
 
   int calculerApportLiquidien(int poids) {
     int apport = 0;
@@ -358,7 +360,7 @@ class _PosologieCalculatorScreenState extends State<PosologieCalculatorScreen> {
       agemoistext = ageEnMois * 1;
       remplissagevasc = poids * 20;
       doseDexametasone = poids * 0.15;
-      doseNarcan = poids * 0.1;
+      doseNarcan = poids * 10;
       doseketaNMDA = poids * 0.2;
       doseExacyl = poids * 20;
       doseLidocaine = poids * 5;
@@ -386,6 +388,8 @@ class _PosologieCalculatorScreenState extends State<PosologieCalculatorScreen> {
       doseActiskenan = poids * 1;
       doseSkenan = poids * 1;
       doseAdvil = poids * 10;
+      doseSpasfon = poids;
+      doseDroleptan = poids * 20;
 
       // Condition spécifique pour la dose de célocurine
       if (ageEnMois < 24) {
@@ -493,6 +497,8 @@ class _PosologieCalculatorScreenState extends State<PosologieCalculatorScreen> {
               doseSkenan: doseSkenan,
               doseActiskenan: doseActiskenan,
               doseAdvil: doseAdvil,
+              doseSpasfon: doseSpasfon,
+              doseDroleptan: doseDroleptan,
             ),
             UrgencePage(
               dosePropofolEntretien: dosePropofolEntretien,
@@ -588,10 +594,10 @@ class InductionPage extends StatelessWidget {
   final double? doseSkenan;
   final double? doseActiskenan;
   final int? doseAdvil;
+  final int? doseSpasfon;
+  final double? doseDroleptan;
 
-  int? dosePropofolEntretien;
-
-  InductionPage({
+  const InductionPage({
     super.key,
     required this.ageController,
     required this.poidsController,
@@ -645,6 +651,8 @@ class InductionPage extends StatelessWidget {
     required this.doseActiskenan,
     required this.doseSkenan,
     required this.doseAdvil,
+    required this.doseDroleptan,
+    required this.doseSpasfon,
   });
 
   @override
@@ -876,7 +884,7 @@ class InductionPage extends StatelessWidget {
                               const Text("2 à 5 mg/kg",
                                   style: TextStyle(
                                       fontSize: 12, color: Colors.grey),
-                                  textAlign: TextAlign.right),
+                                  textAlign: TextAlign.left),
                             ],
                           ),
                         ),
@@ -894,7 +902,7 @@ class InductionPage extends StatelessWidget {
                                 "0,2 mg/kg",
                                 style:
                                     TextStyle(fontSize: 12, color: Colors.grey),
-                                textAlign: TextAlign.right,
+                                textAlign: TextAlign.left,
                               ),
                             ],
                           ),
@@ -912,7 +920,7 @@ class InductionPage extends StatelessWidget {
                               const Text("2 mg/kg pour induction IV",
                                   style: TextStyle(
                                       fontSize: 12, color: Colors.grey),
-                                  textAlign: TextAlign.right),
+                                  textAlign: TextAlign.left),
                             ],
                           ),
                         ),
@@ -928,7 +936,7 @@ class InductionPage extends StatelessWidget {
                               const Text("0.2 mg/kg (anti NMDA)",
                                   style: TextStyle(
                                       fontSize: 12, color: Colors.grey),
-                                  textAlign: TextAlign.right),
+                                  textAlign: TextAlign.left),
                             ],
                           ),
                         ),
@@ -968,7 +976,7 @@ class InductionPage extends StatelessWidget {
                               const Text("0,2 mcg/kg",
                                   style: TextStyle(
                                       fontSize: 12, color: Colors.grey),
-                                  textAlign: TextAlign.right),
+                                  textAlign: TextAlign.left),
                             ],
                           ),
                         ),
@@ -984,7 +992,7 @@ class InductionPage extends StatelessWidget {
                               const Text(" 20 à 40 mcg/kg",
                                   style: TextStyle(
                                       fontSize: 12, color: Colors.grey),
-                                  textAlign: TextAlign.right),
+                                  textAlign: TextAlign.left),
                             ],
                           ),
                         ),
@@ -1000,7 +1008,7 @@ class InductionPage extends StatelessWidget {
                               const Text(" 20 à 40 mcg/kg",
                                   style: TextStyle(
                                       fontSize: 12, color: Colors.grey),
-                                  textAlign: TextAlign.right),
+                                  textAlign: TextAlign.left),
                             ],
                           ),
                         ),
@@ -1016,7 +1024,7 @@ class InductionPage extends StatelessWidget {
                               const Text(" 20 à 50 mcg/kg",
                                   style: TextStyle(
                                       fontSize: 12, color: Colors.grey),
-                                  textAlign: TextAlign.right),
+                                  textAlign: TextAlign.left),
                             ],
                           ),
                         ),
@@ -1053,7 +1061,7 @@ class InductionPage extends StatelessWidget {
                               const Text(" 0,15 à 0,2 mg/kg",
                                   style: TextStyle(
                                       fontSize: 12, color: Colors.grey),
-                                  textAlign: TextAlign.right),
+                                  textAlign: TextAlign.left),
                             ],
                           ),
                         ),
@@ -1069,7 +1077,7 @@ class InductionPage extends StatelessWidget {
                               const Text("1 mg/kg (2mg/kg si age<24 mois) ",
                                   style: TextStyle(
                                       fontSize: 12, color: Colors.grey),
-                                  textAlign: TextAlign.right),
+                                  textAlign: TextAlign.left),
                             ],
                           ),
                         ),
@@ -1085,7 +1093,7 @@ class InductionPage extends StatelessWidget {
                               const Text(" 0,5 mg/kg",
                                   style: TextStyle(
                                       fontSize: 12, color: Colors.grey),
-                                  textAlign: TextAlign.right),
+                                  textAlign: TextAlign.left),
                             ],
                           ),
                         ),
@@ -1101,7 +1109,7 @@ class InductionPage extends StatelessWidget {
                               const Text(" 0,6 mg/kg ou 1 à 1.2mg/kg en ISR",
                                   style: TextStyle(
                                       fontSize: 12, color: Colors.grey),
-                                  textAlign: TextAlign.right),
+                                  textAlign: TextAlign.left),
                             ],
                           ),
                         ),
@@ -1190,7 +1198,7 @@ class InductionPage extends StatelessWidget {
                               const Text(" 15 mg/kg",
                                   style: TextStyle(
                                       fontSize: 12, color: Colors.grey),
-                                  textAlign: TextAlign.right),
+                                  textAlign: TextAlign.left),
                             ],
                           ),
                         ),
@@ -1208,7 +1216,7 @@ class InductionPage extends StatelessWidget {
                                 const Text(" 0.5 - 1 mg/kg",
                                     style: TextStyle(
                                         fontSize: 12, color: Colors.grey),
-                                    textAlign: TextAlign.right),
+                                    textAlign: TextAlign.left),
                             ],
                           ),
                         ),
@@ -1226,7 +1234,7 @@ class InductionPage extends StatelessWidget {
                                 const Text(" 10mg/kg/8h max 400mg/prise",
                                     style: TextStyle(
                                         fontSize: 12, color: Colors.grey),
-                                    textAlign: TextAlign.right),
+                                    textAlign: TextAlign.left),
                             ],
                           ),
                         ),
@@ -1243,7 +1251,7 @@ class InductionPage extends StatelessWidget {
                                   " 0.2 mg/kg, divisé par deux si enfant< 6 mois",
                                   style: TextStyle(
                                       fontSize: 12, color: Colors.grey),
-                                  textAlign: TextAlign.right),
+                                  textAlign: TextAlign.left),
                             ],
                           ),
                         ),
@@ -1274,7 +1282,7 @@ class InductionPage extends StatelessWidget {
                                 const Text(" 0.2 mg/kg toute les 4 à 6h",
                                     style: TextStyle(
                                         fontSize: 12, color: Colors.grey),
-                                    textAlign: TextAlign.right),
+                                    textAlign: TextAlign.left),
                             ],
                           ),
                         ),
@@ -1292,7 +1300,7 @@ class InductionPage extends StatelessWidget {
                                 const Text(" 1 mg/kg/j en 6 prises",
                                     style: TextStyle(
                                         fontSize: 12, color: Colors.grey),
-                                    textAlign: TextAlign.right),
+                                    textAlign: TextAlign.left),
                             ],
                           ),
                         ),
@@ -1310,10 +1318,11 @@ class InductionPage extends StatelessWidget {
                                 const Text(" 1 mg/kg/j en 2 prises",
                                     style: TextStyle(
                                         fontSize: 12, color: Colors.grey),
-                                    textAlign: TextAlign.right),
+                                    textAlign: TextAlign.left),
                             ],
                           ),
                         ),
+                        const SizedBox(height: 6),
                         SizedBox(
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
@@ -1326,7 +1335,29 @@ class InductionPage extends StatelessWidget {
                                   " 0.1 mg/kg puis titration de 25 à 50 μg/kg/5 mn",
                                   style: TextStyle(
                                       fontSize: 12, color: Colors.grey),
-                                  textAlign: TextAlign.right),
+                                  textAlign: TextAlign.left),
+                            ],
+                          ),
+                        ),
+                        const SizedBox(height: 6),
+                        SizedBox(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                "Naloxone: titration de 40mcg jusqu'à ${doseNarcan!.toStringAsFixed(0)} mcg",
+                                style: const TextStyle(fontSize: 16),
+                              ),
+                              Text(
+                                  "Diluer 1 amp de 0.4mg dans 10ml, injecter bolus de 40mcg jusqu'à ${doseNarcan!.toStringAsFixed(0)} mcg.",
+                                  style: const TextStyle(
+                                      fontSize: 12, color: Colors.grey),
+                                  textAlign: TextAlign.left),
+                              Text(
+                                  "Poursuivre avec ${doseNarcan!.toStringAsFixed(0)}mcg/h soit 10 mcg/kg/h ",
+                                  style: const TextStyle(
+                                      fontSize: 12, color: Colors.grey),
+                                  textAlign: TextAlign.left),
                             ],
                           ),
                         ),
@@ -1492,14 +1523,15 @@ class InductionPage extends StatelessWidget {
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Text(
-                                'Dexamétasone: ${doseDexametasone!.toStringAsFixed(1)}  mg',
-                                style: const TextStyle(fontSize: 16),
-                              ),
+                              if (agemoistext! >= 24)
+                                Text(
+                                  'Dexamétasone: ${doseDexametasone!.toStringAsFixed(1)}  mg',
+                                  style: const TextStyle(fontSize: 16),
+                                ),
                               const Text(" 0.15 mg/kg",
                                   style: TextStyle(
                                       fontSize: 12, color: Colors.grey),
-                                  textAlign: TextAlign.right),
+                                  textAlign: TextAlign.left),
                             ],
                           ),
                         ),
@@ -1507,14 +1539,33 @@ class InductionPage extends StatelessWidget {
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Text(
-                                'Ondansetron: ${doseOndansetron!.toStringAsFixed(1)}  mg',
-                                style: const TextStyle(fontSize: 16),
-                              ),
-                              const Text(" 0.1 mg/kg",
+                              if (agemoistext! >= 1)
+                                Text(
+                                  'Ondansetron: ${doseOndansetron!.toStringAsFixed(1)}  mg',
+                                  style: const TextStyle(fontSize: 16),
+                                ),
+                              const Text(" 0.1 mg/ x 3/jour",
                                   style: TextStyle(
                                       fontSize: 12, color: Colors.grey),
-                                  textAlign: TextAlign.right),
+                                  textAlign: TextAlign.left),
+                            ],
+                          ),
+                        ),
+                        const SizedBox(height: 6),
+                        SizedBox(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              if (agemoistext! >= 24)
+                                Text(
+                                  'Droleptan: ${doseDroleptan!.toStringAsFixed(1)}  mg',
+                                  style: const TextStyle(fontSize: 16),
+                                ),
+                              const Text(
+                                  " 20 mcg/kg (pas pour enfant en ambulatoire)",
+                                  style: TextStyle(
+                                      fontSize: 12, color: Colors.grey),
+                                  textAlign: TextAlign.left),
                             ],
                           ),
                         ),
@@ -1524,13 +1575,13 @@ class InductionPage extends StatelessWidget {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
-                                'Narcan: ${doseNarcan!.toStringAsFixed(1)}  mg',
+                                'Spasfon: ${doseSpasfon!}  mg',
                                 style: const TextStyle(fontSize: 16),
                               ),
-                              const Text(" 0.1 mg/kg",
+                              const Text(" 1 mg/kg/6h",
                                   style: TextStyle(
                                       fontSize: 12, color: Colors.grey),
-                                  textAlign: TextAlign.right),
+                                  textAlign: TextAlign.left),
                             ],
                           ),
                         ),
@@ -1546,7 +1597,7 @@ class InductionPage extends StatelessWidget {
                               Text("20 mg/kg",
                                   style: TextStyle(
                                       fontSize: 12, color: Colors.grey),
-                                  textAlign: TextAlign.right),
+                                  textAlign: TextAlign.left),
                             ],
                           ),
                         ),

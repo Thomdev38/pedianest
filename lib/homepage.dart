@@ -400,13 +400,8 @@ class _PosologieCalculatorScreenState extends State<PosologieCalculatorScreen> {
       doseSshmax = poids * 10;
       doseValium = poids * 0.5;
       doseRivotril = poids * 0.05;
-
-      // Condition spécifique pour la dose de célocurine
-      if (ageEnMois < 24) {
-        doseCelocurinemini = poids * 2;
-      } else {
-        doseCelocurinemini = poids;
-      }
+      doseCelocurinemaxi = poids * 2;
+      doseCelocurinemini = poids;
 
       doseAtracrium = poids * 0.5;
       doseRocuroniummini = poids * 0.6;
@@ -1084,14 +1079,26 @@ class InductionPage extends StatelessWidget {
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Text(
-                                'Celocurine: $doseCelocurinemini mg',
-                                style: const TextStyle(fontSize: 16),
-                              ),
-                              const Text("1 mg/kg (2mg/kg si age<24 mois) ",
-                                  style: TextStyle(
-                                      fontSize: 12, color: Colors.grey),
-                                  textAlign: TextAlign.left),
+                              if (agemoistext! < 18)
+                                Text(
+                                  'Celocurine: $doseCelocurinemaxi mg',
+                                  style: const TextStyle(fontSize: 16),
+                                ),
+                              if (agemoistext! < 18)
+                                const Text("2mg/kg",
+                                    style: TextStyle(
+                                        fontSize: 12, color: Colors.grey),
+                                    textAlign: TextAlign.left),
+                              if (agemoistext! >= 18)
+                                Text(
+                                  'Celocurine: $doseCelocurinemini mg',
+                                  style: const TextStyle(fontSize: 16),
+                                ),
+                              if (agemoistext! >= 18)
+                                const Text("1mg/kg",
+                                    style: TextStyle(
+                                        fontSize: 12, color: Colors.grey),
+                                    textAlign: TextAlign.left),
                             ],
                           ),
                         ),
@@ -1234,7 +1241,7 @@ class InductionPage extends StatelessWidget {
                             ],
                           ),
                         ),
-                        const SizedBox(height: 6),
+                        if (agemoistext! >= 12) const SizedBox(height: 6),
                         SizedBox(
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
@@ -1282,7 +1289,7 @@ class InductionPage extends StatelessWidget {
                             ],
                           ),
                         ),
-                        const SizedBox(height: 6),
+                        if (agemoistext! >= 180) const SizedBox(height: 6),
                         SizedBox(
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
@@ -1300,7 +1307,7 @@ class InductionPage extends StatelessWidget {
                             ],
                           ),
                         ),
-                        const SizedBox(height: 6),
+                        if (agemoistext! >= 6) const SizedBox(height: 6),
                         SizedBox(
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
@@ -1318,7 +1325,7 @@ class InductionPage extends StatelessWidget {
                             ],
                           ),
                         ),
-                        const SizedBox(height: 6),
+                        if (agemoistext! >= 6) const SizedBox(height: 6),
                         SizedBox(
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
@@ -1336,7 +1343,7 @@ class InductionPage extends StatelessWidget {
                             ],
                           ),
                         ),
-                        const SizedBox(height: 6),
+                        if (agemoistext! >= 6) const SizedBox(height: 6),
                         SizedBox(
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
@@ -1542,13 +1549,18 @@ class InductionPage extends StatelessWidget {
                                   'Dexamétasone: ${doseDexametasone!.toStringAsFixed(1)}  mg',
                                   style: const TextStyle(fontSize: 16),
                                 ),
-                              const Text(" 0.15 mg/kg",
-                                  style: TextStyle(
-                                      fontSize: 12, color: Colors.grey),
-                                  textAlign: TextAlign.left),
+                              if (agemoistext! >= 24)
+                                const Text(" 0.15 mg/kg",
+                                    style: TextStyle(
+                                        fontSize: 12, color: Colors.grey),
+                                    textAlign: TextAlign.left),
                             ],
                           ),
                         ),
+                        if (agemoistext! >= 24)
+                          const SizedBox(
+                            height: 6,
+                          ),
                         SizedBox(
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
@@ -1575,15 +1587,16 @@ class InductionPage extends StatelessWidget {
                                   'Droleptan: ${doseDroleptan!.toStringAsFixed(1)}  mg',
                                   style: const TextStyle(fontSize: 16),
                                 ),
-                              const Text(
-                                  " 20 mcg/kg (pas pour enfant en ambulatoire)",
-                                  style: TextStyle(
-                                      fontSize: 12, color: Colors.grey),
-                                  textAlign: TextAlign.left),
+                              if (agemoistext! >= 24)
+                                const Text(
+                                    " 20 mcg/kg (pas pour enfant en ambulatoire)",
+                                    style: TextStyle(
+                                        fontSize: 12, color: Colors.grey),
+                                    textAlign: TextAlign.left),
                             ],
                           ),
                         ),
-                        const SizedBox(height: 6),
+                        if (agemoistext! >= 24) const SizedBox(height: 6),
                         SizedBox(
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
@@ -1599,6 +1612,7 @@ class InductionPage extends StatelessWidget {
                             ],
                           ),
                         ),
+                        const SizedBox(height: 6),
                         const SizedBox(
                           width: double.infinity,
                           child: Column(

@@ -83,47 +83,6 @@ class UrgencePage extends StatelessWidget {
                 children: [
                   const SizedBox(height: 4),
                   //container des hypnotiques
-                  SizedBox(
-                    width: double.infinity,
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        if (poidstext! <= 30)
-                          Text(
-                            'Exacyl: ${doseExacyl!.toStringAsFixed(0)} mg ',
-                            style: const TextStyle(fontSize: 16),
-                          ),
-                        if (poidstext! > 30)
-                          const Text(
-                            'Exacyl: 1g ',
-                            style: TextStyle(fontSize: 16),
-                          ),
-                        const Text(
-                            "10 mg/kg si <30 kg sinon 1g puis 10mg/kg/h PSE",
-                            style: TextStyle(fontSize: 12, color: Colors.grey),
-                            textAlign: TextAlign.left),
-                      ],
-                    ),
-                  ),
-                  const SizedBox(
-                    height: 6,
-                  ),
-
-                  SizedBox(
-                    width: double.infinity,
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          'Gluconate de calcium: ${doseGluconateCamin!.toStringAsFixed(1)} - ${doseGluconateCamax!.toStringAsFixed(0)}mg',
-                          style: const TextStyle(fontSize: 16),
-                        ),
-                        const Text("7.5 - 15 mg/kg",
-                            style: TextStyle(fontSize: 12, color: Colors.grey),
-                            textAlign: TextAlign.left),
-                      ],
-                    ),
-                  ),
 
                   const SizedBox(
                     height: 6,
@@ -276,6 +235,9 @@ class UrgencePage extends StatelessWidget {
                                   ],
                                 ),
                               ),
+                              const SizedBox(
+                                height: 4,
+                              ),
                               SizedBox(
                                 width: double.infinity,
                                 child: Column(
@@ -292,6 +254,9 @@ class UrgencePage extends StatelessWidget {
                                   ],
                                 ),
                               ),
+                              const SizedBox(
+                                height: 4,
+                              ),
                               SizedBox(
                                 width: double.infinity,
                                 child: Column(
@@ -303,6 +268,51 @@ class UrgencePage extends StatelessWidget {
                                     ),
                                     const Text(
                                         "0,03 g/kg jusqu'a 0.06 g/kg si choc hémorragique",
+                                        style: TextStyle(
+                                            fontSize: 12, color: Colors.grey),
+                                        textAlign: TextAlign.left),
+                                  ],
+                                ),
+                              ),
+                              const SizedBox(
+                                height: 4,
+                              ),
+                              SizedBox(
+                                width: double.infinity,
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    if (poidstext! <= 30)
+                                      Text(
+                                        'Exacyl: ${doseExacyl!.toStringAsFixed(0)} mg ',
+                                        style: const TextStyle(fontSize: 16),
+                                      ),
+                                    if (poidstext! > 30)
+                                      const Text(
+                                        'Exacyl: 1g ',
+                                        style: TextStyle(fontSize: 16),
+                                      ),
+                                    const Text(
+                                        "10 mg/kg si <30 kg sinon 1g puis 10mg/kg/h PSE",
+                                        style: TextStyle(
+                                            fontSize: 12, color: Colors.grey),
+                                        textAlign: TextAlign.left),
+                                  ],
+                                ),
+                              ),
+                              const SizedBox(
+                                height: 4,
+                              ),
+                              SizedBox(
+                                width: double.infinity,
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      'Gluconate de calcium: ${doseGluconateCamin!.toStringAsFixed(1)} - ${doseGluconateCamax!.toStringAsFixed(0)}mg',
+                                      style: const TextStyle(fontSize: 16),
+                                    ),
+                                    const Text("7.5 - 15 mg/kg",
                                         style: TextStyle(
                                             fontSize: 12, color: Colors.grey),
                                         textAlign: TextAlign.left),

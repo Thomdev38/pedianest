@@ -14,6 +14,11 @@ class UrgencePage extends StatelessWidget {
   final double? doseminFibri;
   final double? doseExacyl;
   final Map<String, String>? hb;
+  final double? doseRivotril;
+  final double? doseValium;
+  final double? doseManitol;
+  final double? doseSshmin;
+  final double? doseSshmax;
 
   const UrgencePage({
     super.key,
@@ -30,6 +35,11 @@ class UrgencePage extends StatelessWidget {
     this.doseGluconateCamin,
     this.dosemaxFibri,
     this.doseminFibri,
+    this.doseManitol,
+    this.doseRivotril,
+    this.doseSshmax,
+    this.doseSshmin,
+    this.doseValium,
   });
 
   String getBloodVolume() {
@@ -68,8 +78,6 @@ class UrgencePage extends StatelessWidget {
           if (doseExacyl != null && doseExacyl != null) ...[
             Container(
               padding: const EdgeInsets.all(2),
-              decoration:
-                  BoxDecoration(border: Border.all(color: Colors.black54)),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -334,41 +342,59 @@ class UrgencePage extends StatelessWidget {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
-                                'Sérum Salé Hypertonique: $doseExacyl mg',
+                                'Sérum Salé Hypertonique: ${doseSshmin!.toStringAsFixed(1)} à ${doseSshmax!.toStringAsFixed(0)} ml',
                                 style: const TextStyle(fontSize: 16),
                               ),
+                              const Text("6.5 à 10ml/kg",
+                                  style: TextStyle(
+                                      fontSize: 12, color: Colors.grey),
+                                  textAlign: TextAlign.left),
                               SizedBox(
                                 width: double.infinity,
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     Text(
-                                      'Manitol: $doseExacyl mg',
+                                      'Manitol: $doseManitol à $poidstext g',
                                       style: const TextStyle(fontSize: 16),
                                     ),
-                                    const Text("20 mg/kg",
+                                    const Text("0.5 à 1g/kg sur 20 min",
                                         style: TextStyle(
                                             fontSize: 12, color: Colors.grey),
                                         textAlign: TextAlign.left),
                                   ],
                                 ),
                               ),
-                              const SizedBox(height: 4),
-                              Text("Si convuslions"),
+                              const SizedBox(height: 6),
+                              const Column(
+                                children: [
+                                  Row(
+                                    children: [
+                                      Spacer(),
+                                      Text(
+                                        "Si convulsions",
+                                        style: TextStyle(
+                                            fontWeight: FontWeight.w600),
+                                      ),
+                                      Spacer(),
+                                    ],
+                                  ),
+                                ],
+                              ),
                               Text(
-                                'Valium: $doseExacyl mg',
+                                'Valium: $doseValium mg',
                                 style: const TextStyle(fontSize: 16),
                               ),
-                              const Text("/kg",
+                              const Text("0.5 mg/kg en IR",
                                   style: TextStyle(
                                       fontSize: 12, color: Colors.grey),
                                   textAlign: TextAlign.left),
                               const SizedBox(height: 4),
                               Text(
-                                'Rivotril: $doseExacyl mg',
+                                'Rivotril: ${doseRivotril!.toStringAsFixed(1)} mg',
                                 style: const TextStyle(fontSize: 16),
                               ),
-                              const Text("/kg",
+                              const Text("0.05 mg/kg en IV",
                                   style: TextStyle(
                                       fontSize: 12, color: Colors.grey),
                                   textAlign: TextAlign.left),

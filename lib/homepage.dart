@@ -94,6 +94,11 @@ class _PosologieCalculatorScreenState extends State<PosologieCalculatorScreen> {
   int? doseAdvil;
   int? doseSpasfon;
   double? doseDroleptan;
+  double? doseManitol;
+  double? doseSshmin;
+  double? doseSshmax;
+  double? doseValium;
+  double? doseRivotril;
 
   int calculerApportLiquidien(int poids) {
     int apport = 0;
@@ -390,6 +395,11 @@ class _PosologieCalculatorScreenState extends State<PosologieCalculatorScreen> {
       doseAdvil = poids * 10;
       doseSpasfon = poids;
       doseDroleptan = poids * 20;
+      doseManitol = poids * 0.5;
+      doseSshmin = poids * 6.5;
+      doseSshmax = poids * 10;
+      doseValium = poids * 0.5;
+      doseRivotril = poids * 0.05;
 
       // Condition spécifique pour la dose de célocurine
       if (ageEnMois < 24) {
@@ -513,7 +523,11 @@ class _PosologieCalculatorScreenState extends State<PosologieCalculatorScreen> {
               doseGluconateCamax: doseGluconateCamax,
               dosemaxFibri: dosemaxFibri,
               doseminFibri: doseminFibri,
-
+              doseManitol: doseManitol,
+              doseSshmin: doseSshmin,
+              doseSshmax: doseSshmax,
+              doseValium: doseValium,
+              doseRivotril: doseRivotril,
               doseExacyl: doseExacyl, // Passer la nouvelle variable
             ),
             AntibioPage(

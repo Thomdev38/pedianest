@@ -95,7 +95,7 @@ class AntibioPage extends StatelessWidget {
                               const Text("5 mg/kg/6h",
                                   style: TextStyle(
                                       fontSize: 12, color: Colors.grey),
-                                  textAlign: TextAlign.right),
+                                  textAlign: TextAlign.left),
                             ],
                           ),
                         ),
@@ -115,7 +115,7 @@ class AntibioPage extends StatelessWidget {
                               const Text("2,5 mg/kg/6h",
                                   style: TextStyle(
                                       fontSize: 12, color: Colors.grey),
-                                  textAlign: TextAlign.right),
+                                  textAlign: TextAlign.left),
                               //] else
                               // const Text("Bupivacine non recommandé")
                             ],
@@ -138,7 +138,7 @@ class AntibioPage extends StatelessWidget {
                               const Text("3 mg/kg/6h",
                                   style: TextStyle(
                                       fontSize: 12, color: Colors.grey),
-                                  textAlign: TextAlign.right),
+                                  textAlign: TextAlign.left),
                               //] else
                               //const Text("Ropivacaine non recommandé")
                             ],
@@ -161,7 +161,7 @@ class AntibioPage extends StatelessWidget {
                               const Text("5 mg/kg/6h",
                                   style: TextStyle(
                                       fontSize: 12, color: Colors.grey),
-                                  textAlign: TextAlign.right),
+                                  textAlign: TextAlign.left),
                               //] else
                               // const Text("Prilocaine non recommandé")
                             ],
@@ -184,7 +184,7 @@ class AntibioPage extends StatelessWidget {
                               Text("1 pulvérisation = 8mg",
                                   style: TextStyle(
                                       fontSize: 12, color: Colors.grey),
-                                  textAlign: TextAlign.right),
+                                  textAlign: TextAlign.left),
                             ],
                           ),
                         ),
@@ -232,7 +232,7 @@ class AntibioPage extends StatelessWidget {
                                   "30 mg/kg, si durée > 4h refaire la même dose",
                                   style: TextStyle(
                                       fontSize: 12, color: Colors.grey),
-                                  textAlign: TextAlign.right),
+                                  textAlign: TextAlign.left),
                             ],
                           ),
                         ),
@@ -252,7 +252,7 @@ class AntibioPage extends StatelessWidget {
                                   "50 mg/kg (max 2g), si durée > 2h refaire la même dose (max 1g)",
                                   style: TextStyle(
                                       fontSize: 12, color: Colors.grey),
-                                  textAlign: TextAlign.right),
+                                  textAlign: TextAlign.left),
                             ],
                           ),
                         ),
@@ -272,7 +272,7 @@ class AntibioPage extends StatelessWidget {
                                   "10 mg/kg (max 900mg), si durée > 4h refaire la même dose (max 450mg à 600mg suivant les indications)",
                                   style: TextStyle(
                                       fontSize: 12, color: Colors.grey),
-                                  textAlign: TextAlign.right),
+                                  textAlign: TextAlign.left),
                             ],
                           ),
                         ),
@@ -291,7 +291,7 @@ class AntibioPage extends StatelessWidget {
                               const Text("6 mg/kg dose unique",
                                   style: TextStyle(
                                       fontSize: 12, color: Colors.grey),
-                                  textAlign: TextAlign.right),
+                                  textAlign: TextAlign.left),
                             ],
                           ),
                         ),
@@ -311,7 +311,7 @@ class AntibioPage extends StatelessWidget {
                                   "40 mg/kg (max 2g), si durée > 2h refaire même dose (max 1g)",
                                   style: TextStyle(
                                       fontSize: 12, color: Colors.grey),
-                                  textAlign: TextAlign.right),
+                                  textAlign: TextAlign.left),
                             ],
                           ),
                         ),
@@ -330,7 +330,7 @@ class AntibioPage extends StatelessWidget {
                               const Text("15 mg/kg, dose unique",
                                   style: TextStyle(
                                       fontSize: 12, color: Colors.grey),
-                                  textAlign: TextAlign.right),
+                                  textAlign: TextAlign.left),
                             ],
                           ),
                         ),
@@ -350,7 +350,7 @@ class AntibioPage extends StatelessWidget {
                                   "20 à 30 mg/kg en 60 minutes, dose unique",
                                   style: TextStyle(
                                       fontSize: 12, color: Colors.grey),
-                                  textAlign: TextAlign.right),
+                                  textAlign: TextAlign.left),
                             ],
                           ),
                         ),

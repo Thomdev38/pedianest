@@ -93,7 +93,7 @@ class UrgencePage extends StatelessWidget {
                         const Text(
                             "10 mg/kg si <30 kg sinon 1g puis 10mg/kg/h PSE",
                             style: TextStyle(fontSize: 12, color: Colors.grey),
-                            textAlign: TextAlign.right),
+                            textAlign: TextAlign.left),
                       ],
                     ),
                   ),
@@ -112,7 +112,7 @@ class UrgencePage extends StatelessWidget {
                         ),
                         const Text("7.5 - 15 mg/kg",
                             style: TextStyle(fontSize: 12, color: Colors.grey),
-                            textAlign: TextAlign.right),
+                            textAlign: TextAlign.left),
                       ],
                     ),
                   ),
@@ -264,7 +264,7 @@ class UrgencePage extends StatelessWidget {
                                     const Text("10 à 30ml/kg",
                                         style: TextStyle(
                                             fontSize: 12, color: Colors.grey),
-                                        textAlign: TextAlign.right),
+                                        textAlign: TextAlign.left),
                                   ],
                                 ),
                               ),
@@ -280,7 +280,7 @@ class UrgencePage extends StatelessWidget {
                                     const Text("15 à 20ml/kg",
                                         style: TextStyle(
                                             fontSize: 12, color: Colors.grey),
-                                        textAlign: TextAlign.right),
+                                        textAlign: TextAlign.left),
                                   ],
                                 ),
                               ),
@@ -297,7 +297,7 @@ class UrgencePage extends StatelessWidget {
                                         "0,03 g/kg jusqu'a 0.06 g/kg si choc hémorragique",
                                         style: TextStyle(
                                             fontSize: 12, color: Colors.grey),
-                                        textAlign: TextAlign.right),
+                                        textAlign: TextAlign.left),
                                   ],
                                 ),
                               ),
@@ -349,7 +349,7 @@ class UrgencePage extends StatelessWidget {
                                     const Text("20 mg/kg",
                                         style: TextStyle(
                                             fontSize: 12, color: Colors.grey),
-                                        textAlign: TextAlign.right),
+                                        textAlign: TextAlign.left),
                                   ],
                                 ),
                               ),
@@ -361,7 +361,7 @@ class UrgencePage extends StatelessWidget {
                               const Text("/kg",
                                   style: TextStyle(
                                       fontSize: 12, color: Colors.grey),
-                                  textAlign: TextAlign.right),
+                                  textAlign: TextAlign.left),
                             ],
                           ),
                         ),

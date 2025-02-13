@@ -334,7 +334,7 @@ class UrgencePage extends StatelessWidget {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
-                                'Volume sanguin estimé: $doseExacyl mg',
+                                'Sérum Salé Hypertonique: $doseExacyl mg',
                                 style: const TextStyle(fontSize: 16),
                               ),
                               SizedBox(
@@ -354,8 +354,18 @@ class UrgencePage extends StatelessWidget {
                                 ),
                               ),
                               const SizedBox(height: 4),
+                              Text("Si convuslions"),
                               Text(
-                                'Volume sanguin: $doseExacyl mg',
+                                'Valium: $doseExacyl mg',
+                                style: const TextStyle(fontSize: 16),
+                              ),
+                              const Text("/kg",
+                                  style: TextStyle(
+                                      fontSize: 12, color: Colors.grey),
+                                  textAlign: TextAlign.left),
+                              const SizedBox(height: 4),
+                              Text(
+                                'Rivotril: $doseExacyl mg',
                                 style: const TextStyle(fontSize: 16),
                               ),
                               const Text("/kg",

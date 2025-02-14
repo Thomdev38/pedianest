@@ -380,10 +380,10 @@ class UrgencePage extends StatelessWidget {
                                 children: [
                                   Row(
                                     children: [
-                                      Spacer(),
                                       Text(
                                         "Si convulsions",
                                         style: TextStyle(
+                                            fontSize: 16,
                                             fontWeight: FontWeight.w600),
                                       ),
                                       Spacer(),

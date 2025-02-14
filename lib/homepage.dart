@@ -55,6 +55,7 @@ class _PosologieCalculatorScreenState extends State<PosologieCalculatorScreen> {
   int? vtmax;
   double? repereiot;
   int? celo;
+  int? dosecordarone;
   int? doseParacetamol;
   int? doseProfenid;
   double? doseNalbuphine;
@@ -102,6 +103,8 @@ class _PosologieCalculatorScreenState extends State<PosologieCalculatorScreen> {
   double? doseSshmax;
   double? doseValium;
   double? doseRivotril;
+  double? doseneomin;
+  int? doseneomax;
 
   int calculerApportLiquidien(int poids) {
     int apport = 0;
@@ -469,6 +472,7 @@ class _PosologieCalculatorScreenState extends State<PosologieCalculatorScreen> {
       doseGentamycine = poids * 6;
       doseCefoxitine = poids * 40;
       doseMetronidazole = poids * 15;
+      dosecordarone = poids * 5;
       doseVancomycinemini = poids * 20;
       doseVancomycinemaxi = poids * 30;
       doseminPFC = poids * 10;
@@ -493,6 +497,8 @@ class _PosologieCalculatorScreenState extends State<PosologieCalculatorScreen> {
       doseRivotril = poids * 0.05;
       doseCelocurinemaxi = poids * 2;
       doseCelocurinemini = poids;
+      doseneomin = poids * 0.5;
+      doseneomax = poids * 2;
 
       doseAtracrium = poids * 0.5;
       doseRocuroniummini = poids * 0.6;
@@ -572,6 +578,7 @@ class _PosologieCalculatorScreenState extends State<PosologieCalculatorScreen> {
               doseParacetamol: doseParacetamol,
               doseNalbuphine: doseNalbuphine,
               doseMorphine: doseMorphine,
+              dosecordarone: dosecordarone,
               doseProfenid: doseProfenid,
               apportLiquidien: apportLiquidien,
               vtmin: vtmin,
@@ -601,6 +608,8 @@ class _PosologieCalculatorScreenState extends State<PosologieCalculatorScreen> {
               doseAdvil: doseAdvil,
               doseSpasfon: doseSpasfon,
               doseDroleptan: doseDroleptan,
+              doseneomin: doseneomin,
+              doseneomax: doseneomax,
             ),
             UrgencePage(
               dosePropofolEntretien: dosePropofolEntretien,
@@ -665,6 +674,7 @@ class InductionPage extends StatelessWidget {
   final int? doseAlfentanylmaxi;
   final double? doseRemifentanylmini;
   final double? doseRemifentanylmaxi;
+  final int? dosecordarone;
   final int? doseFentanylmini;
   final int? doseFentanylmaxi;
   final double? doseCisatracrium;
@@ -705,6 +715,8 @@ class InductionPage extends StatelessWidget {
   final int? doseAdvil;
   final int? doseSpasfon;
   final double? doseDroleptan;
+  final double? doseneomin;
+  final int? doseneomax;
 
   const InductionPage({
     super.key,
@@ -728,6 +740,7 @@ class InductionPage extends StatelessWidget {
     required this.doseFentanylmini,
     required this.doseFentanylmaxi,
     required this.doseCisatracrium,
+    required this.dosecordarone,
     required this.doseCelocurinemini,
     required this.doseCelocurinemaxi,
     required this.doseAtracrium,
@@ -764,6 +777,8 @@ class InductionPage extends StatelessWidget {
     required this.doseDroleptan,
     required this.doseSpasfon,
     required this.vvc,
+    required this.doseneomax,
+    required this.doseneomin,
     required this.sad,
   });
 
@@ -1026,7 +1041,7 @@ class InductionPage extends StatelessWidget {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
-                                "Ketamine: ${doseKetaminemini!.toStringAsFixed(1)} - ${doseKetaminemaxi!.toStringAsFixed(1)} mg",
+                                "Ketamine: ${doseKetaminemini!.toStringAsFixed(0)} - ${doseKetaminemaxi!.toStringAsFixed(0)} mg",
                                 style: const TextStyle(fontSize: 16),
                               ),
                               const Text("2 mg/kg pour induction IV",
@@ -1255,7 +1270,7 @@ class InductionPage extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         const Text(
-                          "Amines:",
+                          "Cardiovasculaire:",
                           style: TextStyle(
                             fontSize: 16,
                             fontWeight: FontWeight.bold,
@@ -1268,6 +1283,36 @@ class InductionPage extends StatelessWidget {
                         Text(
                           'Atropine: ${doseAtropine!.toStringAsFixed(2)}  mg',
                           style: const TextStyle(fontSize: 16),
+                        ),
+                        SizedBox(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                'Néosynéphrine: ${doseneomin!.toStringAsFixed(1)} -  ${doseneomax!} mg',
+                                style: const TextStyle(fontSize: 16),
+                              ),
+                              const Text("maximum 10mcg/kg",
+                                  style: TextStyle(
+                                      fontSize: 12, color: Colors.grey),
+                                  textAlign: TextAlign.left),
+                            ],
+                          ),
+                        ),
+                        SizedBox(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                'Cordarone: ${dosecordarone!} mg IVL sur 20min',
+                                style: const TextStyle(fontSize: 16),
+                              ),
+                              const Text("5 mg/kg ",
+                                  style: TextStyle(
+                                      fontSize: 12, color: Colors.grey),
+                                  textAlign: TextAlign.left),
+                            ],
+                          ),
                         ),
                         ExpansionTile(
                           title: const Row(
@@ -1361,6 +1406,14 @@ class InductionPage extends StatelessWidget {
                                   ],
                                 ))
                           ],
+                        ),
+                        const Text(
+                          'Xylocaine: 1 mg/kg ',
+                          style: TextStyle(fontSize: 16),
+                        ),
+                        const Text(
+                          'Défibrillateur : 2J/kg puis 4J/kg si échec',
+                          style: TextStyle(fontSize: 16),
                         ),
                       ],
                     ),
@@ -1762,7 +1815,7 @@ class InductionPage extends StatelessWidget {
                             children: [
                               if (agemoistext! >= 24)
                                 Text(
-                                  'Droleptan: ${doseDroleptan!.toStringAsFixed(1)}  mg',
+                                  'Droleptan: ${doseDroleptan!.toStringAsFixed(0)}  mcg',
                                   style: const TextStyle(fontSize: 16),
                                 ),
                               if (agemoistext! >= 24)
@@ -1784,23 +1837,6 @@ class InductionPage extends StatelessWidget {
                                 style: const TextStyle(fontSize: 16),
                               ),
                               const Text(" 1 mg/kg/6h",
-                                  style: TextStyle(
-                                      fontSize: 12, color: Colors.grey),
-                                  textAlign: TextAlign.left),
-                            ],
-                          ),
-                        ),
-                        const SizedBox(height: 6),
-                        const SizedBox(
-                          width: double.infinity,
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                'Hydrocortisone:  mg',
-                                style: TextStyle(fontSize: 16),
-                              ),
-                              Text("20 mg/kg",
                                   style: TextStyle(
                                       fontSize: 12, color: Colors.grey),
                                   textAlign: TextAlign.left),

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:pedianesth/information.dart';
+import 'package:pedianesth/policie.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:pedianesth/sources.dart';
 
@@ -91,7 +92,16 @@ class _DiversState extends State<Divers> {
                     const SizedBox(
                       height: 50,
                     ),
-                    const Text("Privacy policie"),
+                    ElevatedButton(
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const Policie()),
+                        );
+                      },
+                      child: const Text("Politique de confidentialié"),
+                    ),
                     Column(
                       children: [
                         Row(

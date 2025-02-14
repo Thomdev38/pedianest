@@ -22,7 +22,7 @@ class _InformationState extends State<Information> {
                   height: 5,
                 ),
                 const Text(
-                    "Cette application a été construite en fonction des différentes recommandations Française et internationale sur la prise en charge anesthésique des enfants. Le développeur de PEDIANESTH ne peut être tenu responsable des différents problèmes pouvant survenir sur vos patients. L'application n'est qu'une aide cognitive, si doute référé vous aux protocoles de vos établissements ou à vos collègues.   "),
+                    "Cette application a été construite en fonction des différentes recommandations Française et internationale sur la prise en charge anesthésique des enfants. Le développeur de PEDIANESTH ne peut être tenu responsable des différents problèmes pouvant survenir sur vos patients suite à l'utilisation de cette application. L'application n'est qu'une aide cognitive, si doute référer vous aux protocoles de vos établissements, à vos collègues et allez voir les recommandations des sociétés savantes.   "),
                 const SizedBox(
                   height: 80,
                 ),

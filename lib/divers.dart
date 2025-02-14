@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:pedianesth/information.dart';
+import 'package:url_launcher/url_launcher.dart';
 import 'package:pedianesth/sources.dart';
 
 class Divers extends StatefulWidget {
@@ -85,7 +86,26 @@ class _DiversState extends State<Divers> {
                       height: 50,
                     ),
                     const Text("Privacy policie"),
+                    ElevatedButton(
+                      onPressed: _sendEmail,
+                      child: const Text("Contactez moi"),
+                    ),
                   ],
                 ))));
+  }
+
+  void _sendEmail() async {
+    final Uri emailUri = Uri(
+      scheme: 'mailto',
+      path: 'thomasdev38@gmail.com', // Remplace par l'adresse cible
+      query:
+          'subject=Application Pedianesth=Comment allez-vous ?', // Sujet et corps du mail
+    );
+
+    if (await canLaunchUrl(emailUri)) {
+      await launchUrl(emailUri);
+    } else {
+      const Text("Impossible d'ouvrir l'application mail.");
+    }
   }
 }

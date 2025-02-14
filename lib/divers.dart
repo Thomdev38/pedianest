@@ -90,6 +90,10 @@ class _DiversState extends State<Divers> {
                       onPressed: _sendEmail,
                       child: const Text("Contactez moi"),
                     ),
+                    ElevatedButton(
+                      onPressed: _openWebsite,
+                      child: const Text("Deviade.fr"),
+                    ),
                   ],
                 ))));
   }
@@ -106,6 +110,16 @@ class _DiversState extends State<Divers> {
       await launchUrl(emailUri);
     } else {
       const Text("Impossible d'ouvrir l'application mail.");
+    }
+  }
+
+  void _openWebsite() async {
+    final Uri url = Uri.parse("http://www.deviade.fr");
+
+    if (await canLaunchUrl(url)) {
+      await launchUrl(url, mode: LaunchMode.externalApplication);
+    } else {
+      const Text("Impossible d'ouvrir le site web.");
     }
   }
 }

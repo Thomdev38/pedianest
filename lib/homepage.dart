@@ -1188,7 +1188,7 @@ class InductionPage extends StatelessWidget {
                                   style: const TextStyle(fontSize: 16),
                                 ),
                               if (agemoistext! < 18)
-                                const Text("2mg/kg",
+                                const Text("2 mg/kg",
                                     style: TextStyle(
                                         fontSize: 12, color: Colors.grey),
                                     textAlign: TextAlign.left),
@@ -1266,7 +1266,7 @@ class InductionPage extends StatelessWidget {
                           style: const TextStyle(fontSize: 16),
                         ),
                         Text(
-                          'Atropine: ${doseMorphine!.toStringAsFixed(2)}  mg',
+                          'Atropine: ${doseAtropine!.toStringAsFixed(2)}  mg',
                           style: const TextStyle(fontSize: 16),
                         ),
                         ExpansionTile(
@@ -1281,10 +1281,85 @@ class InductionPage extends StatelessWidget {
                           ),
                           children: <Widget>[
                             Container(
-                              padding: const EdgeInsets.all(4.0),
-                              child: const Text(
-                                  'Noradre 3mg(1,5ml) + Séreum phy 48,5ml soit 0,06mg/ml => 0.1-0.3mcg/kg/min = O.1-0.3ml/kg/h'),
-                            )
+                                padding: const EdgeInsets.all(4.0),
+                                child: const Column(
+                                  children: [
+                                    Text(
+                                      'poids en kg x 0,15 = mg de noradré à ramener dans 25 ml',
+                                      textAlign: TextAlign.left,
+                                    ),
+                                    Text(
+                                      '1 ml/h = 0,1 μg/kg/mn',
+                                      textAlign: TextAlign.left,
+                                    ),
+                                    Text(
+                                      'Posologie : 0,05 à 2 μg/kg/mn',
+                                      textAlign: TextAlign.left,
+                                    ),
+                                  ],
+                                ))
+                          ],
+                        ),
+                        ExpansionTile(
+                          title: const Row(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                'Dobutamine',
+                                style: TextStyle(fontSize: 16),
+                              ),
+                            ],
+                          ),
+                          children: <Widget>[
+                            Container(
+                                padding: const EdgeInsets.all(4.0),
+                                child: const Column(
+                                  children: [
+                                    Text(
+                                      'poids en kg x 15 = mg de dobu à ramener dans 25 ml',
+                                      textAlign: TextAlign.left,
+                                    ),
+                                    Text(
+                                      '0,1 ml/h = 1 μg/kg/mn',
+                                      textAlign: TextAlign.left,
+                                    ),
+                                    Text(
+                                      'Posologie : 5 à 20 μg/kg/mn',
+                                      textAlign: TextAlign.left,
+                                    ),
+                                  ],
+                                ))
+                          ],
+                        ),
+                        ExpansionTile(
+                          title: const Row(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                'Ephédrine',
+                                style: TextStyle(fontSize: 16),
+                              ),
+                            ],
+                          ),
+                          children: <Widget>[
+                            Container(
+                                padding: const EdgeInsets.all(4.0),
+                                child: const Column(
+                                  children: [
+                                    Text(
+                                      '300 μg/kg',
+                                      textAlign: TextAlign.left,
+                                    ),
+                                    Text(
+                                      'pas diluée si poids > 10 kg, dilution 300 μg/ml si < 10kg)',
+                                      textAlign: TextAlign.left,
+                                    ),
+                                    Text(
+                                      'Peu efficace en dessous de 1 an',
+                                      textAlign: TextAlign.left,
+                                    ),
+                                  ],
+                                ))
                           ],
                         ),
                       ],

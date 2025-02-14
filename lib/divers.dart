@@ -25,7 +25,7 @@ class _DiversState extends State<Divers> {
                     Row(
                       children: [
                         SizedBox(
-                          height: height / 6,
+                          height: height / 8,
                           width: width / 3,
                           child: TextButton(
                             style: TextButton.styleFrom(
@@ -42,7 +42,10 @@ class _DiversState extends State<Divers> {
                                     BorderRadius.circular(10), // Bords arrondis
                               ),
                             ),
-                            child: const Text('Informations'),
+                            child: const Text(
+                              'Informations',
+                              style: TextStyle(fontSize: 12),
+                            ),
                             onPressed: () {
                               Navigator.push(
                                 context,
@@ -54,7 +57,7 @@ class _DiversState extends State<Divers> {
                         ),
                         const Spacer(),
                         SizedBox(
-                          height: height / 6,
+                          height: height / 8,
                           width: width / 3,
                           child: TextButton(
                             style: TextButton.styleFrom(
@@ -70,7 +73,10 @@ class _DiversState extends State<Divers> {
                                     BorderRadius.circular(10), // Bords arrondis
                               ),
                             ),
-                            child: const Text('Sources'),
+                            child: const Text(
+                              'Sources',
+                              style: TextStyle(fontSize: 12),
+                            ),
                             onPressed: () {
                               Navigator.push(
                                 context,
@@ -86,13 +92,22 @@ class _DiversState extends State<Divers> {
                       height: 50,
                     ),
                     const Text("Privacy policie"),
-                    ElevatedButton(
-                      onPressed: _sendEmail,
-                      child: const Text("Contactez moi"),
-                    ),
-                    ElevatedButton(
-                      onPressed: _openWebsite,
-                      child: const Text("Deviade.fr"),
+                    Column(
+                      children: [
+                        Row(
+                          children: [
+                            ElevatedButton(
+                              onPressed: _sendEmail,
+                              child: const Text("Contactez moi"),
+                            ),
+                            const Spacer(),
+                            ElevatedButton(
+                              onPressed: _openWebsite,
+                              child: const Text("Deviade.fr"),
+                            ),
+                          ],
+                        ),
+                      ],
                     ),
                   ],
                 ))));

@@ -12,6 +12,8 @@ class Divers extends StatefulWidget {
 class _DiversState extends State<Divers> {
   @override
   Widget build(BuildContext context) {
+    double width = MediaQuery.of(context).size.width;
+    double height = MediaQuery.of(context).size.height;
     return Scaffold(
         appBar: AppBar(),
         body: SingleChildScrollView(
@@ -22,8 +24,8 @@ class _DiversState extends State<Divers> {
                     Row(
                       children: [
                         SizedBox(
-                          height: 100,
-                          width: 150,
+                          height: height / 6,
+                          width: width / 3,
                           child: TextButton(
                             style: TextButton.styleFrom(
                               foregroundColor: Colors.blue, // Couleur du texte
@@ -51,8 +53,8 @@ class _DiversState extends State<Divers> {
                         ),
                         const Spacer(),
                         SizedBox(
-                          height: 100,
-                          width: 150,
+                          height: height / 6,
+                          width: width / 3,
                           child: TextButton(
                             style: TextButton.styleFrom(
                               foregroundColor: Colors.blue, // Couleur du texte

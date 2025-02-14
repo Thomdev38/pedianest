@@ -22,7 +22,7 @@ class _MainAppState extends State<MainApp> {
   final screens = [
     const PosologieCalculatorScreen(),
     const Fiches(),
-    const Divers(),
+    Divers(),
   ];
   @override
   Widget build(BuildContext context) {

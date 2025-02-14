@@ -126,9 +126,8 @@ class _DiversState extends State<Divers> {
   void _sendEmail() async {
     final Uri emailUri = Uri(
       scheme: 'mailto',
-      path: 'thomasdev38@gmail.com', // Remplace par l'adresse cible
-      query:
-          'subject=Application Pedianesth=Comment allez-vous ?', // Sujet et corps du mail
+      path: 'thomas.deviade@gmail.com', // Remplace par l'adresse cible
+      query: 'subject=Application Pedianesth', // Sujet et corps du mail
     );
 
     if (await canLaunchUrl(emailUri)) {

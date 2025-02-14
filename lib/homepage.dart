@@ -25,6 +25,9 @@ class _PosologieCalculatorScreenState extends State<PosologieCalculatorScreen> {
   Map<String, String>? tailleaspi;
   Map<String, String>? hb;
   Map<String, String>? volumesanguin;
+  Map<String, String>? ktarteriel;
+  Map<String, String>? vvc;
+  Map<String, String>? sad;
 
   bool isAgeInMonths = false; // Pour vérifier si l'âge est en mois ou en années
   int? dosePropofolmini;
@@ -169,6 +172,58 @@ class _PosologieCalculatorScreenState extends State<PosologieCalculatorScreen> {
     }
   }
 
+  Map<String, String> obtenirKtarteriel(int poids) {
+    if (poids < 1) {
+      return {
+        'kt arteriel': '1 Fr (24Ga)',
+      };
+    } else if (poids < 10) {
+      return {
+        'kt arteriel': '3 Fr (24Ga)',
+      };
+    } else if (poids < 20) {
+      return {
+        'kt arteriel': '3 Fr (20Ga)',
+      };
+    } else if (poids < 30) {
+      return {
+        'kt arteriel': '4 Fr (20Ga ou 18Ga)',
+      };
+    } else {
+      return {
+        'kt arteriel': '5 Fr (18Ga)',
+      };
+    }
+  }
+
+  Map<String, String> obtenirVvc(int poids) {
+    if (poids < 2) {
+      return {
+        'vvc': '2 - 3 Fr',
+      };
+    } else if (poids < 4) {
+      return {
+        'vvc': '3 - 4 Fr ',
+      };
+    } else if (poids < 10) {
+      return {
+        'vvc': '4 - 5 Fr',
+      };
+    } else if (poids < 20) {
+      return {
+        'vvc': '5 - 6 Fr',
+      };
+    } else if (poids < 40) {
+      return {
+        'vvc': '6 - 7 Fr',
+      };
+    } else {
+      return {
+        'vvc': '7 - 8.5 Fr',
+      };
+    }
+  }
+
   Map<String, String> obtenirBallon(int poids) {
     if (poids <= 10) {
       return {
@@ -213,6 +268,42 @@ class _PosologieCalculatorScreenState extends State<PosologieCalculatorScreen> {
     } else {
       return {
         'hb': '14 g/dl',
+      };
+    }
+  }
+
+  Map<String, String> obtenirsad(int ageEnMois) {
+    if (ageEnMois < 1) {
+      return {
+        'sad': '5 - 6 Fr',
+      };
+    } else if (ageEnMois < 2) {
+      return {
+        'sad': '6 - 8 Fr',
+      };
+    } else if (ageEnMois < 12) {
+      return {
+        'sad': '6 - 8 Fr',
+      };
+    } else if (ageEnMois < 36) {
+      return {
+        'sad': '8 Fr',
+      };
+    } else if (ageEnMois < 72) {
+      return {
+        'sad': '8 - 10 Fr',
+      };
+    } else if (ageEnMois < 120) {
+      return {
+        'sad': '10 - 12 Fr',
+      };
+    } else if (ageEnMois < 192) {
+      return {
+        'sad': '12 - 14 Fr',
+      };
+    } else {
+      return {
+        'sad': '14 - 16 Fr',
       };
     }
   }
@@ -415,9 +506,12 @@ class _PosologieCalculatorScreenState extends State<PosologieCalculatorScreen> {
       tailleaspi = obtenirTailleAspi(poids);
       circuit = obtenirCircuit(poids);
       ballon = obtenirBallon(poids);
+      sad = obtenirsad(ageEnMois);
       taillesonde = obtenirtaillesonde(poids);
       tailleguedel = obtenirTailleguedel(ageEnMois);
       hb = obtenirtauxhb(ageEnMois);
+      vvc = obtenirVvc(poids);
+      ktarteriel = obtenirKtarteriel(poids);
     });
   }
 
@@ -489,8 +583,11 @@ class _PosologieCalculatorScreenState extends State<PosologieCalculatorScreen> {
               doseAdrenaline: doseAdrenaline,
               doseAtropine: doseAtropine,
               taillesonde: taillesonde,
+              ktarteriel: ktarteriel,
               tailleaspi: tailleaspi,
               tailleguedel: tailleguedel,
+              sad: sad,
+              vvc: vvc,
               remplissagevasc: remplissagevasc,
               doseDexametasone: doseDexametasone,
               doseNarcan: doseNarcan,
@@ -594,6 +691,9 @@ class InductionPage extends StatelessWidget {
   final Map<String, String>? taillesonde;
   final Map<String, String>? tailleaspi;
   final Map<String, String>? tailleguedel;
+  final Map<String, String>? ktarteriel;
+  final Map<String, String>? vvc;
+  final Map<String, String>? sad;
   final int? agemoistext;
   final int? hypotensionsup1;
   final double? doseDexametasone;
@@ -649,6 +749,7 @@ class InductionPage extends StatelessWidget {
     required this.taillesonde,
     required this.tailleguedel,
     required this.tailleaspi,
+    required this.ktarteriel,
     required this.remplissagevasc,
     required this.doseDexametasone,
     required this.doseNarcan,
@@ -662,6 +763,8 @@ class InductionPage extends StatelessWidget {
     required this.doseAdvil,
     required this.doseDroleptan,
     required this.doseSpasfon,
+    required this.vvc,
+    required this.sad,
   });
 
   @override
@@ -1629,7 +1732,6 @@ class InductionPage extends StatelessWidget {
                             ],
                           ),
                         ),
-                        const SizedBox(height: 6),
                       ],
                     ),
                   ),
@@ -1641,50 +1743,51 @@ class InductionPage extends StatelessWidget {
             ),
             if (dosePropofolmini != null && dosePropofolmaxi != null) ...[
               Container(
+                width: double.infinity,
+                decoration: BoxDecoration(
+                  border: Border.all(
+                      color: const Color.fromARGB(255, 108, 27, 184), width: 1),
+                ),
                 padding: const EdgeInsets.all(5),
-                decoration:
-                    BoxDecoration(border: Border.all(color: Colors.black)),
-                child: const Column(
+                margin: const EdgeInsets.all(3),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     SizedBox(
                       width: double.infinity,
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text(
+                          const Text(
                             "Equipements",
                             style: TextStyle(
                               fontSize: 16,
                               fontWeight: FontWeight.bold,
                             ),
                           ),
-                          SizedBox(
+                          const SizedBox(
                             height: 4,
                           ),
                           Text(
-                            'Catheter arteriel',
-                            style: TextStyle(fontSize: 16),
+                            'kt Artériel: ${ktarteriel!['kt arteriel']}',
+                            style: const TextStyle(fontSize: 16),
                           ),
-                          SizedBox(
+                          const SizedBox(
                             height: 4,
                           ),
                           Text(
-                            'Catheter veineux central',
-                            style: TextStyle(fontSize: 16),
+                            'Catheter veineux central: ${vvc!['vvc']}',
+                            style: const TextStyle(fontSize: 16),
                           ),
-                          SizedBox(
+                          const SizedBox(
                             height: 4,
                           ),
                           Text(
-                            'Sonde urinaire  ',
-                            style: TextStyle(fontSize: 16),
+                            'Sonde urinaire: ${sad!['sad']}  ',
+                            style: const TextStyle(fontSize: 16),
                           ),
-                          SizedBox(
+                          const SizedBox(
                             height: 4,
-                          ),
-                          Text(
-                            'Drain thoracique ',
-                            style: TextStyle(fontSize: 16),
                           ),
                         ],
                       ),

@@ -102,6 +102,9 @@ class _DiversState extends State<Divers> {
                       },
                       child: const Text("Politique de confidentialié"),
                     ),
+                    const SizedBox(
+                      height: 30,
+                    ),
                     Column(
                       children: [
                         Row(

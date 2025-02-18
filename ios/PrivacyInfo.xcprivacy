@@ -21,6 +21,30 @@
           <string>0A2A.1</string>
         </array>
       </dict>
+      <dict>
+        <key>NSPrivacyAccessedAPIType</key>
+        <string>NSPrivacyAccessedAPICategorySystemBootTime</string>
+        <key>NSPrivacyAccessedAPITypeReasons</key>
+        <array>
+          <string>F3A1.1</string>
+        </array>
+      </dict>
+      <dict>
+        <key>NSPrivacyAccessedAPIType</key>
+        <string>NSPrivacyAccessedAPICategoryDiskSpace</string>
+        <key>NSPrivacyAccessedAPITypeReasons</key>
+        <array>
+          <string>F3A1.1</string>
+        </array>
+      </dict>
+      <dict>
+        <key>NSPrivacyAccessedAPIType</key>
+        <string>NSPrivacyAccessedAPICategorySystemUptime</string>
+        <key>NSPrivacyAccessedAPITypeReasons</key>
+        <array>
+          <string>F3A1.1</string>
+        </array>
+      </dict>
     </array>
   </dict>
 </plist>

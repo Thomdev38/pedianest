@@ -1,20 +1,20 @@
 import 'package:flutter/material.dart';
 
-import 'package:pedianesth/antibiotique.dart';
+import 'package:pedianesth/english/antibiotiqueen.dart';
+import 'package:pedianesth/english/entretienen.dart';
+import 'package:pedianesth/main.dart';
 
-import 'package:pedianesth/english/mainen.dart';
-import 'package:pedianesth/entretien.dart';
-
-class PosologieCalculatorScreen extends StatefulWidget {
-  const PosologieCalculatorScreen({super.key});
+class PosologieCalculatorenScreen extends StatefulWidget {
+  const PosologieCalculatorenScreen({super.key});
 
   @override
   // ignore: library_private_types_in_public_api
-  _PosologieCalculatorScreenState createState() =>
-      _PosologieCalculatorScreenState();
+  _PosologieCalculatorenScreenState createState() =>
+      _PosologieCalculatorenScreenState();
 }
 
-class _PosologieCalculatorScreenState extends State<PosologieCalculatorScreen> {
+class _PosologieCalculatorenScreenState
+    extends State<PosologieCalculatorenScreen> {
   final TextEditingController ageController = TextEditingController();
   final TextEditingController poidsController = TextEditingController();
 
@@ -529,18 +529,18 @@ class _PosologieCalculatorScreenState extends State<PosologieCalculatorScreen> {
       length: 3,
       child: Scaffold(
         appBar: AppBar(
-          title: const Text('Calculette de Posologie'),
           leading: TextButton.icon(
               onPressed: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => const MainenApp()),
+                  MaterialPageRoute(builder: (context) => const MainApp()),
                 );
               },
               label: const Text(
-                "English",
-                style: TextStyle(fontSize: 9),
+                "Français",
+                style: TextStyle(fontSize: 8),
               )),
+          title: const Text('Posologi calculator'),
           centerTitle: true,
           bottom: const TabBar(
             isScrollable: true,
@@ -624,7 +624,7 @@ class _PosologieCalculatorScreenState extends State<PosologieCalculatorScreen> {
               doseneomin: doseneomin,
               doseneomax: doseneomax,
             ),
-            UrgencePage(
+            UrgenceenPage(
               dosePropofolEntretien: dosePropofolEntretien,
               poidstext: poidstext,
               dosemaxPFC: dosemaxPFC,
@@ -644,7 +644,7 @@ class _PosologieCalculatorScreenState extends State<PosologieCalculatorScreen> {
               doseRivotril: doseRivotril,
               doseExacyl: doseExacyl, // Passer la nouvelle variable
             ),
-            AntibioPage(
+            AntibioenPage(
               dosePropofolEntretien: dosePropofolEntretien,
               poidstext: poidstext, // Passer la nouvelle variable
               doseLidocaine: doseLidocaine,

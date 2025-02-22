@@ -1,0 +1,372 @@
+import "package:flutter/material.dart";
+
+class AntibioenPage extends StatelessWidget {
+  final double? dosePropofolEntretien; // Recevoir la variable du parent
+  final int? poidstext;
+  final int? doseLidocaine;
+  final int? doseRopivacaine;
+  final double? doseBupivacaine;
+  final int? dosePrilocaine;
+  final int? age;
+  final int? isAgeInMonths;
+  final int? doseCefazoline;
+  final int? doseAmox;
+  final int? doseCefoxitine;
+  final int? doseClindamycine;
+  final int? doseGentamycine;
+  final int? doseMetronidazole;
+  final int? doseVancomycinemini;
+  final int? doseVancomycinemaxi;
+
+  const AntibioenPage({
+    super.key,
+    this.dosePropofolEntretien,
+    this.poidstext,
+    this.doseLidocaine,
+    this.doseBupivacaine,
+    this.doseRopivacaine,
+    this.dosePrilocaine,
+    this.isAgeInMonths,
+    this.age,
+    this.doseCefazoline,
+    this.doseCefoxitine,
+    this.doseAmox,
+    this.doseClindamycine,
+    this.doseGentamycine,
+    this.doseMetronidazole,
+    this.doseVancomycinemini,
+    this.doseVancomycinemaxi,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return SingleChildScrollView(
+        padding: const EdgeInsets.all(16.0),
+        child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+          const SizedBox(height: 16),
+          if (dosePropofolEntretien == null)
+            const Text(
+                "Please enter the weight and age of the child to obtain the doses of antibiotics and local anesthetics"),
+          if (dosePropofolEntretien == null)
+            Image.asset("assets/images/ours.jpg"),
+          if (doseLidocaine != null && doseLidocaine != null) ...[
+            if (dosePropofolEntretien != null)
+              Text(
+                "For a child weighing ${poidstext!} kg here are the recommended doses of antibiotic prophylaxis and local anesthetics",
+                style: const TextStyle(fontSize: 16),
+              ),
+            Container(
+              padding: const EdgeInsets.all(2),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const SizedBox(height: 4),
+                  //container anesthesique locaux
+                  Container(
+                    decoration: BoxDecoration(
+                      border: Border.all(
+                          color: const Color.fromARGB(255, 152, 153, 153),
+                          width: 1),
+                    ),
+                    padding: const EdgeInsets.all(5),
+                    margin: const EdgeInsets.all(3),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        const Text(
+                          "Anesthésique locaux:",
+                          style: TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        const SizedBox(
+                          height: 6,
+                        ),
+                        SizedBox(
+                          width: double.infinity,
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                'Lidocaine: $doseLidocaine mg/6h',
+                                style: const TextStyle(fontSize: 16),
+                              ),
+                              const Text("5 mg/kg/6h",
+                                  style: TextStyle(
+                                      fontSize: 12, color: Colors.grey),
+                                  textAlign: TextAlign.left),
+                            ],
+                          ),
+                        ),
+                        const SizedBox(
+                          height: 6,
+                        ),
+                        SizedBox(
+                          width: double.infinity,
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              //if (age != null && age! > 6) ...[
+                              Text(
+                                'Bupivacaine: $doseBupivacaine mg/6h',
+                                style: const TextStyle(fontSize: 16),
+                              ),
+                              const Text("2,5 mg/kg/6h",
+                                  style: TextStyle(
+                                      fontSize: 12, color: Colors.grey),
+                                  textAlign: TextAlign.left),
+                              //] else
+                              // const Text("Bupivacine non recommandé")
+                            ],
+                          ),
+                        ),
+                        const SizedBox(
+                          height: 6,
+                        ),
+                        SizedBox(
+                          width: double.infinity,
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              //if (isAgeInMonths != null &&
+                              //isAgeInMonths! > 1) ...[
+                              Text(
+                                'Ropivacaine: $doseRopivacaine mg/6h',
+                                style: const TextStyle(fontSize: 16),
+                              ),
+                              const Text("3 mg/kg/6h",
+                                  style: TextStyle(
+                                      fontSize: 12, color: Colors.grey),
+                                  textAlign: TextAlign.left),
+                              //] else
+                              //const Text("Ropivacaine non recommandé")
+                            ],
+                          ),
+                        ),
+                        const SizedBox(
+                          height: 6,
+                        ),
+                        SizedBox(
+                          width: double.infinity,
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              // if (isAgeInMonths != null &&
+                              //isAgeInMonths! > 6) ...[
+                              Text(
+                                'Prilocaine: $dosePrilocaine mg/6h',
+                                style: const TextStyle(fontSize: 16),
+                              ),
+                              const Text("5 mg/kg/6h",
+                                  style: TextStyle(
+                                      fontSize: 12, color: Colors.grey),
+                                  textAlign: TextAlign.left),
+                              //] else
+                              // const Text("Prilocaine non recommandé")
+                            ],
+                          ),
+                        ),
+                        const SizedBox(
+                          height: 6,
+                        ),
+                        const SizedBox(
+                          width: double.infinity,
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              // if (isAgeInMonths != null &&
+                              //isAgeInMonths! > 6) ...[
+                              Text(
+                                'Xylocaine Spray 5%: 1 pulvérisation / 10 kg de poids',
+                                style: TextStyle(fontSize: 16),
+                              ),
+                              Text("1 pulvérisation = 8mg",
+                                  style: TextStyle(
+                                      fontSize: 12, color: Colors.grey),
+                                  textAlign: TextAlign.left),
+                            ],
+                          ),
+                        ),
+                        const SizedBox(
+                          height: 6,
+                        ),
+                      ],
+                    ),
+                  ),
+                  const SizedBox(height: 4),
+                  //container des hypnotiques
+                  Container(
+                    decoration: BoxDecoration(
+                      border: Border.all(
+                        color: const Color.fromARGB(255, 164, 228, 80),
+                        width: 1,
+                      ),
+                    ),
+                    padding: const EdgeInsets.all(5),
+                    margin: const EdgeInsets.all(3),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisSize: MainAxisSize.max,
+                      children: [
+                        const Text(
+                          "Antibioprophylaxie:",
+                          style: TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        const SizedBox(
+                          height: 6,
+                        ),
+                        SizedBox(
+                          width: double.infinity,
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                'Cefazoline: $doseCefazoline mg',
+                                style: const TextStyle(fontSize: 16),
+                              ),
+                              const Text(
+                                  "30 mg/kg, si durée > 4h refaire la même dose",
+                                  style: TextStyle(
+                                      fontSize: 12, color: Colors.grey),
+                                  textAlign: TextAlign.left),
+                            ],
+                          ),
+                        ),
+                        const SizedBox(
+                          height: 6,
+                        ),
+                        SizedBox(
+                          width: double.infinity,
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                'Amoxicilline/acide clavulanique: $doseAmox mg',
+                                style: const TextStyle(fontSize: 16),
+                              ),
+                              const Text(
+                                  "50 mg/kg (max 2g), si durée > 2h refaire la même dose (max 1g)",
+                                  style: TextStyle(
+                                      fontSize: 12, color: Colors.grey),
+                                  textAlign: TextAlign.left),
+                            ],
+                          ),
+                        ),
+                        const SizedBox(
+                          height: 6,
+                        ),
+                        SizedBox(
+                          width: double.infinity,
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                'Clindamycine: $doseClindamycine mg',
+                                style: const TextStyle(fontSize: 16),
+                              ),
+                              const Text(
+                                  "10 mg/kg (max 900mg), si durée > 4h refaire la même dose (max 450mg à 600mg suivant les indications)",
+                                  style: TextStyle(
+                                      fontSize: 12, color: Colors.grey),
+                                  textAlign: TextAlign.left),
+                            ],
+                          ),
+                        ),
+                        const SizedBox(
+                          height: 6,
+                        ),
+                        SizedBox(
+                          width: double.infinity,
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                'Gentamicyne: $doseGentamycine mg',
+                                style: const TextStyle(fontSize: 16),
+                              ),
+                              const Text("6 mg/kg dose unique",
+                                  style: TextStyle(
+                                      fontSize: 12, color: Colors.grey),
+                                  textAlign: TextAlign.left),
+                            ],
+                          ),
+                        ),
+                        const SizedBox(
+                          height: 6,
+                        ),
+                        SizedBox(
+                          width: double.infinity,
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                'Cefoxitine: $doseCefoxitine mg',
+                                style: const TextStyle(fontSize: 16),
+                              ),
+                              const Text(
+                                  "40 mg/kg (max 2g), si durée > 2h refaire même dose (max 1g)",
+                                  style: TextStyle(
+                                      fontSize: 12, color: Colors.grey),
+                                  textAlign: TextAlign.left),
+                            ],
+                          ),
+                        ),
+                        const SizedBox(
+                          height: 6,
+                        ),
+                        SizedBox(
+                          width: double.infinity,
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                'Métronidazole: $doseMetronidazole mg',
+                                style: const TextStyle(fontSize: 16),
+                              ),
+                              const Text("15 mg/kg, dose unique",
+                                  style: TextStyle(
+                                      fontSize: 12, color: Colors.grey),
+                                  textAlign: TextAlign.left),
+                            ],
+                          ),
+                        ),
+                        const SizedBox(
+                          height: 6,
+                        ),
+                        SizedBox(
+                          width: double.infinity,
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                'Vancomycine: $doseVancomycinemini à $doseVancomycinemaxi mg',
+                                style: const TextStyle(fontSize: 16),
+                              ),
+                              const Text(
+                                  "20 à 30 mg/kg en 60 minutes, dose unique",
+                                  style: TextStyle(
+                                      fontSize: 12, color: Colors.grey),
+                                  textAlign: TextAlign.left),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+
+                  const SizedBox(height: 4),
+
+                  //container rouge des curares
+
+                  // Autres éléments à afficher...
+                ],
+              ),
+            )
+          ],
+        ]));
+  }
+}

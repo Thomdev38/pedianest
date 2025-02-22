@@ -1,6 +1,5 @@
-
 import 'package:flutter/material.dart';
-import 'package:syncfusion_flutter_pdfviewer/pdfviewer.dart';
+import 'package:pdfrx/pdfrx.dart';
 
 class Htmenfant extends StatefulWidget {
   const Htmenfant({super.key});
@@ -13,11 +12,11 @@ class _HtmenfantState extends State<Htmenfant> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          centerTitle: true,
-          title: const Text("Hyperthermie maligne enfant"),
-        ),
-        body: SfPdfViewer.asset("assets/pdf/HyperthermieMaligneenfant.pdf"),
-        );
+      appBar: AppBar(
+        centerTitle: true,
+        title: const Text("Hyperthermie maligne enfant"),
+      ),
+      body: PdfViewer.asset("assets/pdf/HyperthermieMaligneenfant.pdf"),
+    );
   }
 }

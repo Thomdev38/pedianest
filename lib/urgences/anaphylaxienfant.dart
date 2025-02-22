@@ -1,6 +1,5 @@
-  
 import 'package:flutter/material.dart';
-import 'package:syncfusion_flutter_pdfviewer/pdfviewer.dart';
+import 'package:pdfrx/pdfrx.dart';
 
 class Anaphylaxieenfant extends StatefulWidget {
   const Anaphylaxieenfant({super.key});
@@ -13,11 +12,11 @@ class _AnaphylaxieenfantState extends State<Anaphylaxieenfant> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          centerTitle: true,
-          title: const Text("Anaphylaxie enfant"),
-        ),
-        body: SfPdfViewer.asset("assets/pdf/anaphylaxie-pediatrie.pdf"),
-        );
+      appBar: AppBar(
+        centerTitle: true,
+        title: const Text("Anaphylaxie enfant"),
+      ),
+      body: PdfViewer.asset("assets/pdf/anaphylaxie-pediatrie.pdf"),
+    );
   }
 }

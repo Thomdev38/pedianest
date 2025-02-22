@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:syncfusion_flutter_pdfviewer/pdfviewer.dart';
+import 'package:pdfrx/pdfrx.dart';
 
 class Policie extends StatefulWidget {
   const Policie({super.key});
@@ -16,7 +16,7 @@ class _PolicieState extends State<Policie> {
         centerTitle: true,
         title: const Text("Politique de confidentialité"),
       ),
-      body: SfPdfViewer.asset("assets/pdf/politiqueconfidentialite.pdf"),
+      body: PdfViewer.asset("assets/pdf/politiqueconfidentialite.pdf"),
     );
   }
 }

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:syncfusion_flutter_pdfviewer/pdfviewer.dart';
+import 'package:pdfrx/pdfrx.dart';
 
 class Iotdiffenfant extends StatefulWidget {
   const Iotdiffenfant({super.key});
@@ -12,11 +12,11 @@ class _IotdiffenfantState extends State<Iotdiffenfant> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          centerTitle: true,
-          title: const Text("IOT difficile chez l'enfant"),
-        ),
-        body: SfPdfViewer.asset("assets/pdf/iot-difficile-chez-l-enfant.pdf"),
-        );
+      appBar: AppBar(
+        centerTitle: true,
+        title: const Text("IOT difficile chez l'enfant"),
+      ),
+      body: PdfViewer.asset("assets/pdf/iot-difficile-chez-l-enfant.pdf"),
+    );
   }
 }

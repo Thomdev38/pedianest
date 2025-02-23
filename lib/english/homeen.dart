@@ -933,23 +933,23 @@ class InductionPage extends StatelessWidget {
               style: const TextStyle(fontSize: 16),
             ),
             Text(
-              'Taille Sonde IOT: ${taillesonde!['taillesonde']}',
+              'IOT Probe Size: ${taillesonde!['taillesonde']}',
               style: const TextStyle(fontSize: 16),
             ),
             Text(
-              "Taille Sonde d'aspiration: ${tailleaspi!['tailleaspi']}",
+              "Size Suction probe: ${tailleaspi!['tailleaspi']}",
               style: const TextStyle(fontSize: 16),
             ),
           ],
           if (taillelame != null) ...[
             const SizedBox(height: 4),
             Text(
-              'Taille Lame: ${taillelame!['taillelame']}',
+              'Blade Size: ${taillelame!['taillelame']}',
               style: const TextStyle(fontSize: 16),
             ),
             const SizedBox(height: 4),
             Text(
-              'Taille Guedel: ${tailleguedel!['tailleguedel']}',
+              'Guedel Size: ${tailleguedel!['tailleguedel']}',
               style: const TextStyle(fontSize: 16),
             ),
           ],

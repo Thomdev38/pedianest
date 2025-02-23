@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'package:pedianesth/antibiotique.dart';
 
+// ignore: unused_import
 import 'package:pedianesth/english/mainen.dart';
 import 'package:pedianesth/entretien.dart';
 
@@ -530,7 +531,7 @@ class _PosologieCalculatorScreenState extends State<PosologieCalculatorScreen> {
       child: Scaffold(
         appBar: AppBar(
           title: const Text('Calculette de Posologie'),
-          leading: TextButton.icon(
+          /*leading: TextButton.icon(
               onPressed: () {
                 Navigator.push(
                   context,
@@ -540,7 +541,7 @@ class _PosologieCalculatorScreenState extends State<PosologieCalculatorScreen> {
               label: const Text(
                 "English",
                 style: TextStyle(fontSize: 9),
-              )),
+              )),*/
           centerTitle: true,
           bottom: const TabBar(
             isScrollable: true,

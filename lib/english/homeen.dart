@@ -32,9 +32,9 @@ class _PosologieCalculatorenScreenState
   Map<String, String>? sad;
 
   bool isAgeInMonths = false; // Pour vérifier si l'âge est en mois ou en années
-  int? dosePropofolmini;
+  double? dosePropofolmini;
   int? hypotensionsup1;
-  int? dosePropofolmaxi;
+  double? dosePropofolmaxi;
   double? doseEtomidate;
   int? doseKetaminemini;
   int? doseKetaminemaxi;
@@ -162,11 +162,11 @@ class _PosologieCalculatorenScreenState
   }
 
   Map<String, String> obtenirCircuit(int poids) {
-    if (poids <= 5) {
+    if (poids <= 11) {
       return {
         'circuit': 'Néonat',
       };
-    } else if (poids <= 25) {
+    } else if (poids <= 55) {
       return {
         'circuit': 'pédiatrique',
       };
@@ -178,19 +178,19 @@ class _PosologieCalculatorenScreenState
   }
 
   Map<String, String> obtenirKtarteriel(int poids) {
-    if (poids < 1) {
+    if (poids < 2) {
       return {
         'kt arteriel': '1 Fr (24Ga)',
       };
-    } else if (poids < 10) {
+    } else if (poids < 22) {
       return {
         'kt arteriel': '3 Fr (24Ga)',
       };
-    } else if (poids < 20) {
+    } else if (poids < 44) {
       return {
         'kt arteriel': '3 Fr (20Ga)',
       };
-    } else if (poids < 30) {
+    } else if (poids < 66) {
       return {
         'kt arteriel': '4 Fr (20Ga ou 18Ga)',
       };
@@ -202,23 +202,23 @@ class _PosologieCalculatorenScreenState
   }
 
   Map<String, String> obtenirVvc(int poids) {
-    if (poids < 2) {
+    if (poids < 4.41) {
       return {
         'vvc': '2 - 3 Fr',
       };
-    } else if (poids < 4) {
+    } else if (poids < 8.8) {
       return {
         'vvc': '3 - 4 Fr ',
       };
-    } else if (poids < 10) {
+    } else if (poids < 22) {
       return {
         'vvc': '4 - 5 Fr',
       };
-    } else if (poids < 20) {
+    } else if (poids < 44) {
       return {
         'vvc': '5 - 6 Fr',
       };
-    } else if (poids < 40) {
+    } else if (poids < 88) {
       return {
         'vvc': '6 - 7 Fr',
       };
@@ -230,15 +230,15 @@ class _PosologieCalculatorenScreenState
   }
 
   Map<String, String> obtenirBallon(int poids) {
-    if (poids <= 10) {
+    if (poids <= 22) {
       return {
         'ballon': '0,5 litre',
       };
-    } else if (poids <= 20) {
+    } else if (poids <= 44) {
       return {
         'ballon': '1 litre',
       };
-    } else if (poids <= 30) {
+    } else if (poids <= 66) {
       return {
         'ballon': '2 litres',
       };
@@ -314,35 +314,35 @@ class _PosologieCalculatorenScreenState
   }
 
   Map<String, String> obtenirtaillesonde(int poids) {
-    if (poids <= 4) {
+    if (poids <= 9) {
       return {
         'taillesonde': '2.5 à 3.0',
       };
-    } else if (poids <= 9) {
+    } else if (poids <= 20) {
       return {
         'taillesonde': '3.5',
       };
-    } else if (poids <= 14) {
+    } else if (poids <= 30) {
       return {
         'taillesonde': '4.0',
       };
-    } else if (poids <= 19) {
+    } else if (poids <= 42) {
       return {
         'taillesonde': '4.5',
       };
-    } else if (poids <= 24) {
+    } else if (poids <= 53) {
       return {
         'taillesonde': '5.0',
       };
-    } else if (poids <= 29) {
+    } else if (poids <= 63) {
       return {
         'taillesonde': '5.5',
       };
-    } else if (poids <= 34) {
+    } else if (poids <= 75) {
       return {
         'taillesonde': '6.0',
       };
-    } else if (poids <= 39) {
+    } else if (poids <= 86) {
       return {
         'taillesonde': '6.5',
       };
@@ -354,19 +354,19 @@ class _PosologieCalculatorenScreenState
   }
 
   Map<String, String> obtenirTailleLame(int poids) {
-    if (poids <= 5) {
+    if (poids <= 11) {
       return {
         'taillelame': '0 - 1',
       };
-    } else if (poids <= 10) {
+    } else if (poids <= 22) {
       return {
         'taillelame': '1',
       };
-    } else if (poids <= 12) {
+    } else if (poids <= 24) {
       return {
         'taillelame': '1 - 2',
       };
-    } else if (poids <= 34) {
+    } else if (poids <= 75) {
       return {
         'taillelame': '2',
       };
@@ -378,23 +378,23 @@ class _PosologieCalculatorenScreenState
   }
 
   Map<String, String> obtenirTailleAspi(int poids) {
-    if (poids < 5) {
+    if (poids < 11) {
       return {
         'tailleaspi': '6 - 8',
       };
-    } else if (poids <= 10) {
+    } else if (poids <= 22) {
       return {
         'tailleaspi': '8',
       };
-    } else if (poids <= 15) {
+    } else if (poids <= 30) {
       return {
         'tailleaspi': '10',
       };
-    } else if (poids <= 20) {
+    } else if (poids <= 44) {
       return {
         'tailleaspi': '12',
       };
-    } else if (poids <= 35) {
+    } else if (poids <= 77) {
       return {
         'tailleaspi': '14',
       };
@@ -436,8 +436,8 @@ class _PosologieCalculatorenScreenState
 
     setState(() {
       hypotensionsup1 = age + 70;
-      dosePropofolmini = poids * 2; // Dose de propofol à 3 mg/kg
-      dosePropofolmaxi = poids * 5; // Dose de propofol à 5 mg/kg
+      dosePropofolmini = poids * 2 / 2.205; // Dose de propofol à 3 mg/kg
+      dosePropofolmaxi = poids * 5 / 2.205; // Dose de propofol à 5 mg/kg
       doseEtomidate = poids * 0.2; // Dose de etomidate à 0.2 mg/kg
       doseKetaminemini = poids * 2;
       doseKetaminemaxi = poids * 4;
@@ -540,7 +540,7 @@ class _PosologieCalculatorenScreenState
                 "Français",
                 style: TextStyle(fontSize: 8),
               )),
-          title: const Text('Posologi calculator'),
+          title: const Text('Calculator'),
           centerTitle: true,
           bottom: const TabBar(
             isScrollable: true,
@@ -676,8 +676,8 @@ class InductionPage extends StatelessWidget {
   final Function(bool) onSwitchChanged;
   final VoidCallback onCalculate;
   final Map<String, String>? constantesPhysiologiques;
-  final int? dosePropofolmini;
-  final int? dosePropofolmaxi;
+  final double? dosePropofolmini;
+  final double? dosePropofolmaxi;
   final double? doseEtomidate;
   final int? doseKetaminemini;
   final int? doseKetaminemaxi;
@@ -811,13 +811,13 @@ class InductionPage extends StatelessWidget {
             controller: ageController,
             keyboardType: TextInputType.text,
             decoration: const InputDecoration(
-              labelText: 'Âge',
+              labelText: 'Age',
               border: OutlineInputBorder(),
             ),
           ),
           const SizedBox(height: 2),
           SwitchListTile(
-            title: const Text('Âge en mois'),
+            title: const Text('Age in months'),
             value: isAgeInMonths,
             onChanged: onSwitchChanged,
             activeColor: Colors.green.shade400,
@@ -827,14 +827,14 @@ class InductionPage extends StatelessWidget {
             controller: poidsController,
             keyboardType: TextInputType.text,
             decoration: const InputDecoration(
-              labelText: 'Poids (kg)',
+              labelText: 'Weight (lb)',
               border: OutlineInputBorder(),
             ),
           ),
           const SizedBox(height: 1),
           ElevatedButton(
             onPressed: onCalculate,
-            child: const Text('Calculer'),
+            child: const Text('Calculate'),
           ),
           const SizedBox(
             height: 40,
@@ -845,7 +845,7 @@ class InductionPage extends StatelessWidget {
               width: double.infinity,
               color: const Color.fromARGB(143, 226, 147, 57),
               child: const Text(
-                "Rentrer les parametres de l'enfant, basculer en mois si besoin pour l'age et cliquer sur calculer pour obtenir les résultats",
+                "Enter the child's parameters, switch to months if necessary for the age and click on calculate to obtain the results",
                 textAlign: TextAlign.justify,
                 style: TextStyle(fontWeight: FontWeight.bold),
               ),
@@ -1018,7 +1018,7 @@ class InductionPage extends StatelessWidget {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
-                                'Propofol: $dosePropofolmini - $dosePropofolmaxi mg',
+                                'Propofol: ${dosePropofolmini!.toStringAsFixed(0)} - ${dosePropofolmaxi!.toStringAsFixed(0)} mg',
                                 style: const TextStyle(fontSize: 16),
                               ),
                               const Text("2 à 5 mg/kg",

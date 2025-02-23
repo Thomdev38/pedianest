@@ -57,7 +57,7 @@ class UrgenceenPage extends StatelessWidget {
       volumePerKg = 70;
     }
     double totalVolume = poidstext! * volumePerKg;
-    return "Volume sanguin estimé: ${totalVolume.toStringAsFixed(0)} ml";
+    return "Blood volume estimate: ${totalVolume.toStringAsFixed(0)} ml";
   }
 
   @override

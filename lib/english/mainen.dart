@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:pedianesth/divers.dart';
+
 import 'package:pedianesth/english/diversen.dart';
 import 'package:pedianesth/english/homeen.dart';
 import 'package:pedianesth/fiches.dart';
-import 'package:pedianesth/homepage.dart';
+
 // ignore: unused_import
 
 //import 'package:pedianesth/poids.dart';
@@ -34,7 +34,7 @@ class _MainenAppState extends State<MainenApp> {
           body: screens[currentIndex],
           bottomNavigationBar: BottomNavigationBar(
             type: BottomNavigationBarType.fixed,
-            backgroundColor: const Color.fromARGB(225, 86, 125, 199),
+            backgroundColor: const Color.fromARGB(224, 182, 94, 218),
             selectedItemColor: Colors.white,
             unselectedItemColor: Colors.black,
             iconSize: 30,
@@ -51,7 +51,7 @@ class _MainenAppState extends State<MainenApp> {
               ),
               BottomNavigationBarItem(
                 icon: Icon(Icons.settings),
-                label: "Diver",
+                label: "Other",
               ),
             ],
           )),

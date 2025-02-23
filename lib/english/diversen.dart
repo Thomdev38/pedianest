@@ -24,8 +24,8 @@ class _DiversenState extends State<Diversen> {
                     Row(
                       children: [
                         SizedBox(
-                          height: 50,
-                          width: 50,
+                          height: 150,
+                          width: 150,
                           child: TextButton(
                             style: TextButton.styleFrom(
                               foregroundColor: Colors.blue, // Couleur du texte
@@ -56,8 +56,8 @@ class _DiversenState extends State<Diversen> {
                         ),
                         const Spacer(),
                         SizedBox(
-                          height: 50,
-                          width: 50,
+                          height: 150,
+                          width: 150,
                           child: TextButton(
                             style: TextButton.styleFrom(
                               foregroundColor: Colors.blue, // Couleur du texte

@@ -44,34 +44,36 @@
 
   <script>
     async function checkAccess() {
-        const email = prompt("Entrez votre email pour accéder à la PWA :");
+      const email = prompt("Entrez votre email pour accéder à la PWA :");
+      if (!email) {
+        alert("Email requis !");
+        return;
+      }
 
-        if (!email) {
-            alert("Email requis !");
-            return;
-        }
-
-        // Vérifier si l'email existe dans Firestore
+      try {
         const userDoc = await db.collection("users").doc(email).get();
-
         if (userDoc.exists) {
-            const userData = userDoc.data();
-            const storedToken = localStorage.getItem("access_token");
-
-            if (storedToken && storedToken === userData.token) {
-                alert("Accès accordé ! Bienvenue 🎉");
-            } else {
-                alert("Accès refusé. Veuillez acheter un accès !");
-                window.location.href = "achat.html";
-            }
+          const userData = userDoc.data();
+          localStorage.setItem("access_token", userData.token);
+          alert("Accès accordé ! Bienvenue 🎉");
         } else {
-            alert("Aucun accès trouvé. Veuillez acheter un accès !");
-            window.location.href = "achat.html";
+          alert("Aucun accès trouvé. Veuillez acheter un accès !");
+          window.location.href = "https://deviade.fr/app/achat.html";
         }
+      } catch (error) {
+        console.error("Erreur Firestore :", error);
+        alert("Erreur de connexion à Firestore !");
+      }
     }
 
-    checkAccess();
-</script>
+    async function verifyAccess() {
+      const storedToken = localStorage.getItem("access_token");
+      if (!storedToken) {
+        await checkAccess();
+      }
+    }
 
-  
+    verifyAccess();
+  </script>
+</body>
 </html>

@@ -846,7 +846,7 @@ class InductionPage extends StatelessWidget {
               width: double.infinity,
               color: const Color.fromARGB(143, 226, 147, 57),
               child: const Text(
-                "Rentrer les parametres de l'enfant, basculer en mois si besoin pour l'age et cliquer sur calculer pour obtenir les résultats",
+                "Rentrer les paramètres de l'enfant, basculer en mois si besoin pour l'âge et cliquer sur calculer pour obtenir les résultats",
                 textAlign: TextAlign.justify,
                 style: TextStyle(fontWeight: FontWeight.bold),
               ),

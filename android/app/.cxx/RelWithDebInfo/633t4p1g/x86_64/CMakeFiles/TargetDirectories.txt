@@ -1,0 +1,2 @@
+C:/Users/Thomas/Documents/GitHub/pedianest/android/app/.cxx/RelWithDebInfo/633t4p1g/x86_64/CMakeFiles/edit_cache.dir
+C:/Users/Thomas/Documents/GitHub/pedianest/android/app/.cxx/RelWithDebInfo/633t4p1g/x86_64/CMakeFiles/rebuild_cache.dir

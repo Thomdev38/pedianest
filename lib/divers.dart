@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:pedianesth/information.dart';
+import 'package:pedianesth/main.dart';
 import 'package:pedianesth/policie.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:pedianesth/sources.dart';
@@ -15,136 +16,185 @@ class _DiversState extends State<Divers> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(),
-        body: SingleChildScrollView(
-            child: Container(
-                padding: const EdgeInsets.all(40),
-                child: Column(
-                  children: [
-                    Row(
-                      children: [
-                        SizedBox(
-                          height: 150,
-                          width: 150,
-                          child: TextButton(
-                            style: TextButton.styleFrom(
-                              foregroundColor: Colors.blue, // Couleur du texte
-                              backgroundColor: const Color.fromARGB(
-                                  132, 108, 223, 223), // Couleur de fond
-
-                              textStyle: const TextStyle(
-                                  fontSize: 16,
-                                  fontWeight:
-                                      FontWeight.bold), // Style du texte
-                              shape: RoundedRectangleBorder(
-                                borderRadius:
-                                    BorderRadius.circular(10), // Bords arrondis
-                              ),
-                            ),
-                            child: const Text(
-                              'Informations',
-                              style: TextStyle(fontSize: 12),
-                            ),
-                            onPressed: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => const Information()),
-                              );
-                            },
-                          ),
-                        ),
-                        const Spacer(),
-                        SizedBox(
-                          height: 150,
-                          width: 150,
-                          child: TextButton(
-                            style: TextButton.styleFrom(
-                              foregroundColor: Colors.blue, // Couleur du texte
-                              backgroundColor: const Color.fromARGB(
-                                  132, 108, 223, 223), // Couleur de fond
-                              textStyle: const TextStyle(
-                                  fontSize: 16,
-                                  fontWeight:
-                                      FontWeight.bold), // Style du texte
-                              shape: RoundedRectangleBorder(
-                                borderRadius:
-                                    BorderRadius.circular(10), // Bords arrondis
-                              ),
-                            ),
-                            child: const Text(
-                              'Sources',
-                              style: TextStyle(fontSize: 12),
-                            ),
-                            onPressed: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => const Sources()),
-                              );
-                            },
-                          ),
-                        ),
-                      ],
-                    ),
-                    const SizedBox(
-                      height: 50,
-                    ),
-                    ElevatedButton(
-                      onPressed: () {
+      appBar: AppBar(
+        title: const Text('Divers'),
+      ),
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.all(24),
+          child: Column(
+            children: [
+              const SizedBox(height: 16),
+              Row(
+                children: [
+                  Expanded(
+                    child: _DiversCard(
+                      icon: Icons.info_outline,
+                      label: 'Informations',
+                      color: AppColors.primaryBlue,
+                      onTap: () {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => const Policie()),
+                              builder: (context) => const Information()),
                         );
                       },
-                      child: const Text("Politique de confidentialié"),
                     ),
-                    const SizedBox(
-                      height: 30,
+                  ),
+                  const SizedBox(width: 16),
+                  Expanded(
+                    child: _DiversCard(
+                      icon: Icons.menu_book_outlined,
+                      label: 'Sources',
+                      color: AppColors.accentTeal,
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const Sources()),
+                        );
+                      },
                     ),
-                    Column(
-                      children: [
-                        Row(
-                          children: [
-                            ElevatedButton(
-                              onPressed: _sendEmail,
-                              child: const Text("Contactez moi"),
-                            ),
-                            const Spacer(),
-                            ElevatedButton(
-                              onPressed: _openWebsite,
-                              child: const Text("Deviade.fr"),
-                            ),
-                          ],
-                        ),
-                      ],
+                  ),
+                ],
+              ),
+              const SizedBox(height: 24),
+              _DiversButton(
+                icon: Icons.privacy_tip_outlined,
+                label: 'Politique de confidentialite',
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => const Policie()),
+                  );
+                },
+              ),
+              const SizedBox(height: 12),
+              Row(
+                children: [
+                  Expanded(
+                    child: _DiversButton(
+                      icon: Icons.email_outlined,
+                      label: 'Contactez moi',
+                      onTap: _sendEmail,
                     ),
-                  ],
-                ))));
+                  ),
+                  const SizedBox(width: 12),
+                  Expanded(
+                    child: _DiversButton(
+                      icon: Icons.language,
+                      label: 'Deviade.fr',
+                      onTap: _openWebsite,
+                    ),
+                  ),
+                ],
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
   }
 
   void _sendEmail() async {
     final Uri emailUri = Uri(
       scheme: 'mailto',
-      path: 'thomas.deviade@gmail.com', // Remplace par l'adresse cible
-      query: 'subject=Application Pedianesth', // Sujet et corps du mail
+      path: 'thomas.deviade@gmail.com',
+      query: 'subject=Application Pedianesth',
     );
 
     if (await canLaunchUrl(emailUri)) {
       await launchUrl(emailUri);
-    } else {
-      const Text("Impossible d'ouvrir l'application mail.");
     }
   }
 
   void _openWebsite() async {
-    final Uri url = Uri.parse("http://www.deviade.fr");
+    final Uri url = Uri.parse("https://thomdev38.github.io/deviade/");
 
     if (await canLaunchUrl(url)) {
       await launchUrl(url, mode: LaunchMode.externalApplication);
-    } else {
-      const Text("Impossible d'ouvrir le site web.");
     }
+  }
+}
+
+class _DiversCard extends StatelessWidget {
+  final IconData icon;
+  final String label;
+  final Color color;
+  final VoidCallback onTap;
+
+  const _DiversCard({
+    required this.icon,
+    required this.label,
+    required this.color,
+    required this.onTap,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return InkWell(
+      onTap: onTap,
+      borderRadius: BorderRadius.circular(16),
+      child: Container(
+        height: 140,
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(16),
+          boxShadow: [
+            BoxShadow(
+              color: color.withValues(alpha: 0.12),
+              blurRadius: 10,
+              offset: const Offset(0, 4),
+            ),
+          ],
+        ),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            CircleAvatar(
+              radius: 28,
+              backgroundColor: color.withValues(alpha: 0.12),
+              child: Icon(icon, color: color, size: 28),
+            ),
+            const SizedBox(height: 12),
+            Text(
+              label,
+              style: TextStyle(
+                fontSize: 14,
+                fontWeight: FontWeight.w600,
+                color: color,
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class _DiversButton extends StatelessWidget {
+  final IconData icon;
+  final String label;
+  final VoidCallback onTap;
+
+  const _DiversButton({
+    required this.icon,
+    required this.label,
+    required this.onTap,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      width: double.infinity,
+      child: ElevatedButton.icon(
+        onPressed: onTap,
+        icon: Icon(icon, size: 20),
+        label: Text(label),
+        style: ElevatedButton.styleFrom(
+          padding: const EdgeInsets.symmetric(vertical: 14, horizontal: 16),
+        ),
+      ),
+    );
   }
 }

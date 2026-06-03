@@ -139,7 +139,7 @@ class _DiversenState extends State<Diversen> {
   }
 
   void _openWebsite() async {
-    final Uri url = Uri.parse("http://www.deviade.fr");
+    final Uri url = Uri.parse("https://thomdev38.github.io/deviade/");
 
     if (await canLaunchUrl(url)) {
       await launchUrl(url, mode: LaunchMode.externalApplication);

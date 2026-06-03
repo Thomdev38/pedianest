@@ -41,7 +41,7 @@ if (keystorePropertiesFile.exists()) {
 
 android {
     namespace = "com.example.pedianesth"
-    compileSdk = 35  // Mise à jour de 34 à 35
+    compileSdk = 36
     ndkVersion = flutter.ndkVersion
 
     compileOptions {
@@ -55,8 +55,8 @@ android {
 
     defaultConfig {
         applicationId = "com.thomas.pedianesth"
-        minSdk = 21
-        targetSdk = 35  // Mise à jour de 34 à 35
+        minSdkVersion = flutter.minSdkVersion
+        targetSdk = 36
         versionCode = flutterVersionCode.toInteger()
         versionName = flutterVersionName
     }
@@ -74,6 +74,12 @@ android {
             // TODO: Add your own signing config for the release build.
             // Signing with the debug keys for now, so `flutter run --release` works.
             signingConfig = signingConfigs.getByName("release")
+        }
+    }
+
+    packaging {
+        jniLibs {
+            useLegacyPackaging = true
         }
     }
 }

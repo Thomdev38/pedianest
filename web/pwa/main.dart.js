@@ -83447,7 +83447,7 @@ case 5:case 3:return A.G(null,r)}})
 return A.H($async$rX,r)},
 rO(){var s=0,r=A.I(t.H),q
 var $async$rO=A.J(function(a,b){if(a===1)return A.F(b,r)
-while(true)switch(s){case 0:q=A.kz("http://www.deviade.fr",0,null)
+while(true)switch(s){case 0:q=A.kz("https://thomdev38.github.io/deviade/",0,null)
 s=4
 return A.O(A.anZ(q),$async$rO)
 case 4:s=b?2:3

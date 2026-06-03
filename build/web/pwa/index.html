@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>pedianesth</title>
+
+    <!-- 🔹 Base href pour corriger les chemins relatifs -->
+    <base href="/app/pwa/">
+    
+    <!-- Meta tags -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-title" content="pedianesth">
+    
+    <!-- Icons & Favicon -->
+    <link rel="apple-touch-icon" href="icons/Icon-192.png">
+    <link rel="icon" type="image/png" href="favicon.png">
+    <link rel="manifest" href="manifest.json">
+    
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js"></script>
+    
+    <!-- Initialisation Firebase -->
+    <script>
+        const firebaseConfig = {
+            apiKey: "AIzaSyC9vJXmmllfpQKcozLGVEvoQssJ1dtkwv",
+            authDomain: "pedianesth.firebaseapp.com",
+            projectId: "pedianesth",
+            storageBucket: "pedianesth.appspot.com",
+            messagingSenderId: "593991386856",
+            appId: "1:593991386856:web:74ec339fbf34323d332b5d"
+        };
+        firebase.initializeApp(firebaseConfig);
+        const db = firebase.firestore();
+    </script>
+
+</head>
+<body>
+    <script src="pwa/access.js"></script>
+    <script src="flutter_bootstrap.js" async></script>
+</body>
+</html>

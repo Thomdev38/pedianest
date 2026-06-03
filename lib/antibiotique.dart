@@ -1,5 +1,6 @@
 import "package:flutter/material.dart";
 import 'package:pedianesth/main.dart';
+import 'package:pedianesth/responsive.dart';
 
 class AntibioPage extends StatelessWidget {
   final double? dosePropofolEntretien;
@@ -42,10 +43,10 @@ class AntibioPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
-      padding: const EdgeInsets.all(16.0),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
+      child: ResponsiveCenter(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
           const SizedBox(height: 8),
           if (dosePropofolEntretien == null) ...[
             Container(
@@ -83,6 +84,7 @@ class AntibioPage extends StatelessWidget {
               ),
             const SizedBox(height: 12),
 
+            ResponsiveMasonry(children: [
             // Anesthesiques locaux
             _AntibioSection(
               title: 'Anesthesiques locaux',
@@ -116,8 +118,10 @@ class AntibioPage extends StatelessWidget {
                 _AntibioDoseRow(name: 'Vancomycine', dose: '$doseVancomycinemini a $doseVancomycinemaxi mg', hint: '20 a 30 mg/kg en 60 minutes, dose unique'),
               ],
             ),
+            ]),
           ],
         ],
+        ),
       ),
     );
   }

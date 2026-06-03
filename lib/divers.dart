@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:pedianesth/information.dart';
 import 'package:pedianesth/main.dart';
 import 'package:pedianesth/policie.dart';
+import 'package:pedianesth/responsive.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:pedianesth/sources.dart';
 
@@ -20,8 +21,8 @@ class _DiversState extends State<Divers> {
         title: const Text('Divers'),
       ),
       body: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.all(24),
+        child: ResponsiveCenter(
+          maxWidth: 600,
           child: Column(
             children: [
               const SizedBox(height: 16),

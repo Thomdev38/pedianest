@@ -8,6 +8,7 @@ import 'package:pedianesth/antibiotique.dart';
 import 'package:pedianesth/english/mainen.dart';
 import 'package:pedianesth/entretien.dart';
 import 'package:pedianesth/main.dart';
+import 'package:pedianesth/responsive.dart';
 
 class PosologieCalculatorScreen extends StatefulWidget {
   const PosologieCalculatorScreen({super.key});
@@ -421,15 +422,15 @@ class _PosologieCalculatorScreenState extends State<PosologieCalculatorScreen> {
         appBar: AppBar(
           title: const Text('Calculette de Posologie'),
           centerTitle: true,
-          bottom: const TabBar(
-            isScrollable: true,
+          bottom: TabBar(
+            isScrollable: !Responsive.isWide(context),
             dividerColor: AppColors.lightBlue,
             indicatorWeight: 3.0,
             indicatorColor: Colors.white,
             labelColor: Colors.white,
             unselectedLabelColor: Colors.white70,
             labelStyle: TextStyle(fontWeight: FontWeight.w600),
-            tabs: [
+            tabs: const [
               Tab(text: 'Anesthesie'),
               Tab(text: 'Urgences'),
               Tab(text: "Antibiotiques/ ALR"),
@@ -776,10 +777,10 @@ class InductionPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
-      padding: const EdgeInsets.all(16.0),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
+      child: ResponsiveCenter(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
           // Input Card
           Container(
             padding: const EdgeInsets.all(16),
@@ -870,6 +871,7 @@ class InductionPage extends StatelessWidget {
             )
           ],
 
+          ResponsiveMasonry(children: [
           // Constantes Physiologiques
           if (constantesPhysiologiques != null) ...[
             _MedicalSection(
@@ -962,6 +964,7 @@ class InductionPage extends StatelessWidget {
               ],
             ),
           ],
+          ]),
 
           // Doses Induction
           if (dosePropofolmini != null && dosePropofolmaxi != null) ...[
@@ -975,6 +978,7 @@ class InductionPage extends StatelessWidget {
               ),
             ),
 
+            ResponsiveMasonry(children: [
             // Hypnotiques
             _MedicalSection(
               title: 'Hypnotiques',
@@ -1206,8 +1210,10 @@ class InductionPage extends StatelessWidget {
                 _DoseRow(name: 'Sonde urinaire', dose: '${sad!['sad']}'),
               ],
             ),
+            ]),
           ],
         ],
+        ),
       ),
     );
   }

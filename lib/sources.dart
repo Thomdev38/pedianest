@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:pedianesth/responsive.dart';
 
 class Sources extends StatefulWidget {
   const Sources({super.key});
@@ -15,9 +16,8 @@ class _SourcesState extends State<Sources> {
           title: const Text("Sources"),
         ),
         body: SingleChildScrollView(
-            child: Container(
-                padding: const EdgeInsets.only(
-                    top: 50, left: 50, right: 50, bottom: 50),
+            child: ResponsiveCenter(
+                maxWidth: 700,
                 // ignore: prefer_const_constructors
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,

@@ -1,5 +1,6 @@
 import "package:flutter/material.dart";
 import 'package:pedianesth/main.dart';
+import 'package:pedianesth/responsive.dart';
 
 class UrgencePage extends StatelessWidget {
   final double? dosePropofolEntretien;
@@ -64,10 +65,10 @@ class UrgencePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
-      padding: const EdgeInsets.all(16.0),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
+      child: ResponsiveCenter(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
           const SizedBox(height: 8),
           if (doseExacyl == null) ...[
             Container(
@@ -104,6 +105,7 @@ class UrgencePage extends StatelessWidget {
             ),
             const SizedBox(height: 12),
 
+            ResponsiveMasonry(children: [
             // Blood Management
             _UrgenceSection(
               title: 'Blood management',
@@ -203,8 +205,10 @@ class UrgencePage extends StatelessWidget {
                 _UrgenceDoseRow(name: 'Rivotril', dose: '${doseRivotril!.toStringAsFixed(1)} mg', hint: '0.05 mg/kg en IV'),
               ],
             ),
+            ]),
           ],
         ],
+        ),
       ),
     );
   }

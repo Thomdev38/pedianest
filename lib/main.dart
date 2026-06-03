@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:pedianesth/divers.dart';
 import 'package:pedianesth/fiches.dart';
 import 'package:pedianesth/homepage.dart';
+import 'package:pedianesth/responsive.dart';
 
 void main() {
   runApp(const MainApp());
@@ -107,44 +108,88 @@ class _MainAppState extends State<MainApp> {
           bodyMedium: TextStyle(color: AppColors.textDark),
         ),
       ),
-      home: Scaffold(
-        body: screens[currentIndex],
-        bottomNavigationBar: Container(
-          decoration: BoxDecoration(
-            boxShadow: [
-              BoxShadow(
-                color: Colors.black.withValues(alpha: 0.08),
-                blurRadius: 8,
-                offset: const Offset(0, -2),
+      home: Builder(
+        builder: (context) {
+          final useRail =
+              MediaQuery.of(context).size.width >= Responsive.navRail;
+          // Sur grand écran : navigation latérale (NavigationRail).
+          if (useRail) {
+            return Scaffold(
+              body: Row(
+                children: [
+                  _buildNavigationRail(),
+                  const VerticalDivider(width: 1, thickness: 1),
+                  Expanded(child: screens[currentIndex]),
+                ],
               ),
-            ],
+            );
+          }
+          // Sur mobile : barre de navigation en bas (comportement d'origine).
+          return Scaffold(
+            body: screens[currentIndex],
+            bottomNavigationBar: _buildBottomNav(),
+          );
+        },
+      ),
+    );
+  }
+
+  static const _navItems = [
+    (icon: Icons.medication_liquid, label: 'Posologie'),
+    (icon: Icons.assessment_outlined, label: 'Fiches reflexes'),
+    (icon: Icons.settings, label: 'Divers'),
+  ];
+
+  Widget _buildNavigationRail() {
+    return NavigationRail(
+      backgroundColor: AppColors.primaryBlue,
+      selectedIndex: currentIndex,
+      onDestinationSelected: (index) => setState(() => currentIndex = index),
+      labelType: NavigationRailLabelType.all,
+      indicatorColor: Colors.white.withValues(alpha: 0.2),
+      selectedIconTheme: const IconThemeData(color: Colors.white, size: 28),
+      unselectedIconTheme: const IconThemeData(color: Colors.white70, size: 26),
+      selectedLabelTextStyle:
+          const TextStyle(color: Colors.white, fontWeight: FontWeight.w600),
+      unselectedLabelTextStyle: const TextStyle(color: Colors.white70),
+      destinations: [
+        for (final item in _navItems)
+          NavigationRailDestination(
+            icon: Icon(item.icon),
+            label: Text(item.label),
           ),
-          child: BottomNavigationBar(
-            type: BottomNavigationBarType.fixed,
-            backgroundColor: AppColors.primaryBlue,
-            selectedItemColor: Colors.white,
-            unselectedItemColor: Colors.white70,
-            selectedFontSize: 13,
-            unselectedFontSize: 12,
-            iconSize: 28,
-            currentIndex: currentIndex,
-            onTap: (index) => setState(() => currentIndex = index),
-            items: const [
-              BottomNavigationBarItem(
-                icon: Icon(Icons.medication_liquid),
-                label: "Posologie",
-              ),
-              BottomNavigationBarItem(
-                icon: Icon(Icons.assessment_outlined),
-                label: "Fiches reflexes",
-              ),
-              BottomNavigationBarItem(
-                icon: Icon(Icons.settings),
-                label: "Divers",
-              ),
-            ],
+      ],
+    );
+  }
+
+  Widget _buildBottomNav() {
+    return Container(
+      decoration: BoxDecoration(
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withValues(alpha: 0.08),
+            blurRadius: 8,
+            offset: const Offset(0, -2),
           ),
-        ),
+        ],
+      ),
+      child: BottomNavigationBar(
+        type: BottomNavigationBarType.fixed,
+        backgroundColor: AppColors.primaryBlue,
+        selectedItemColor: Colors.white,
+        unselectedItemColor: Colors.white70,
+        selectedFontSize: 13,
+        unselectedFontSize: 12,
+        iconSize: 28,
+        currentIndex: currentIndex,
+        onTap: (index) => setState(() => currentIndex = index),
+        items: [
+          for (final item in _navItems)
+            BottomNavigationBarItem(
+              icon: Icon(item.icon),
+              label: item.label,
+            ),
+        ],
       ),
     );
   }

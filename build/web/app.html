@@ -1,17 +1,11 @@
 <!DOCTYPE html>
-<html>
+<html lang="fr">
 <head>
   <base href="$FLUTTER_BASE_HREF">
   <meta charset="UTF-8">
   <meta content="IE=Edge" http-equiv="X-UA-Compatible">
-  <meta name="description" content="Accès sécurisé à la PWA">
-
-  <link rel="manifest" href="manifest.json">
-  <script>
-    if ("serviceWorker" in navigator) {
-      navigator.serviceWorker.register("service-worker.js");
-    }
-  </script>
+  <meta name="description" content="Pedianesth - anesthésie pédiatrique">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black">
@@ -19,61 +13,8 @@
   <link rel="apple-touch-icon" href="icons/Icon-192.png">
   <link rel="icon" type="image/png" href="favicon.png"/>
   <title>pedianesth</title>
-
-  <!-- Firebase SDK -->
-  <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js"></script>
-
-  <script>
-    // Configuration Firebase
-    const firebaseConfig = {
-      apiKey: "AlzaSyC9vJXmmllfpQKcozLGVEvoQssJ1dtkwv",
-      authDomain: "pedianesth.firebaseapp.com",
-      projectId: "pedianesth",
-      storageBucket: "pedianesth.appspot.com",
-      messagingSenderId: "593991386856",
-      appId: "1:593991386856:web:74ec339fbf34323d332b5d"
-
-    };
-    firebase.initializeApp(firebaseConfig);
-    const db = firebase.firestore();
-  </script>
 </head>
 <body>
   <script src="flutter_bootstrap.js" async></script>
-
-  <script>
-    async function checkAccess() {
-      const email = prompt("Entrez votre email pour accéder à la PWA :");
-      if (!email) {
-        alert("Email requis !");
-        return;
-      }
-
-      try {
-        const userDoc = await db.collection("users").doc(email).get();
-        if (userDoc.exists) {
-          const userData = userDoc.data();
-          localStorage.setItem("access_token", userData.token);
-          alert("Accès accordé ! Bienvenue 🎉");
-        } else {
-          alert("Aucun accès trouvé. Veuillez acheter un accès !");
-          window.location.href = "https://deviade.fr/app/achat.html";
-        }
-      } catch (error) {
-        console.error("Erreur Firestore :", error);
-        alert("Erreur de connexion à Firestore !");
-      }
-    }
-
-    async function verifyAccess() {
-      const storedToken = localStorage.getItem("access_token");
-      if (!storedToken) {
-        await checkAccess();
-      }
-    }
-
-    verifyAccess();
-  </script>
 </body>
 </html>

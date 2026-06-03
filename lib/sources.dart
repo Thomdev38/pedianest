@@ -15,13 +15,13 @@ class _SourcesState extends State<Sources> {
         appBar: AppBar(
           title: const Text("Sources"),
         ),
-        body: SingleChildScrollView(
+        body: const SingleChildScrollView(
             child: ResponsiveCenter(
                 maxWidth: 700,
                 // ignore: prefer_const_constructors
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
-                  children: const [
+                  children: [
                     Text(
                         "Cette application d'aide au calcul de posologie s'est appuyé sur les sites, livres et applications suivantes:"),
                     SizedBox(

@@ -2,7 +2,30 @@
   "permissions": {
     "allow": [
       "Bash(flutter analyze:*)",
-      "Bash(git check-ignore *)"
+      "Bash(git check-ignore *)",
+      "Bash(xargs ls -la)",
+      "Bash([ -e \"build/web/$f\" ])",
+      "Bash(flutter --version)",
+      "Bash(flutter build *)",
+      "Bash(xargs -0 git rm --cached -q)",
+      "Bash(git add *)",
+      "Bash(xargs -0 git add -f)",
+      "Bash(git diff *)",
+      "Bash(xargs -0 git restore --staged)",
+      "Bash(git commit -q -m ' *)",
+      "Bash(git push *)",
+      "Bash(ls \"/Applications/Google Chrome.app/Contents/MacOS/Google Chrome\" 2>/dev/null && echo \"CHROME_OK\" || echo \"NO_CHROME\" *)",
+      "Read(//Applications/Google Chrome.app/Contents/MacOS/**)",
+      "Bash(python3 -m http.server 8765)",
+      "Bash(echo \"server pid $!\")",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\" http://localhost:8765/index.html)",
+      "Read(//private/tmp/**)",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\" http://127.0.0.1:8765/index.html)",
+      "Bash(lsof -nP -iTCP:8765)",
+      "Bash('/Applications/Google Chrome.app/Contents/MacOS/Google Chrome' --headless=new --disable-gpu --hide-scrollbars --force-device-scale-factor=1 --window-size=1400,900 --virtual-time-budget=9000 --screenshot=/tmp/ped_wide.png http://127.0.0.1:8765/index.html)",
+      "Read(//tmp/**)",
+      "Bash(kill 29580)",
+      "Bash(rm -f /tmp/ped_wide.png /tmp/ped_narrow.png /tmp/pedianest_srv.log)"
     ]
   }
 }

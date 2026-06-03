@@ -429,7 +429,7 @@ class _PosologieCalculatorScreenState extends State<PosologieCalculatorScreen> {
             indicatorColor: Colors.white,
             labelColor: Colors.white,
             unselectedLabelColor: Colors.white70,
-            labelStyle: TextStyle(fontWeight: FontWeight.w600),
+            labelStyle: const TextStyle(fontWeight: FontWeight.w600),
             tabs: const [
               Tab(text: 'Anesthesie'),
               Tab(text: 'Urgences'),

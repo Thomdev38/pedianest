@@ -1,3 +1,5 @@
+// ignore_for_file: deprecated_member_use
+
 import 'package:flutter/material.dart';
 
 import 'package:pedianesth/antibiotique.dart';
@@ -419,15 +421,15 @@ class _PosologieCalculatorScreenState extends State<PosologieCalculatorScreen> {
         appBar: AppBar(
           title: const Text('Calculette de Posologie'),
           centerTitle: true,
-          bottom: TabBar(
+          bottom: const TabBar(
             isScrollable: true,
             dividerColor: AppColors.lightBlue,
             indicatorWeight: 3.0,
             indicatorColor: Colors.white,
             labelColor: Colors.white,
             unselectedLabelColor: Colors.white70,
-            labelStyle: const TextStyle(fontWeight: FontWeight.w600),
-            tabs: const [
+            labelStyle: TextStyle(fontWeight: FontWeight.w600),
+            tabs: [
               Tab(text: 'Anesthesie'),
               Tab(text: 'Urgences'),
               Tab(text: "Antibiotiques/ ALR"),
@@ -1025,14 +1027,14 @@ class InductionPage extends StatelessWidget {
                 _DoseRow(name: 'Atropine', dose: '${doseAtropine!.toStringAsFixed(2)} mg'),
                 _DoseRow(name: 'Neosynephrine', dose: '${doseneomin!.toStringAsFixed(1)} - ${doseneomax!} mg', hint: 'maximum 10mcg/kg'),
                 _DoseRow(name: 'Cordarone', dose: '${dosecordarone!} mg IVL sur 20min', hint: '5 mg/kg'),
-                ExpansionTile(
-                  title: const Text('Noradrenaline', style: TextStyle(fontSize: 15, color: AppColors.textDark)),
+                const ExpansionTile(
+                  title: Text('Noradrenaline', style: TextStyle(fontSize: 15, color: AppColors.textDark)),
                   children: [
                     Padding(
-                      padding: const EdgeInsets.all(8.0),
+                      padding: EdgeInsets.all(8.0),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
-                        children: const [
+                        children: [
                           Text('poids en kg x 0,15 = mg de noradre a ramener dans 25 ml', style: TextStyle(fontSize: 12, color: AppColors.textMuted)),
                           Text('1 ml/h = 0,1 mcg/kg/mn', style: TextStyle(fontSize: 12, color: AppColors.textMuted)),
                           Text('Posologie : 0,05 a 2 mcg/kg/mn', style: TextStyle(fontSize: 12, color: AppColors.textMuted)),
@@ -1041,14 +1043,14 @@ class InductionPage extends StatelessWidget {
                     ),
                   ],
                 ),
-                ExpansionTile(
-                  title: const Text('Dobutamine', style: TextStyle(fontSize: 15, color: AppColors.textDark)),
+                const ExpansionTile(
+                  title: Text('Dobutamine', style: TextStyle(fontSize: 15, color: AppColors.textDark)),
                   children: [
                     Padding(
-                      padding: const EdgeInsets.all(8.0),
+                      padding: EdgeInsets.all(8.0),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
-                        children: const [
+                        children: [
                           Text('poids en kg x 15 = mg de dobu a ramener dans 25 ml', style: TextStyle(fontSize: 12, color: AppColors.textMuted)),
                           Text('0,1 ml/h = 1 mcg/kg/mn', style: TextStyle(fontSize: 12, color: AppColors.textMuted)),
                           Text('Posologie : 5 a 20 mcg/kg/mn', style: TextStyle(fontSize: 12, color: AppColors.textMuted)),
@@ -1057,14 +1059,14 @@ class InductionPage extends StatelessWidget {
                     ),
                   ],
                 ),
-                ExpansionTile(
-                  title: const Text('Ephedrine', style: TextStyle(fontSize: 15, color: AppColors.textDark)),
+                const ExpansionTile(
+                  title: Text('Ephedrine', style: TextStyle(fontSize: 15, color: AppColors.textDark)),
                   children: [
                     Padding(
-                      padding: const EdgeInsets.all(8.0),
+                      padding: EdgeInsets.all(8.0),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
-                        children: const [
+                        children: [
                           Text('300 mcg/kg', style: TextStyle(fontSize: 12, color: AppColors.textMuted)),
                           Text('pas diluee si poids > 10 kg, dilution 300 mcg/ml si < 10kg)', style: TextStyle(fontSize: 12, color: AppColors.textMuted)),
                           Text('Peu efficace en dessous de 1 an', style: TextStyle(fontSize: 12, color: AppColors.textMuted)),
@@ -1119,12 +1121,12 @@ class InductionPage extends StatelessWidget {
                     'Apport Liquidien de base: $apportLiquidien ml/h',
                     style: const TextStyle(fontSize: 14, color: AppColors.textDark),
                   ),
-                  children: [
+                  children: const [
                     Padding(
-                      padding: const EdgeInsets.all(8.0),
+                      padding: EdgeInsets.all(8.0),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
-                        children: const [
+                        children: [
                           Text("Methode de calcul des apports de base 4 2 1", style: TextStyle(fontSize: 12, color: AppColors.textMuted)),
                           SizedBox(height: 8),
                           Text("Attention, cette regle ne prend pas en compte les pertes insensibles et la compensation du jeune", style: TextStyle(fontSize: 12, color: AppColors.textMuted)),
@@ -1142,12 +1144,12 @@ class InductionPage extends StatelessWidget {
                     'Bolus de $remplissagevasc ml de cristalloides en 20 a 30min',
                     style: const TextStyle(fontSize: 14, color: AppColors.textDark),
                   ),
-                  children: [
+                  children: const [
                     Padding(
-                      padding: const EdgeInsets.all(8.0),
+                      padding: EdgeInsets.all(8.0),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
-                        children: const [
+                        children: [
                           Text("10 a 20ml/kg en 20 a 30 min", style: TextStyle(fontSize: 12, color: AppColors.textMuted)),
                           Text("Remplissage de SSI ou RL", style: TextStyle(fontSize: 12, color: AppColors.textMuted)),
                         ],

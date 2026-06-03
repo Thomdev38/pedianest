@@ -112,15 +112,15 @@ class UrgencePage extends StatelessWidget {
               children: [
                 _UrgenceDoseRow(name: "Taux d'hemoglobine", dose: '${hb!['hb']}'),
                 _UrgenceDoseRow(name: getBloodVolume(), dose: ''),
-                ExpansionTile(
+                const ExpansionTile(
                   expandedAlignment: Alignment.topLeft,
-                  title: const Text('Seuil transfusionnel', style: TextStyle(fontSize: 14, color: AppColors.textDark)),
+                  title: Text('Seuil transfusionnel', style: TextStyle(fontSize: 14, color: AppColors.textDark)),
                   children: [
                     Padding(
-                      padding: const EdgeInsets.all(8.0),
+                      padding: EdgeInsets.all(8.0),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
-                        children: const [
+                        children: [
                           Text("Nouveau-ne et nourrisson = 10g/dl", style: TextStyle(fontSize: 12, color: AppColors.textMuted)),
                           Text("Enfant = 8g/dl", style: TextStyle(fontSize: 12, color: AppColors.textMuted)),
                           Text("Si cardiopathie cyanogene: 12g/dl", style: TextStyle(fontSize: 12, color: AppColors.textMuted)),
@@ -129,15 +129,15 @@ class UrgencePage extends StatelessWidget {
                     ),
                   ],
                 ),
-                ExpansionTile(
+                const ExpansionTile(
                   expandedAlignment: Alignment.topLeft,
-                  title: const Text('Transfusion de CGR', style: TextStyle(fontSize: 14, color: AppColors.textDark)),
+                  title: Text('Transfusion de CGR', style: TextStyle(fontSize: 14, color: AppColors.textDark)),
                   children: [
                     Padding(
-                      padding: const EdgeInsets.all(8.0),
+                      padding: EdgeInsets.all(8.0),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
-                        children: const [
+                        children: [
                           Text("Volume en ml de CGR a transfuser = 3 x (Hb souhaitee - Hb observee) x poids (kg)", style: TextStyle(fontSize: 12, color: AppColors.textMuted)),
                           SizedBox(height: 8),
                           Text("Ratio CGR/PFC/PLQ", style: TextStyle(fontSize: 13, fontWeight: FontWeight.w600, color: AppColors.textDark)),

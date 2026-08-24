@@ -79,7 +79,7 @@ android {
 
     packaging {
         jniLibs {
-            useLegacyPackaging = true
+            useLegacyPackaging = false
         }
     }
 }
@@ -87,4 +87,3 @@ android {
 flutter {
     source = "../.."
 }
-

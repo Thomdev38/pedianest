@@ -9,6 +9,17 @@ import 'package:pedianesth/english/mainen.dart';
 import 'package:pedianesth/entretien.dart';
 import 'package:pedianesth/main.dart';
 import 'package:pedianesth/responsive.dart';
+import 'package:pedianesth/reperes_pediatriques.dart';
+import 'package:pedianesth/memo_pediatrique.dart';
+import 'package:pedianesth/posologies_fr.dart';
+
+String _pertesPourPoids(int poids, Chirurgie chirurgie) {
+  final pertes = calculerPertesChirurgicales(poids, chirurgie);
+  final volume = pertes.minimum == pertes.maximum
+      ? formaterNombre(pertes.minimum)
+      : '${formaterNombre(pertes.minimum)} à ${formaterNombre(pertes.maximum)}';
+  return 'Pour $poids kg : $volume ml/h';
+}
 
 class PosologieCalculatorScreen extends StatefulWidget {
   const PosologieCalculatorScreen({super.key});
@@ -38,7 +49,7 @@ class _PosologieCalculatorScreenState extends State<PosologieCalculatorScreen> {
 
   bool isAgeInMonths = false;
   int? dosePropofolmini;
-  int? hypotensionsup1;
+  double? hypotensionsup1;
   int? dosePropofolmaxi;
   double? doseEtomidate;
   int? doseKetaminemini;
@@ -47,13 +58,13 @@ class _PosologieCalculatorScreenState extends State<PosologieCalculatorScreen> {
   double? doseSufentamaxi;
   int? doseAlfentanylmini;
   int? doseAlfentanylmaxi;
-  double? doseRemifentanylmini;
-  double? doseRemifentanylmaxi;
+  double? debitRemifentanilMinUgMin;
+  double? debitRemifentanilMaxUgMin;
   int? doseFentanylmini;
   int? doseFentanylmaxi;
   double? doseCisatracrium;
-  int? doseCelocurinemini;
-  int? doseCelocurinemaxi;
+  double? doseCelocurinemini;
+  double? doseCelocurinemaxi;
   double? doseAtracrium;
   double? doseRocuroniummini;
   double? doseRocuroniummaxi;
@@ -112,69 +123,6 @@ class _PosologieCalculatorScreenState extends State<PosologieCalculatorScreen> {
   double? doseRivotril;
   double? doseneomin;
   int? doseneomax;
-
-  int calculerApportLiquidien(int poids) {
-    int apport = 0;
-
-    if (poids <= 10) {
-      apport = poids * 4;
-    } else if (poids <= 20) {
-      apport = 10 * 4 + (poids - 10) * 2;
-    } else {
-      apport = 10 * 4 + 10 * 2 + (poids - 20) * 1;
-    }
-
-    return apport;
-  }
-
-  Map<String, String> obtenirConstantesPhysiologiques(int ageEnMois) {
-    if (ageEnMois <= 1) {
-      return {
-        'FC': '140 - 180',
-        'PAS': '60-35',
-        'FR': '30 - 60',
-        'Hypotension': 'si PAM < age gestationnel a la naissance (SA)',
-      };
-    } else if (ageEnMois <= 12) {
-      return {
-        'FC': '120 - 150',
-        'PAS': '90 - 65',
-        'FR': '24 - 40',
-        'Hypotension': 'si PAM < age gestationnel a la naissance (SA)',
-      };
-    } else if (ageEnMois <= 24) {
-      return {
-        'FC': '110 - 130',
-        'PAS': '95 - 65',
-        'FR': '20 - 30',
-        'Hypotension': 'si PAS <$hypotensionsup1',
-      };
-    } else if (ageEnMois <= 60) {
-      return {
-        'FC': '105 - 120',
-        'PAS': '110 - 60',
-        'FR': '16 - 20',
-        'Hypotension': 'si PAS <$hypotensionsup1',
-      };
-    } else {
-      return {
-        'FC': '70 - 100',
-        'PAS': '120 - 65',
-        'FR': '16 - 20',
-        'Hypotension': 'si PAS <$hypotensionsup1',
-      };
-    }
-  }
-
-  Map<String, String> obtenirCircuit(int poids) {
-    if (poids <= 5) {
-      return {'circuit': 'Neonat'};
-    } else if (poids <= 25) {
-      return {'circuit': 'pediatrique'};
-    } else {
-      return {'circuit': 'adulte'};
-    }
-  }
 
   Map<String, String> obtenirKtarteriel(int poids) {
     if (poids < 1) {
@@ -306,27 +254,13 @@ class _PosologieCalculatorScreenState extends State<PosologieCalculatorScreen> {
     }
   }
 
-  Map<String, String> obtenirTailleguedel(int ageEnMois) {
-    if (ageEnMois <= 1) {
-      return {'tailleguedel': '000 ou 00 (transparente / bleue )'};
-    } else if (ageEnMois <= 12) {
-      return {'tailleguedel': '0 (grise)'};
-    } else if (ageEnMois <= 60) {
-      return {'tailleguedel': '1 blanche'};
-    } else if (ageEnMois <= 144) {
-      return {'tailleguedel': '2 (verte)'};
-    } else {
-      return {'tailleguedel': '2 ou 3 (verte / orange)'};
-    }
-  }
-
   void calculerDosesEtSonde() {
     final int age = int.tryParse(ageController.text) ?? 0;
-    int ageEnMois = isAgeInMonths ? age : age * 12;
+    final int ageEnMois = convertirAgeEnMois(age, enMois: isAgeInMonths);
     final int poids = int.tryParse(poidsController.text) ?? 0;
 
     setState(() {
-      hypotensionsup1 = age + 70;
+      hypotensionsup1 = calculerSeuilHypotension(ageEnMois);
       dosePropofolmini = poids * 2;
       dosePropofolmaxi = poids * 5;
       doseEtomidate = poids * 0.2;
@@ -336,15 +270,15 @@ class _PosologieCalculatorScreenState extends State<PosologieCalculatorScreen> {
       doseSufentamaxi = poids * 0.4;
       doseAlfentanylmini = poids * 20;
       doseAlfentanylmaxi = poids * 40;
-      doseRemifentanylmini = poids * 0.2;
-      doseRemifentanylmaxi = poids * 0.5;
+      debitRemifentanilMinUgMin = poids * 0.2;
+      debitRemifentanilMaxUgMin = poids * 0.5;
       doseFentanylmini = poids * 20;
       doseFentanylmaxi = poids * 50;
       doseCisatracrium = poids * 0.2;
       doseParacetamol = poids * 15;
       doseProfenid = poids;
       doseMorphine = poids * 0.1;
-      doseNalbuphine = poids * 0.2;
+      doseNalbuphine = calculerNalbuphineMg(poids, ageEnMois);
       dosePropofolEntretien = poids * 10.0;
       doseAdrenaline = poids * 0.01;
       doseAtropine = poids * 0.02;
@@ -354,7 +288,7 @@ class _PosologieCalculatorScreenState extends State<PosologieCalculatorScreen> {
       doseDexametasone = poids * 0.15;
       doseNarcan = poids * 10;
       doseketaNMDA = poids * 0.2;
-      doseExacyl = poids * 20;
+      doseExacyl = calculerExacyl(poids).chargeMg;
       doseLidocaine = poids * 5;
       doseBupivacaine = poids * 2.5;
       dosePrilocaine = poids * 5;
@@ -375,8 +309,9 @@ class _PosologieCalculatorScreenState extends State<PosologieCalculatorScreen> {
       doseOndansetron = poids * 0.1;
       doseGluconateCamin = poids * 7.5;
       doseGluconateCamax = poids * 15;
-      dosemaxFibri = poids * 0.03;
-      doseminFibri = poids * 0.06;
+      final fibrinogene = calculerFibrinogeneGrammes(poids);
+      doseminFibri = fibrinogene.minimum;
+      dosemaxFibri = fibrinogene.maximum;
       doseOramorph = poids * 0.2;
       doseActiskenan = poids * 1;
       doseSkenan = poids * 1;
@@ -388,10 +323,12 @@ class _PosologieCalculatorScreenState extends State<PosologieCalculatorScreen> {
       doseSshmax = poids * 10;
       doseValium = poids * 0.5;
       doseRivotril = poids * 0.05;
-      doseCelocurinemaxi = poids * 2;
-      doseCelocurinemini = poids;
-      doseneomin = poids * 0.5;
-      doseneomax = poids * 2;
+      final succinylcholine = calculerSuccinylcholineIVMg(poids, ageEnMois);
+      doseCelocurinemini = succinylcholine.minimum;
+      doseCelocurinemaxi = succinylcholine.maximum;
+      final phenylephrine = calculerPhenylephrineMicrogrammes(poids);
+      doseneomin = phenylephrine.minimum;
+      doseneomax = phenylephrine.maximum;
 
       doseAtracrium = poids * 0.5;
       doseRocuroniummini = poids * 0.6;
@@ -440,6 +377,7 @@ class _PosologieCalculatorScreenState extends State<PosologieCalculatorScreen> {
         body: TabBarView(
           children: [
             InductionPage(
+              poidstext: poidstext,
               ageController: ageController,
               poidsController: poidsController,
               isAgeInMonths: isAgeInMonths,
@@ -459,8 +397,8 @@ class _PosologieCalculatorScreenState extends State<PosologieCalculatorScreen> {
               doseSufentamaxi: doseSufentamaxi,
               doseAlfentanylmini: doseAlfentanylmini,
               doseAlfentanylmaxi: doseAlfentanylmaxi,
-              doseRemifentanylmini: doseRemifentanylmini,
-              doseRemifentanylmaxi: doseRemifentanylmaxi,
+              debitRemifentanilMinUgMin: debitRemifentanilMinUgMin,
+              debitRemifentanilMaxUgMin: debitRemifentanilMaxUgMin,
               doseFentanylmini: doseFentanylmini,
               doseFentanylmaxi: doseFentanylmaxi,
               doseCisatracrium: doseCisatracrium,
@@ -594,12 +532,14 @@ class _MedicalSection extends StatelessWidget {
                   Icon(icon, color: borderColor, size: 20),
                   const SizedBox(width: 8),
                 ],
-                Text(
-                  title,
-                  style: TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.bold,
-                    color: borderColor.withValues(alpha: 0.85),
+                Expanded(
+                  child: Text(
+                    title,
+                    style: TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
+                      color: borderColor.withValues(alpha: 0.85),
+                    ),
                   ),
                 ),
               ],
@@ -647,8 +587,50 @@ class _DoseRow extends StatelessWidget {
   }
 }
 
+class _PertesChirurgicalesRow extends StatelessWidget {
+  const _PertesChirurgicalesRow({
+    required this.niveau,
+    required this.taux,
+    required this.estimation,
+  });
+
+  final String niveau;
+  final String taux;
+  final String? estimation;
+
+  @override
+  Widget build(BuildContext context) => Container(
+        width: double.infinity,
+        margin: const EdgeInsets.only(top: 8),
+        padding: const EdgeInsets.all(12),
+        decoration: BoxDecoration(
+          color: AppColors.pastelOrange.withValues(alpha: 0.12),
+          borderRadius: BorderRadius.circular(10),
+          border: Border.all(
+            color: AppColors.pastelOrange.withValues(alpha: 0.45),
+          ),
+        ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(niveau, style: const TextStyle(fontSize: 14,
+                fontWeight: FontWeight.w600, color: AppColors.textDark)),
+            const SizedBox(height: 3),
+            Text(taux, style: const TextStyle(fontSize: 12,
+                color: AppColors.textMuted)),
+            if (estimation != null) ...[
+              const SizedBox(height: 8),
+              Text(estimation!, style: const TextStyle(fontSize: 15,
+                  fontWeight: FontWeight.bold, color: AppColors.textDark)),
+            ],
+          ],
+        ),
+      );
+}
+
 // ignore: must_be_immutable
 class InductionPage extends StatelessWidget {
+  final int? poidstext;
   final TextEditingController ageController;
   final TextEditingController poidsController;
   final bool isAgeInMonths;
@@ -664,14 +646,14 @@ class InductionPage extends StatelessWidget {
   final double? doseSufentamaxi;
   final int? doseAlfentanylmini;
   final int? doseAlfentanylmaxi;
-  final double? doseRemifentanylmini;
-  final double? doseRemifentanylmaxi;
+  final double? debitRemifentanilMinUgMin;
+  final double? debitRemifentanilMaxUgMin;
   final int? dosecordarone;
   final int? doseFentanylmini;
   final int? doseFentanylmaxi;
   final double? doseCisatracrium;
-  final int? doseCelocurinemini;
-  final int? doseCelocurinemaxi;
+  final double? doseCelocurinemini;
+  final double? doseCelocurinemaxi;
   final double? doseAtracrium;
   final double? doseRocuroniummini;
   final double? doseRocuroniummaxi;
@@ -697,7 +679,7 @@ class InductionPage extends StatelessWidget {
   final Map<String, String>? vvc;
   final Map<String, String>? sad;
   final int? agemoistext;
-  final int? hypotensionsup1;
+  final double? hypotensionsup1;
   final double? doseDexametasone;
   final double? doseketaNMDA;
   final double? doseOndansetron;
@@ -711,6 +693,7 @@ class InductionPage extends StatelessWidget {
   final int? doseneomax;
 
   const InductionPage({
+    required this.poidstext,
     super.key,
     required this.ageController,
     required this.poidsController,
@@ -727,8 +710,8 @@ class InductionPage extends StatelessWidget {
     required this.doseSufentamaxi,
     required this.doseAlfentanylmini,
     required this.doseAlfentanylmaxi,
-    required this.doseRemifentanylmini,
-    required this.doseRemifentanylmaxi,
+    required this.debitRemifentanilMinUgMin,
+    required this.debitRemifentanilMaxUgMin,
     required this.doseFentanylmini,
     required this.doseFentanylmaxi,
     required this.doseCisatracrium,
@@ -889,34 +872,38 @@ class InductionPage extends StatelessWidget {
                       fit: BoxFit.cover,
                     ),
                   ),
-                  height: 180,
+                  constraints: const BoxConstraints(minHeight: 180),
                   child: Column(
+                    mainAxisSize: MainAxisSize.min,
                     children: [
                       Row(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          const Spacer(),
-                          Text(
-                            'FC: ${constantesPhysiologiques!['FC']}',
-                            style: const TextStyle(
-                              color: Color(0xFF4CAF50),
-                              fontSize: 17,
-                              fontWeight: FontWeight.bold,
+                          Expanded(
+                            child: Text(
+                              'FC: ${constantesPhysiologiques!['FC']}',
+                              textAlign: TextAlign.center,
+                              style: const TextStyle(
+                                color: Color(0xFF4CAF50),
+                                fontSize: 17,
+                                fontWeight: FontWeight.bold,
+                              ),
                             ),
                           ),
-                          const Spacer(),
-                          Text(
-                            'FR: ${constantesPhysiologiques!['FR']}',
-                            style: const TextStyle(
-                              color: Colors.white,
-                              fontSize: 17,
-                              fontWeight: FontWeight.bold,
+                          Expanded(
+                            child: Text(
+                              'FR: ${constantesPhysiologiques!['FR']}',
+                              textAlign: TextAlign.center,
+                              style: const TextStyle(
+                                color: Colors.white,
+                                fontSize: 17,
+                                fontWeight: FontWeight.bold,
+                              ),
                             ),
                           ),
-                          const Spacer(),
                         ],
                       ),
-                      const Spacer(),
+                      const SizedBox(height: 12),
                       Text(
                         'PAS - PAD: ${constantesPhysiologiques!['PAS']}',
                         style: const TextStyle(
@@ -925,15 +912,16 @@ class InductionPage extends StatelessWidget {
                           fontWeight: FontWeight.bold,
                         ),
                       ),
-                      const Spacer(),
-                      Text(
-                        'Hypotension: ${constantesPhysiologiques!['Hypotension']}',
-                        style: const TextStyle(
-                          color: Color(0xFFE040FB),
-                          fontSize: 12,
-                          fontWeight: FontWeight.bold,
+                      const SizedBox(height: 12),
+                      if (constantesPhysiologiques!.containsKey('Hypotension'))
+                        Text(
+                          'Hypotension: ${constantesPhysiologiques!['Hypotension']}',
+                          style: const TextStyle(
+                            color: Color(0xFFE040FB),
+                            fontSize: 12,
+                            fontWeight: FontWeight.bold,
+                          ),
                         ),
-                      ),
                     ],
                   ),
                 ),
@@ -966,13 +954,15 @@ class InductionPage extends StatelessWidget {
           ],
           ]),
 
-          // Doses Induction
+          const MemoPediatrique(),
+
+          // Doses d’anesthésie
           if (dosePropofolmini != null && dosePropofolmaxi != null) ...[
             const Padding(
               padding: EdgeInsets.symmetric(vertical: 12),
               child: Center(
                 child: Text(
-                  'Doses Induction',
+                  'Doses d’anesthésie',
                   style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: AppColors.textDark),
                 ),
               ),
@@ -1000,8 +990,21 @@ class InductionPage extends StatelessWidget {
               children: [
                 _DoseRow(name: 'Sufentanyl', dose: '${doseSufentamini!.toStringAsFixed(1)} - ${doseSufentamaxi!.toStringAsFixed(1)} mcg', hint: '0,2 mcg/kg'),
                 _DoseRow(name: 'Alfentanyl', dose: '$doseAlfentanylmini - $doseAlfentanylmaxi mcg', hint: '20 a 40 mcg/kg'),
-                _DoseRow(name: 'Remifentanyl', dose: '${doseRemifentanylmini!.toStringAsFixed(1)} - ${doseRemifentanylmaxi!.toStringAsFixed(1)} mcg', hint: '20 a 40 mcg/kg'),
                 _DoseRow(name: 'Fentanyl', dose: '$doseFentanylmini - $doseFentanylmaxi mcg', hint: '20 a 50 mcg/kg'),
+              ],
+            ),
+
+            // Débit IV distinct des doses isolées de morphiniques.
+            _MedicalSection(
+              title: 'Rémifentanil — perfusion IV',
+              borderColor: AppColors.primaryBlue,
+              icon: Icons.water_drop_outlined,
+              children: [
+                _DoseRow(
+                  name: 'Débit',
+                  dose: '${debitRemifentanilMinUgMin!.toStringAsFixed(1)} - ${debitRemifentanilMaxUgMin!.toStringAsFixed(1)} µg/min',
+                  hint: '0,2 à 0,5 µg/kg/min — adapter à la réponse clinique.',
+                ),
               ],
             ),
 
@@ -1012,10 +1015,15 @@ class InductionPage extends StatelessWidget {
               icon: Icons.fitness_center_outlined,
               children: [
                 _DoseRow(name: 'Cisatracrium', dose: '${doseCisatracrium!.toStringAsFixed(1)} mg', hint: '0,15 a 0,2 mg/kg'),
-                if (agemoistext! < 18)
-                  _DoseRow(name: 'Celocurine', dose: '$doseCelocurinemaxi mg', hint: '2 mg/kg'),
-                if (agemoistext! >= 18)
-                  _DoseRow(name: 'Celocurine', dose: '$doseCelocurinemini mg', hint: '1mg/kg'),
+                _DoseRow(
+                  name: 'Célocurine / succinylcholine — intubation IV',
+                  dose: doseCelocurinemini == doseCelocurinemaxi
+                      ? '${formaterNombre(doseCelocurinemini!)} mg IV'
+                      : '${formaterNombre(doseCelocurinemini!)} à ${formaterNombre(doseCelocurinemaxi!)} mg IV',
+                  hint: agemoistext! < 12
+                      ? 'Âge <12 mois : 2 mg/kg IV pour intubation.'
+                      : 'Âge ≥12 mois : 1 à 1,5 mg/kg IV pour intubation.',
+                ),
                 _DoseRow(name: 'Atracrium', dose: '${doseAtracrium!.toStringAsFixed(1)} mg', hint: '0,5 mg/kg'),
                 _DoseRow(name: 'Rocuronium', dose: '${doseRocuroniummini!.toStringAsFixed(0)} - ${doseRocuroniummaxi!.toStringAsFixed(0)} mg', hint: '0,6 mg/kg ou 1 a 1.2mg/kg en ISR'),
               ],
@@ -1029,7 +1037,7 @@ class InductionPage extends StatelessWidget {
               children: [
                 _DoseRow(name: 'Adrenaline', dose: '${doseAdrenaline!.toStringAsFixed(2)} mg'),
                 _DoseRow(name: 'Atropine', dose: '${doseAtropine!.toStringAsFixed(2)} mg'),
-                _DoseRow(name: 'Neosynephrine', dose: '${doseneomin!.toStringAsFixed(1)} - ${doseneomax!} mg', hint: 'maximum 10mcg/kg'),
+                _DoseRow(name: 'Néosynéphrine / phényléphrine', dose: '${doseneomin!.toStringAsFixed(1)} - ${doseneomax!} µg', hint: 'Bolus : 0,5 à 2 µg/kg ; maximum : 10 µg/kg'),
                 _DoseRow(name: 'Cordarone', dose: '${dosecordarone!} mg IVL sur 20min', hint: '5 mg/kg'),
                 const ExpansionTile(
                   title: Text('Noradrenaline', style: TextStyle(fontSize: 15, color: AppColors.textDark)),
@@ -1095,7 +1103,7 @@ class InductionPage extends StatelessWidget {
                   _DoseRow(name: 'Profenid', dose: '$doseProfenid mg', hint: '0.5 - 1 mg/kg'),
                 if (agemoistext! >= 3)
                   _DoseRow(name: 'Advil/ibuprofene', dose: '$doseAdvil mg', hint: '10mg/kg/8h max 400mg/prise'),
-                _DoseRow(name: 'Nalbuphine', dose: '${doseNalbuphine!.toStringAsFixed(1)} mg', hint: '0.2 mg/kg, divise par deux si enfant< 6 mois'),
+                _DoseRow(name: 'Nalbuphine', dose: '${doseNalbuphine!.toStringAsFixed(1)} mg', hint: '${tauxNalbuphineMgKg(agemoistext!).toStringAsFixed(1).replaceAll(".", ",")} mg/kg (${agemoistext! < 6 ? "âge <6 mois" : "âge ≥6 mois"})'),
                 if (agemoistext! >= 180)
                   const _DoseRow(name: 'Acupan', dose: '1 ampoule 4 a 6/jour'),
                 if (agemoistext! >= 6)
@@ -1104,7 +1112,16 @@ class InductionPage extends StatelessWidget {
                   _DoseRow(name: 'Actiskenan', dose: '${doseActiskenan!.toStringAsFixed(0)} mg', hint: '1 mg/kg/j en 6 prises'),
                 if (agemoistext! >= 6)
                   _DoseRow(name: 'Skenan lp', dose: '${doseSkenan!.toStringAsFixed(0)} mg', hint: '1 mg/kg/j en 2 prises'),
-                _DoseRow(name: 'Morphine', dose: '${doseMorphine!.toStringAsFixed(1)} mg', hint: '0.1 mg/kg puis titration de 25 a 50 mcg/kg/5 mn'),
+                _DoseRow(
+                  name: 'Morphine IV postopératoire — dose de charge',
+                  dose: '${doseMorphine!.toStringAsFixed(1)} mg IV lente',
+                  hint: '0,1 mg/kg',
+                ),
+                _DoseRow(
+                  name: 'Morphine — bolus de titration après la charge',
+                  dose: '${poidstext! * 25} à ${poidstext! * 50} µg par bolus',
+                  hint: '25 à 50 µg/kg. Réévaluation toutes les 5 minutes selon protocole et réponse clinique.',
+                ),
                 _DoseRow(
                   name: 'Naloxone',
                   dose: "titration de 40mcg jusqu'a ${doseNarcan!.toStringAsFixed(0)} mcg",
@@ -1115,10 +1132,27 @@ class InductionPage extends StatelessWidget {
 
             // Remplissage
             _MedicalSection(
-              title: 'Remplissage',
+              title: 'Fluidothérapie',
               borderColor: AppColors.pastelOrange,
               icon: Icons.water_drop_outlined,
               children: [
+                const Text('Pour la fluidothérapie périopératoire pédiatrique : cristalloïde isotoniquement équilibré en première intention.'),
+                const SizedBox(height: 8),
+                const Text('En chirurgie élective avec un jeûne conforme aux recommandations actuelles, la compensation systématique d’un déficit de jeûne n’est généralement pas nécessaire. Adapter les apports à l’état volémique, aux pertes et au contexte clinique.'),
+                const SizedBox(height: 8),
+                const Text('Pertes chirurgicales', style: TextStyle(
+                    fontSize: 14, fontWeight: FontWeight.w600, color: AppColors.textDark)),
+                const SizedBox(height: 4),
+                const Text('Estimations à adapter au contexte clinique, pas une prescription automatique.',
+                    style: TextStyle(fontSize: 12, color: AppColors.textMuted)),
+                for (final chirurgie in Chirurgie.values)
+                  _PertesChirurgicalesRow(
+                    niveau: '${chirurgie.libelle[0].toUpperCase()}${chirurgie.libelle.substring(1)}',
+                    taux: chirurgie.taux,
+                    estimation: poidstext != null && poidstext! > 0
+                        ? _pertesPourPoids(poidstext!, chirurgie)
+                        : null,
+                  ),
                 ExpansionTile(
                   expandedAlignment: Alignment.topLeft,
                   title: Text(
@@ -1131,12 +1165,9 @@ class InductionPage extends StatelessWidget {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text("Methode de calcul des apports de base 4 2 1", style: TextStyle(fontSize: 12, color: AppColors.textMuted)),
+                          Text("Apports de base — règle 4-2-1 : 0 à 10 kg : 4 ml/kg/h ; >10 à 20 kg : 40 ml/h + 2 ml/kg/h par kg au-delà de 10 ; >20 kg : 60 ml/h + 1 ml/kg/h par kg au-delà de 20.", style: TextStyle(fontSize: 12, color: AppColors.textMuted)),
                           SizedBox(height: 8),
-                          Text("Attention, cette regle ne prend pas en compte les pertes insensibles et la compensation du jeune", style: TextStyle(fontSize: 12, color: AppColors.textMuted)),
-                          SizedBox(height: 8),
-                          Text("Compensation du jeune: Duree du jeune x besoin horaire = volume a compenser", style: TextStyle(fontSize: 12, color: AppColors.textMuted)),
-                          Text("Passer 50% de ce volume la premiere heure et 50% sur la deuxieme heure", style: TextStyle(fontSize: 12, color: AppColors.textMuted)),
+                          Text("Ce calcul des apports de base ne comprend pas les pertes chirurgicales.", style: TextStyle(fontSize: 12, color: AppColors.textMuted)),
                         ],
                       ),
                     ),
@@ -1173,7 +1204,8 @@ class InductionPage extends StatelessWidget {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text("Isopedia", style: TextStyle(fontSize: 12, color: AppColors.textMuted)),
+                          Text("Références spécifiques existantes — à valider selon le protocole local :", style: TextStyle(fontSize: 12, color: AppColors.textMuted)),
+                          Text("Isopédia", style: TextStyle(fontSize: 12, color: AppColors.textMuted)),
                           Text("RL possible apres 4 ans", style: TextStyle(fontSize: 12, color: AppColors.textMuted)),
                         ],
                       ),

@@ -25,7 +25,8 @@ class _DiversState extends State<Divers> {
           maxWidth: 600,
           child: Column(
             children: [
-              const SizedBox(height: 16),
+              const _PosologiesInfoCard(),
+              const SizedBox(height: 24),
               Row(
                 children: [
                   Expanded(
@@ -115,6 +116,106 @@ class _DiversState extends State<Divers> {
     if (await canLaunchUrl(url)) {
       await launchUrl(url, mode: LaunchMode.externalApplication);
     }
+  }
+}
+
+class _PosologiesInfoCard extends StatelessWidget {
+  const _PosologiesInfoCard();
+
+  @override
+  Widget build(BuildContext context) {
+    const bodyStyle = TextStyle(
+      fontSize: 15,
+      height: 1.55,
+      color: AppColors.textDark,
+    );
+    return Container(
+      width: double.infinity,
+      padding: const EdgeInsets.all(20),
+      decoration: BoxDecoration(
+        color: const Color(0xFFF5F9FD),
+        borderRadius: BorderRadius.circular(20),
+        border:
+            Border.all(color: AppColors.primaryBlue.withValues(alpha: 0.15)),
+      ),
+      child: DefaultTextStyle(
+        style: bodyStyle,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            const Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Padding(
+                  padding: EdgeInsets.only(top: 3),
+                  child: Icon(Icons.info_outline_rounded,
+                      size: 22, color: AppColors.primaryBlue),
+                ),
+                SizedBox(width: 12),
+                Expanded(
+                  child: Text(
+                    'À propos des posologies pédiatriques',
+                    style: TextStyle(
+                      fontSize: 19,
+                      height: 1.3,
+                      fontWeight: FontWeight.w700,
+                      color: AppColors.textDark,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+            const SizedBox(height: 20),
+            const Text('Je suis Thomas Templier, infirmier anesthésiste.'),
+            const SizedBox(height: 16),
+            const Text(
+              'Je ne suis pas spécialisé en pédiatrie, et les contenus de cette application sont donc mis à jour progressivement grâce aux retours des utilisateurs et aux protocoles qui me sont transmis.',
+            ),
+            const SizedBox(height: 16),
+            const Text(
+              'Je continue à maintenir cette application en ligne, mais je n’ai pas aujourd’hui le temps de refaire une revue complète de la littérature en anesthésie pédiatrique.',
+            ),
+            const SizedBox(height: 16),
+            const Text(
+              'En revanche, je mets volontiers l’application à jour lorsqu’on me transmet :',
+            ),
+            const SizedBox(height: 10),
+            for (final item in const [
+              'des protocoles utilisés en pratique,',
+              'des recommandations de la SFAR,',
+              'ou des références de sociétés d’anesthésie pédiatrique.',
+            ])
+              Padding(
+                padding: const EdgeInsets.only(bottom: 8),
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const Text('•  ',
+                        style: TextStyle(color: AppColors.primaryBlue)),
+                    Expanded(child: Text(item)),
+                  ],
+                ),
+              ),
+            const SizedBox(height: 8),
+            const Text(
+              'Vos retours permettent d’améliorer l’application au fil du temps.',
+            ),
+            const Padding(
+              padding: EdgeInsets.symmetric(vertical: 16),
+              child: Divider(height: 1, color: AppColors.borderLight),
+            ),
+            const Text(
+              'Cette application ne remplace pas les protocoles de votre structure ni l’avis d’un professionnel formé à la pédiatrie.',
+              style: TextStyle(
+                fontSize: 13.5,
+                height: 1.5,
+                color: Color(0xFF53667B),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
   }
 }
 

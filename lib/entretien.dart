@@ -1,3 +1,4 @@
+import 'package:pedianesth/posologies_fr.dart';
 import "package:flutter/material.dart";
 import 'package:pedianesth/main.dart';
 import 'package:pedianesth/responsive.dart';
@@ -163,13 +164,19 @@ class UrgencePage extends StatelessWidget {
                 _UrgenceDoseRow(
                   name: 'Fibrinogene',
                   dose: '${doseminFibri!.toStringAsFixed(2)} - ${dosemaxFibri!.toStringAsFixed(2)} g',
-                  hint: '0,03 g/kg jusqu\'a 0.06 g/kg si choc hemorragique',
+                  hint: 'Contexte hémorragique : 0,03 g/kg, jusqu’à 0,06 g/kg si choc hémorragique. Administration non systématique.',
                 ),
                 _UrgenceDoseRow(
-                  name: 'Exacyl',
-                  dose: poidstext! <= 30 ? '${doseExacyl!.toStringAsFixed(0)} mg' : '1g',
-                  hint: '10 mg/kg si <30 kg sinon 1g puis 10mg/kg/h PSE',
+                  name: 'Exacyl — dose de charge / bolus',
+                  dose: poidstext! < 30 ? '${doseExacyl!.toStringAsFixed(0)} mg' : '${(doseExacyl! / 1000).toStringAsFixed(0)} g',
+                  hint: 'Contexte hémorragique : <30 kg, charge de 10 mg/kg ; ≥30 kg, bolus de 1 g.',
                 ),
+                if (poidstext! < 30)
+                  _UrgenceDoseRow(
+                    name: 'Exacyl — entretien après la charge',
+                    dose: '${calculerExacyl(poidstext!).entretienMgH!.toStringAsFixed(0)} mg/h',
+                    hint: '10 mg/kg/h au PSE dans ce contexte hémorragique.',
+                  ),
                 _UrgenceDoseRow(
                   name: 'Gluconate de calcium',
                   dose: '${doseGluconateCamin!.toStringAsFixed(1)} - ${doseGluconateCamax!.toStringAsFixed(0)}mg',

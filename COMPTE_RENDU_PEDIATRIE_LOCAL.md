@@ -1,3 +1,13 @@
+## Correction du circuit GitHub → Netlify — 26 septembre 2026
+
+Le commit utilisateur `afdfe50` a bien été envoyé à GitHub et publié par Netlify à 20:44. Netlify utilise `build/web` comme répertoire de base, sans commande de compilation. Ce commit contenait les sources Flutter actualisées mais aucun nouveau fichier de `build/web` : le site servait toujours version 1.0.2, build 27, confirmé par une requête HTTP directe sur `/version.json`.
+
+Cause : lors de la livraison précédente, le build 29 avait été conservé dans `build/livraison-1.0.3-29/netlify`, ignoré par Git ; les fichiers suivis de `build/web` avaient ensuite été remis à leur ancienne version. Cette préparation était adaptée à un dépôt manuel sur Netlify, mais pas au circuit GitHub déjà configuré. Ce n’était pas une perte de fichiers lors du push.
+
+Correction locale : `build/web` synchronisé avec les 46 fichiers de la livraison validée 1.0.3+29 ; anciennes copies compilées imbriquées retirées de ce répertoire. `.gitignore` autorise désormais explicitement `build/web`, tout en continuant à ignorer les autres builds et les archives Android. Les nouveaux fichiers `_headers` et `_redirects` sont visibles par Git sans ajout forcé. Les 43 empreintes des ressources du service worker correspondent aux fichiers présents ; le JavaScript livré contient le texte de Thomas Templier.
+
+**La section précédente qui indiquait de conserver les anciens artefacts suivis est remplacée par cette correction.** GitHub Desktop doit maintenant proposer les modifications de `.gitignore`, `build/web` et de ce compte rendu. Aucun commit, push, réglage Netlify ou déploiement n’a été effectué par l’assistant pendant ce diagnostic. La production restera au build 27 tant que cette correction locale n’aura pas été commitée et poussée par l’utilisateur.
+
 ## Livraison locale — carte Divers et build 29
 
 26 septembre 2026 : carte « À propos des posologies pédiatriques » ajoutée en tête de Divers, texte utilisateur intégral, fond clair, bordure légère, icône discrète, coins arrondis et paragraphes aérés. Mention finale en 13,5 px, avec contraste lisible. Mise en page sans hauteur fixe pour le texte.

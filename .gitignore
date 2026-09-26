@@ -30,7 +30,9 @@ migrate_working_dir/
 .flutter-plugins-dependencies
 .pub-cache/
 .pub/
-/build/
+# Netlify publie les fichiers web precompiles suivis par Git.
+/build/*
+!/build/web/
 
 # Symbolication related
 app.*.symbols
